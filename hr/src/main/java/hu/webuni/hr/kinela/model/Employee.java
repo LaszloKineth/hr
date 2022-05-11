@@ -18,6 +18,10 @@ public class Employee {
 		this.startDateOfWork = startDateOfWork;
 	}
 
+	public Employee() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public long getId() {
 		return id;
 	}
