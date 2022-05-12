@@ -1,6 +1,8 @@
 package hu.webuni.hr.kinela;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -24,11 +26,21 @@ public class HrApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Employee employee = new Employee(1234567, "Money", "developer", 1_000_000, LocalDateTime.of(2010, 1, 1, 1, 1));
-		
-		System.out.println(employee.getName() + "'s salary is " + employee.getSalary()
-				+ " now. After salary upgrade it is " + new SalaryService(employeeService).getEmployeeSalary(employee) 
-				+ " Service Type: " + employeeService.getClass().getSimpleName());
+		List<Employee> employees = new ArrayList<Employee>();
+
+		employees.add(new Employee(12345, "Mani", "developer", 100, LocalDateTime.of(2010, 1, 1, 1, 1)));
+		employees.add(new Employee(23456, "Della", "architect", 100, LocalDateTime.of(2015, 1, 1, 1, 1)));
+		employees.add(new Employee(34567, "Penzike", "boss", 100, LocalDateTime.of(2018, 1, 1, 1, 1)));
+		employees.add(new Employee(45678, "Guba", "cleaning assistant", 100, LocalDateTime.of(2022, 1, 1, 1, 1)));
+
+		for (Employee employee2 : employees) {
+
+			System.out.println("\n" + employee2.getName() + "'s salary is " + employee2.getSalary()
+					+ " now. After salary upgrade it is "
+					+ new SalaryService(employeeService).getEmployeeSalary(employee2) + ". Service Type: "
+					+ employeeService.getClass().getSimpleName());
+		}
+
 	}
 
 }
