@@ -1,7 +1,10 @@
 package hu.webuni.hr.kinela.service;
 
+import org.springframework.stereotype.Service;
+
 import hu.webuni.hr.kinela.model.Employee;
 
+@Service
 public class DefaultEmployeeService implements EmployeeService {
 
 	@Override

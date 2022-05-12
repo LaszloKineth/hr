@@ -24,10 +24,11 @@ public class HrApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Employee employee = new Employee(1234567, "Money", "developer", 600_000, LocalDateTime.of(2021, 1, 1, 1, 1));
+		Employee employee = new Employee(1234567, "Money", "developer", 1_000_000, LocalDateTime.of(2010, 1, 1, 1, 1));
 		
 		System.out.println(employee.getName() + "'s salary is " + employee.getSalary()
-				+ " now. After salary upgrade it is " + new SalaryService(employeeService).getEmployeeSalary(employee));
+				+ " now. After salary upgrade it is " + new SalaryService(employeeService).getEmployeeSalary(employee) 
+				+ " Service Type: " + employeeService.getClass().getSimpleName());
 	}
 
 }
