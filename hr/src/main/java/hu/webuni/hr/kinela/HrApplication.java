@@ -30,7 +30,7 @@ public class HrApplication implements CommandLineRunner {
 
 		employees.add(new Employee(12345, "Mani", "developer", 100, LocalDateTime.of(2010, 1, 1, 1, 1)));
 		employees.add(new Employee(23456, "Della", "architect", 100, LocalDateTime.of(2015, 1, 1, 1, 1)));
-		employees.add(new Employee(34567, "Penzike", "boss", 100, LocalDateTime.of(2018, 1, 1, 1, 1)));
+		employees.add(new Employee(34567, "Zsé", "boss", 100, LocalDateTime.of(2018, 1, 1, 1, 1)));
 		employees.add(new Employee(45678, "Guba", "cleaning assistant", 100, LocalDateTime.of(2022, 1, 1, 1, 1)));
 
 		for (Employee employee2 : employees) {
