@@ -3,6 +3,12 @@ package hu.webuni.hr.kinela.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+/**
+ * 
+ * @author Laszlo Kineth (kinela) - kinela77<at>gmail.com  
+ *
+ */
+
 @ConfigurationProperties(prefix="hr")
 @Component
 public class EmployeeConfigurationProperties {

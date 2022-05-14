@@ -4,6 +4,12 @@ import org.springframework.stereotype.Service;
 
 import hu.webuni.hr.kinela.model.Employee;
 
+/**
+ * 
+ * @author Laszlo Kineth (kinela) - kinela77<at>gmail.com  
+ *
+ */
+
 @Service
 public class SalaryService {
 

@@ -2,6 +2,12 @@ package hu.webuni.hr.kinela.model;
 
 import java.time.LocalDateTime;
 
+/**
+ * 
+ * @author Laszlo Kineth (kinela) - kinela77<at>gmail.com
+ *
+ */
+
 public class Employee {
 	
 	private long id;

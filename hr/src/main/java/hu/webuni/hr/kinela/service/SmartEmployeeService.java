@@ -8,12 +8,18 @@ import org.springframework.stereotype.Service;
 import hu.webuni.hr.kinela.config.EmployeeConfigurationProperties;
 import hu.webuni.hr.kinela.model.Employee;
 
+/**
+ * 
+ * @author Laszlo Kineth (kinela) - kinela77<at>gmail.com
+ */
+
 @Service
 public class SmartEmployeeService implements EmployeeService {
 
 	/**
 	 * Values from configuration class
 	 */
+	
 	@Autowired
 	EmployeeConfigurationProperties properties; // = new EmployeeConfigurationProperties();
 
@@ -22,6 +28,8 @@ public class SmartEmployeeService implements EmployeeService {
 
 		LocalDateTime startDate = employee.getStartDateOfWork();
 
+		// Make years and salary percentage aggregation
+		
 		if (startDate.isBefore(LocalDateTime.now().minusYears(properties.getYears().getMax()))) {
 			return properties.getPercent().getMax();
 		} else if (startDate.isBefore(LocalDateTime.now().minusYears(properties.getYears().getMid()))
