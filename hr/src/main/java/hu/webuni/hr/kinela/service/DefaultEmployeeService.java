@@ -8,7 +8,7 @@ import hu.webuni.hr.kinela.model.Employee;
 @Service
 public class DefaultEmployeeService implements EmployeeService {
 
-	@Value("${hr.employee.percent.deafault}")
+	@Value("${hr.percent.dfault}")
 	int defaultValue;
 	
 	@Override
