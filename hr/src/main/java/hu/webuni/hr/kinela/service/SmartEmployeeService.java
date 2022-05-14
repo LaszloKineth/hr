@@ -11,40 +11,38 @@ import hu.webuni.hr.kinela.model.Employee;
 @Service
 public class SmartEmployeeService implements EmployeeService {
 
-/**
- * Values from configuration class	
- */
-	
+	/**
+	 * Values from configuration class
+	 */
 	@Autowired
-	EmployeeConfigurationProperties properties;
+	EmployeeConfigurationProperties properties; // = new EmployeeConfigurationProperties();
 
-		
 	@Override
 	public int getPayRaisePercent(Employee employee) {
-		
-		
+
 		LocalDateTime startDate = employee.getStartDateOfWork();
-			
-			if (startDate.isBefore(LocalDateTime.now().minusYears(properties.getYears().getMax()))) {
-				return properties.getPercent().getMax();
-			} else if (startDate.isBefore(LocalDateTime.now().minusYears(properties.getYears().getMid())) && (startDate.isAfter(LocalDateTime.now().minusYears(properties.getYears().getMax())))) {
-				return properties.getPercent().getMid1();
-			} else if (startDate.isBefore(LocalDateTime.now().minusYears(properties.getYears().getMin())) && (startDate.isAfter(LocalDateTime.now().minusYears(properties.getYears().getMid())))) {
-				return properties.getPercent().getMid2();
-			} else if (startDate.isAfter(LocalDateTime.now().minusYears(properties.getYears().getMin()))) {
-				return properties.getPercent().getMin();
-			} else {
-				return properties.getPercent().getMin();
-			}
-			
+
+		if (startDate.isBefore(LocalDateTime.now().minusYears(properties.getYears().getMax()))) {
+			return properties.getPercent().getMax();
+		} else if (startDate.isBefore(LocalDateTime.now().minusYears(properties.getYears().getMid()))
+				&& (startDate.isAfter(LocalDateTime.now().minusYears(properties.getYears().getMax())))) {
+			return properties.getPercent().getMid1();
+		} else if (startDate.isBefore(LocalDateTime.now().minusYears(properties.getYears().getMin()))
+				&& (startDate.isAfter(LocalDateTime.now().minusYears(properties.getYears().getMid())))) {
+			return properties.getPercent().getMid2();
+		} else if (startDate.isAfter(LocalDateTime.now().minusYears(properties.getYears().getMin()))) {
+			return properties.getPercent().getMin();
+		} else {
+			return properties.getPercent().getMin();
 		}
 
 	}
 
+}
+
 /**
  * Direct value from application.properties
  */
-
 
 //	@Value("${hr.years.max}")
 //	int employeeYearsMax;
@@ -66,7 +64,6 @@ public class SmartEmployeeService implements EmployeeService {
 //	
 //	@Value("${hr.percent.min}")
 //	int employeePercentsMin;
-	
 
 //	@Override
 //	public int getPayRaisePercent(Employee employee) {
@@ -86,5 +83,3 @@ public class SmartEmployeeService implements EmployeeService {
 //		}
 //		
 //	}
-	
-

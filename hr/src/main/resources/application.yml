@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: prod
+
+hr:
+  years:
+    max: 10
+    mid: 5
+    min: 2
+
+  percent:
+    max: 20
+    mid1: 5
+    mid2: 2
+    min: 0
+    dfault: 5
