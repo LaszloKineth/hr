@@ -16,20 +16,29 @@ public class Employees {
 		
 		List<Employee> employees = new ArrayList<Employee>();
 		
-		employees.add(new Employee(12345, "Mani", "developer", 100, LocalDateTime.of(2010, 1, 1, 1, 1)));
-		employees.add(new Employee(23456, "Della", "architect", 100, LocalDateTime.of(2015, 1, 1, 1, 1)));
-		employees.add(new Employee(34567, "Zsé", "boss", 100, LocalDateTime.of(2018, 1, 1, 1, 1)));
-		employees.add(new Employee(45678, "Guba", "cleaning assistant", 100, LocalDateTime.of(2022, 1, 1, 1, 1)));
+		employees.add(new Employee(1, "Mani", "developer", 100, LocalDateTime.of(2010, 1, 1, 1, 1)));
+		employees.add(new Employee(2, "Della", "architect", 100, LocalDateTime.of(2015, 1, 1, 1, 1)));
+		employees.add(new Employee(3, "Zsé", "boss", 100, LocalDateTime.of(2018, 1, 1, 1, 1)));
+		employees.add(new Employee(4, "Guba", "cleaning assistant", 100, LocalDateTime.of(2022, 1, 1, 1, 1)));
 		
 		Employees.setEmployees(employees);
 	}
 
+	private static void setEmployees(List<Employee> employees) {
+		Employees.employees = employees;
+	}
+	
 	public static List<Employee> getEmployees() {
 		return employees;
 	}
-
-	public static void setEmployees(List<Employee> employees) {
-		Employees.employees = employees;
+	
+	public static long getElements() {
+		return employees.size();
+	}
+	
+	public static void addEmployee(Employee employee) {
+		employee.setId(getElements() + 1);
+		employees.add(employee);
 	}
 	
 }

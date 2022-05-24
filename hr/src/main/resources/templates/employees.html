@@ -6,41 +6,41 @@
 </head>
 <body>
 	<h1>Employees</h1>
-
-	<ul>
-		<li th:each="employee : ${employees}">
-			<span th:text="${employee.id}">id</span>
-			<span th:text="${employee.name}">name</span>
-			<span th:text="${employee.title}">title</span>
-			<span th:text="${employee.salary}">salary</span>
-			<span th:text="${employee.startDateOfWork}">start</span>
-		</li>	
-	</ul>
-
-	<!-- 
-	<table>
+	<table
+		style="border: 1px solid black; border-collapse: collapse; width: 50%">
 		<tr>
 			<th>Id</th>
 			<th>Name</th>
 			<th>Title</th>
 			<th>Salary</th>
-			<th>Start</th>
+			<th>First day</th>
 		</tr>
-		<tr>
-			<td>Alfreds Futterkiste</td>
-			<td>Maria Anders</td>
-			<td>Germany</td>
-			<td>Germany</td>
-			<td>Germany</td>
-		</tr>
-		<tr>
-			<td>Centro comercial Moctezuma</td>
-			<td>Francisco Chang</td>
-			<td>Mexico</td>
-			<td>Germany</td>
-			<td>Germany</td>
+		<tr th:each="employee : ${employees}">
+			<td style="border: 1px solid black; width: 10%; text-align: center;"
+				th:text="${employee.id}">id</td>
+			<td style="border: 1px solid black; width: 22%; text-align: center;"
+				th:text="${employee.name}">name</td>
+			<td style="border: 1px solid black; width: 22%; text-align: center;"
+				th:text="${employee.title}">title</td>
+			<td style="border: 1px solid black; width: 22%; text-align: center;"
+				th:text="${employee.salary}">salary</td>
+			<td style="border: 1px solid black; width: 22%; text-align: center;"
+				th:text="${employee.startDateOfWork}">start</td>
 		</tr>
 	</table>
-	 -->
+<br/><br/>
+	<table style="border: 1px solid black; border-collapse: collapse; width: 25%">
+	<form th:action="@{/employees}" method="post" th:object="${newEmployee}">
+		<tr><td><br></td></tr>
+	<!--<tr><td>Id:</td><td><input th:field="*{id}" /></td></tr>  -->
+		<tr><td style="text-align: center">Name:</td><td><input th:field="*{name}" /></td></tr>
+		<tr><td style="text-align: center">Title:</td><td><input th:field="*{title}" /></td></tr>
+		<tr><td style="text-align: center">Salary:</td><td><input th:field="*{title}" /></td></tr>
+		<tr><td style="text-align: center">First day:</td><td><input th:field="*{title}" /></td></tr>
+		<tr><td><br></td></tr>
+		<tr><td><br></td><td><input type="submit" value="   Add new employee    " style="align-content: center;"/></td></tr>
+		<tr><td><br></td></tr>
+	</form>
+	</table>
 </body>
 </html>
