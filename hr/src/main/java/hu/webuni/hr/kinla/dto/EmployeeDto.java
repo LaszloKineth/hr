@@ -1,15 +1,10 @@
-package hu.webuni.hr.kinela.model;
+package hu.webuni.hr.kinla.dto;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * 
- * @author Laszlo Kineth (kinela) - kinela77<at>gmail.com
- *
- */
+public class EmployeeDto {
 
-public class Employee {
 
 	private long id;
 	private String name;
@@ -18,7 +13,7 @@ public class Employee {
 	private LocalDateTime startDateOfWork;
 	private String datePattern = "yyyy-MM-dd HH:mm";
 
-	public Employee(long id, String name, String title, int salary, LocalDateTime startDateOfWork) {
+	public EmployeeDto(long id, String name, String title, int salary, LocalDateTime startDateOfWork) {
 		this.id = id;
 		this.name = name;
 		this.title = title;
@@ -26,7 +21,7 @@ public class Employee {
 		this.startDateOfWork = startDateOfWork;
 	}
 
-	public Employee(long id, String name, String title, int salary, String startDateOfWork) {
+	public EmployeeDto(long id, String name, String title, int salary, String startDateOfWork) {
 		this.id = id;
 		this.name = name;
 		this.title = title;
@@ -34,7 +29,7 @@ public class Employee {
 		setStartDateOfWork(startDateOfWork);
 	}
 
-	public Employee() {
+	public EmployeeDto() {
 	}
 
 	public long getId() {
@@ -73,9 +68,9 @@ public class Employee {
 		return startDateOfWork;
 	}
 
-//	public void setStartDateOfWork(LocalDateTime startDateOfWork) {
-//		this.startDateOfWork = startDateOfWork;
-//	}
+	public void setStartDateOfWork(LocalDateTime startDateOfWork) {
+		this.startDateOfWork = startDateOfWork;
+	}
 
 	public void setStartDateOfWork(String startDateOfWork) {
 
@@ -90,5 +85,5 @@ public class Employee {
 	public void setDatePattern(String datePattern) {
 		this.datePattern = datePattern;
 	}
-
+	
 }

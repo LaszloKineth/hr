@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
 <meta charset="UTF-8">
+
 <title>kINEla Apps - HR</title>
+
+<style>
+body {background-color:#272626; color:lightgray;}
+table  {border: 1px solid #566573; border-collapse: collapse; width: 60%;}
+td {border: 0px solid #566573; width: 22%; text-align: center;}
+th  {border: 1px solid #566573; border-collapse: collapse;}
+input {background-color:#566573; color:lightgray; width: 80%;}
+</style>
+
 </head>
+
 <body>
 	<h1>Employees</h1>
-	<table
-		style="border: 1px solid black; border-collapse: collapse; width: 50%">
+	<table>
 		<tr>
 			<th>Id</th>
 			<th>Name</th>
@@ -16,29 +28,24 @@
 			<th>First day</th>
 		</tr>
 		<tr th:each="employee : ${employees}">
-			<td style="border: 1px solid black; width: 10%; text-align: center;"
-				th:text="${employee.id}">id</td>
-			<td style="border: 1px solid black; width: 22%; text-align: center;"
-				th:text="${employee.name}">name</td>
-			<td style="border: 1px solid black; width: 22%; text-align: center;"
-				th:text="${employee.title}">title</td>
-			<td style="border: 1px solid black; width: 22%; text-align: center;"
-				th:text="${employee.salary}">salary</td>
-			<td style="border: 1px solid black; width: 22%; text-align: center;"
-				th:text="${employee.startDateOfWork}">start</td>
+			<td th:text="${employee.id}">id</td>
+			<td th:text="${employee.name}">name</td>
+			<td th:text="${employee.title}">title</td>
+			<td th:text="${employee.salary}">salary</td>
+			<td th:text="${employee.startDateOfWork}">start</td>
 		</tr>
 	</table>
 <br/><br/>
-	<table style="border: 1px solid black; border-collapse: collapse; width: 25%">
+	<table>
 	<form th:action="@{/employees}" method="post" th:object="${newEmployee}">
 		<tr><td><br></td></tr>
 	<!--<tr><td>Id:</td><td><input th:field="*{id}" /></td></tr>  -->
-		<tr><td style="text-align: center">Name:</td><td><input th:field="*{name}" /></td></tr>
-		<tr><td style="text-align: center">Title:</td><td><input th:field="*{title}" /></td></tr>
-		<tr><td style="text-align: center">Salary:</td><td><input th:field="*{title}" /></td></tr>
-		<tr><td style="text-align: center">First day:</td><td><input th:field="*{title}" /></td></tr>
+		<tr><td style="text-align: right;">Name:</td><td><input th:field="*{name}"/></td></tr>
+		<tr><td style="text-align: right;">Title:</td><td><input th:field="*{title}"/></td></tr>
+		<tr><td style="text-align: right;">Salary:</td><td><input th:field="*{salary}"/></td></tr>
+		<tr><td style="text-align: right;">Start date of work (date pattern: yyyy-MM-dd HH:mm) :</td><td><input th:field="*{startDateOfWork}"/></td></tr>
 		<tr><td><br></td></tr>
-		<tr><td><br></td><td><input type="submit" value="   Add new employee    " style="align-content: center;"/></td></tr>
+		<tr><td><br></td><td><input type="submit" value="   Add new employee    "/></td></tr>
 		<tr><td><br></td></tr>
 	</form>
 	</table>

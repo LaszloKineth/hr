@@ -9,15 +9,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import hu.webuni.hr.kinela.model.Employee;
 import hu.webuni.hr.kinela.model.Employees;
 
+/**
+ * 
+ * @author Laszlo Kineth (kinela) - kinela77<at>gmail.com 
+ *
+ */
+
 @Controller
-public class HrWebController {
+public class HrEmployeeTLCController {
 
 	@GetMapping("/")
 	public String home() {
 		return "index";
 	}
 	
-	@GetMapping("/hr/employees")
+	@GetMapping("/employees")
 	public String allEmployees(Map<String, Object> model) {
 		model.put("employees", Employees.getEmployees());
 		model.put("newEmployee", new Employee());		
@@ -25,7 +31,7 @@ public class HrWebController {
 		return "employees";
 	}
 	
-	@PostMapping("/hr/employees")
+	@PostMapping("/employees")
 	public String addEmployee(Employee employee) {
 		Employees.addEmployee(employee);
 		
