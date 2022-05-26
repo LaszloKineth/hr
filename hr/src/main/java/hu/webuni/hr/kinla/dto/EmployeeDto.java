@@ -11,7 +11,6 @@ public class EmployeeDto {
 	private String title;
 	private int salary;
 	private LocalDateTime startDateOfWork;
-	private String datePattern = "yyyy-MM-dd HH:mm";
 
 	public EmployeeDto(long id, String name, String title, int salary, LocalDateTime startDateOfWork) {
 		this.id = id;
@@ -74,16 +73,8 @@ public class EmployeeDto {
 
 	public void setStartDateOfWork(String startDateOfWork) {
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(getDatePattern());
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		this.startDateOfWork = LocalDateTime.parse(startDateOfWork, formatter);
-	}
-
-	public String getDatePattern() {
-		return datePattern;
-	}
-
-	public void setDatePattern(String datePattern) {
-		this.datePattern = datePattern;
 	}
 	
 }

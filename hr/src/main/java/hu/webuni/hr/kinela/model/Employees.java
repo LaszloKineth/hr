@@ -54,12 +54,12 @@ public class Employees {
 		employees.add(employee);
 	}
 	
-	public static Map<String, Object> getEmployessMap() {
+	public static Map<Long, Object> getEmployessMap() {
 		
-		Map<String, Object> employeesMap = new HashMap<>();
+		Map<Long, Object> employeesMap = new HashMap<>();
 		
 		for (Employee employee : employees) {
-			employeesMap.put(String.valueOf(employee.getId()), employee);
+			employeesMap.put(employee.getId(), employee);
 		}
 
 		return employeesMap;
