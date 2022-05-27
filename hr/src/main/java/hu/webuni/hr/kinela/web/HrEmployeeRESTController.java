@@ -2,6 +2,7 @@ package hu.webuni.hr.kinela.web;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,31 +81,28 @@ public class HrEmployeeRESTController {
 		public void deleteEmployee(@PathVariable long id) {
 			employees.remove(id);
 		}
-		
-		@GetMapping()
-		public List<EmployeeDto> getEmployeesWithGreaterSalary(@RequestParam Map<String, String> params) {
+	
+		@GetMapping("/salary")
+		public ResponseEntity<List<EmployeeDto>> getEmployeesWithGreaterSalary(@RequestParam Map<String, String> params) {
+
+			List<EmployeeDto> higherSalaryEmployees = new ArrayList<>();
 			
-			//TODO - fix iteration below
-			
-			/*
-			if (params.containsKey("minimum_salary")) {
+			if (params.containsKey("min_salary")) {
 				
-				int minimumSalary = Integer.parseInt(params.get("minimum_salary"));
-				
-				for (Map.Entry<String, Integer> entry : map.entrySet()) {
-					String key = entry.getKey();
-					Integer val = entry.getValue();
+				for (EmployeeDto employeeDto : new ArrayList<EmployeeDto>(employees.values())) {
 					
+					if (employeeDto.getSalary() > Integer.parseInt(params.get("min_salary"))) {
+						higherSalaryEmployees.add(employeeDto);
+					}
 				}
 				
-			} else {
-
+				if (higherSalaryEmployees.isEmpty()) {
+					return ResponseEntity.noContent().build();
+				} else {
+					return ResponseEntity.ok(higherSalaryEmployees);
+				}
 			}
-			*/
-			
-			
-			//TODO - return null, fix it
-			return null;
+			return ResponseEntity.noContent().build();
 		}
 
 }
