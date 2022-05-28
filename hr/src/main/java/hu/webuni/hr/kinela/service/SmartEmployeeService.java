@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hu.webuni.hr.kinela.config.EmployeeConfigurationProperties;
-import hu.webuni.hr.kinela.model.Employee;
+import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 /**
  * 
@@ -24,7 +24,7 @@ public class SmartEmployeeService implements EmployeeService {
 	EmployeeConfigurationProperties properties; // = new EmployeeConfigurationProperties();
 
 	@Override
-	public int getPayRaisePercent(Employee employee) {
+	public int getPayRaisePercent(EmployeeDto employee) {
 
 		LocalDateTime startDate = employee.getStartDateOfWork();
 

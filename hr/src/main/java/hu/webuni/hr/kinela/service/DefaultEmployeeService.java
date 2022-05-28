@@ -3,7 +3,7 @@ package hu.webuni.hr.kinela.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import hu.webuni.hr.kinela.model.Employee;
+import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 /**
  * 
@@ -18,7 +18,7 @@ public class DefaultEmployeeService implements EmployeeService {
 	int defaultValue;
 	
 	@Override
-	public int getPayRaisePercent(Employee employee) {
+	public int getPayRaisePercent(EmployeeDto employee) {
 		return defaultValue;
 	}
 

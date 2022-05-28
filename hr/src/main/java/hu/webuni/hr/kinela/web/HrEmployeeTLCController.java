@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import hu.webuni.hr.kinela.model.Employee;
 import hu.webuni.hr.kinela.model.Employees;
+import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 /**
  * 
@@ -32,7 +33,7 @@ public class HrEmployeeTLCController {
 	}
 	
 	@PostMapping("/employees")
-	public String addEmployee(Employee employee) {
+	public String addEmployee(EmployeeDto employee) {
 		Employees.addEmployee(employee);
 		
 		return "redirect:employees";

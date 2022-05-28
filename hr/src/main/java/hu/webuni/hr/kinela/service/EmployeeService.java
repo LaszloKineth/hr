@@ -1,7 +1,7 @@
 package hu.webuni.hr.kinela.service;
 
-import hu.webuni.hr.kinela.model.Employee;
+import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 public interface EmployeeService {
-	public int getPayRaisePercent(Employee employee);
+	public int getPayRaisePercent(EmployeeDto employee);
 }
