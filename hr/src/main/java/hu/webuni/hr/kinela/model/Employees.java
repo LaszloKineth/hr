@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
+
 import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 /**
@@ -54,10 +56,14 @@ public class Employees {
 		employee.setId(getElements() + 1);
 		employees.add(employee);
 	}
-	
-	public static Map<Long, Object> getEmployessMap() {
 		
-		Map<Long, Object> employeesMap = new HashMap<>();
+//	public static void modifyEmployee(long id, EmployeeDto employee) {
+//		employeesMap.put(id, employee);
+//	}
+	
+	public static Map<Long, EmployeeDto> getEmployessMap() {
+		
+		Map<Long, EmployeeDto> employeesMap = new HashMap<>();
 		
 		for (EmployeeDto employee : employees) {
 			employeesMap.put(employee.getId(), employee);

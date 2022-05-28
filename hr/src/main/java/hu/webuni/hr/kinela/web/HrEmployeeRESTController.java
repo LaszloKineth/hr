@@ -1,9 +1,6 @@
 package hu.webuni.hr.kinela.web;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import hu.webuni.hr.kinela.model.Employees;
 import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 /**
@@ -31,23 +29,23 @@ import hu.webuni.hr.kinla.dto.EmployeeDto;
 @RequestMapping("/api/employees")
 public class HrEmployeeRESTController {
 
-		private Map<Long, EmployeeDto> employees = new HashMap<>();
+		//private Map<Long, EmployeeDto> employees = new HashMap<>();
 		
-		{
-			employees.put(1L, new EmployeeDto(1, "Mani", "developer", 100, LocalDateTime.of(2010, 1, 1, 1, 1)));
-			employees.put(2L, new EmployeeDto(2, "Della", "architect", 100, LocalDateTime.of(2015, 1, 1, 1, 1)));
-		}
+//		{
+//			employees.put(1L, new EmployeeDto(1, "Mani", "developer", 100, LocalDateTime.of(2010, 1, 1, 1, 1)));
+//			employees.put(2L, new EmployeeDto(2, "Della", "architect", 100, LocalDateTime.of(2015, 1, 1, 1, 1)));
+//		}
 		
 		@GetMapping
 		public List<EmployeeDto> getAllEmployees() {
 			
-			return new ArrayList<>(employees.values());
+			return new ArrayList<>(Employees.getEmployessMap().values());
 		}
 		
 		@GetMapping("/{id}")
 		public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable long id) {
 
-			EmployeeDto employee = employees.get(id);
+			EmployeeDto employee = Employees.getEmployessMap().get(id);
 			
 			if (employee != null) {
 				return ResponseEntity.ok(employee);
@@ -59,7 +57,8 @@ public class HrEmployeeRESTController {
 		@PostMapping
 		public EmployeeDto createEmployee(@RequestBody EmployeeDto employee) {
 			
-			employees.put(employee.getId(), employee);
+			//Employees.getEmployessMap().put(employee.getId(), employee);
+			Employees.addEmployee(employee);
 			
 			return employee;
 		}
@@ -67,11 +66,11 @@ public class HrEmployeeRESTController {
 		@PutMapping("/{id}")
 		public ResponseEntity<EmployeeDto> modifíEmployee(@PathVariable long id, @RequestBody EmployeeDto employee) {
 
-			if(!employees.containsKey(id)) {
+			if(!Employees.getEmployessMap().containsKey(id)) {
 				return ResponseEntity.notFound().build();
 			} else {
 				employee.setId(id);
-				employees.put(id, employee);
+				Employees.modifyEmployee(id, employee);
 				
 				return ResponseEntity.ok(employee);
 			}
@@ -79,7 +78,7 @@ public class HrEmployeeRESTController {
 
 		@DeleteMapping("/{id}")
 		public void deleteEmployee(@PathVariable long id) {
-			employees.remove(id);
+			Employees.getEmployessMap().remove(id);
 		}
 	
 		@GetMapping("/salary")
@@ -89,7 +88,7 @@ public class HrEmployeeRESTController {
 			
 			if (params.containsKey("min_salary")) {
 				
-				for (EmployeeDto employeeDto : new ArrayList<EmployeeDto>(employees.values())) {
+				for (EmployeeDto employeeDto : new ArrayList<EmployeeDto>(Employees.getEmployessMap().values())) {
 					
 					if (employeeDto.getSalary() > Integer.parseInt(params.get("min_salary"))) {
 						higherSalaryEmployees.add(employeeDto);
