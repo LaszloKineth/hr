@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.http.ResponseEntity;
-
 import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 /**
@@ -17,7 +15,7 @@ import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 public class Employees {
 	
-	private static List<EmployeeDto> employees;
+	private static Map<Long, EmployeeDto> employees;
 	
 	public Employees() {
 		initEmployees();
@@ -25,26 +23,25 @@ public class Employees {
 
 	public static void initEmployees() {
 		
-		List<EmployeeDto> employees = new ArrayList<EmployeeDto>();
+		//List<EmployeeDto> employees = new ArrayList<EmployeeDto>();
+		Map<Long, EmployeeDto> employees = new HashMap<>();
 		
 //		employees.add(new Employee(1, "Mani", "developer", 100, LocalDateTime.of(2010, 1, 1, 1, 1)));
 //		employees.add(new Employee(2, "Della", "architect", 100, LocalDateTime.of(2015, 1, 1, 1, 1)));
 //		employees.add(new Employee(3, "Zsé", "boss", 100, LocalDateTime.of(2018, 1, 1, 1, 1)));
-//		employees.add(new Employee(4, "Guba", "cleaning assistant", 100, LocalDateTime.of(2022, 1, 1, 1, 1)));
 		
-		employees.add(new EmployeeDto(1, "Mani", "developer", 100, "2010-01-01 01:01"));
-		employees.add(new EmployeeDto(2, "Della", "architect", 100, "2015-01-01 01:01"));
-		employees.add(new EmployeeDto(3, "Zsé", "boss", 100, "2018-01-01 01:01"));
-//		employees.add(new Employee(4, "Guba", "cleaning assistant", 100, "2022-01-01 01:01"));
+		employees.put(1L, new EmployeeDto(1, "Mani", "developer", 100, "2010-01-01 01:01"));
+		employees.put(2L, new EmployeeDto(2, "Della", "architect", 100, "2015-01-01 01:01"));
+		employees.put(3L, new EmployeeDto(3, "Zsé", "boss", 100, "2018-01-01 01:01"));
 		
 		Employees.setEmployees(employees);
 	}
 
-	private static void setEmployees(List<EmployeeDto> employees) {
+	private static void setEmployees(Map<Long, EmployeeDto> employees) {
 		Employees.employees = employees;
 	}
 	
-	public static List<EmployeeDto> getEmployees() {
+	public static Map<Long, EmployeeDto> getEmployees() {
 		return employees;
 	}
 	
@@ -54,22 +51,18 @@ public class Employees {
 	
 	public static void addEmployee(EmployeeDto employee) {
 		employee.setId(getElements() + 1);
-		employees.add(employee);
+		employees.put(employee.getId(), employee);
 	}
 		
-//	public static void modifyEmployee(long id, EmployeeDto employee) {
-//		employeesMap.put(id, employee);
-//	}
+	public static void modifyEmployee(long id, EmployeeDto employee) {
+		employees.put(id, employee);
+	}
 	
-	public static Map<Long, EmployeeDto> getEmployessMap() {
+	public static List<EmployeeDto> getEmployeesList() {
 		
-		Map<Long, EmployeeDto> employeesMap = new HashMap<>();
-		
-		for (EmployeeDto employee : employees) {
-			employeesMap.put(employee.getId(), employee);
-		}
+		List<EmployeeDto> employeesList = new ArrayList<EmployeeDto>(Employees.getEmployees().values());
 
-		return employeesMap;
+		return employeesList;
 	}
-	
+		
 }

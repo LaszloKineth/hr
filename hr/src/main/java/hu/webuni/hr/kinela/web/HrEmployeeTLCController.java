@@ -26,7 +26,7 @@ public class HrEmployeeTLCController {
 	
 	@GetMapping("/employees")
 	public String allEmployees(Map<String, Object> model) {
-		model.put("employees", Employees.getEmployees());
+		model.put("employees", Employees.getEmployeesList());
 		model.put("newEmployee", new Employee());		
 		
 		return "employees";

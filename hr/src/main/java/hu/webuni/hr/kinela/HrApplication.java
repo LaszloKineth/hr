@@ -33,7 +33,7 @@ public class HrApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		for (EmployeeDto employee2 : Employees.getEmployees()) {
+		for (EmployeeDto employee2 : Employees.getEmployeesList()) {
 
 			System.out.println("\n" + employee2.getName() + "'s salary is " + employee2.getSalary()
 					+ " now. He/She working since "

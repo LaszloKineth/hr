@@ -39,13 +39,13 @@ public class HrEmployeeRESTController {
 		@GetMapping
 		public List<EmployeeDto> getAllEmployees() {
 			
-			return new ArrayList<>(Employees.getEmployessMap().values());
+			return Employees.getEmployeesList();
 		}
 		
 		@GetMapping("/{id}")
 		public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable long id) {
 
-			EmployeeDto employee = Employees.getEmployessMap().get(id);
+			EmployeeDto employee = Employees.getEmployees().get(id);
 			
 			if (employee != null) {
 				return ResponseEntity.ok(employee);
@@ -66,8 +66,8 @@ public class HrEmployeeRESTController {
 		@PutMapping("/{id}")
 		public ResponseEntity<EmployeeDto> modifíEmployee(@PathVariable long id, @RequestBody EmployeeDto employee) {
 
-			if(!Employees.getEmployessMap().containsKey(id)) {
-				return ResponseEntity.notFound().build();
+			if(!Employees.getEmployees().containsKey(id)) {
+				return ResponseEntity.noContent().build();
 			} else {
 				employee.setId(id);
 				Employees.modifyEmployee(id, employee);
@@ -78,7 +78,7 @@ public class HrEmployeeRESTController {
 
 		@DeleteMapping("/{id}")
 		public void deleteEmployee(@PathVariable long id) {
-			Employees.getEmployessMap().remove(id);
+			Employees.getEmployees().remove(id);
 		}
 	
 		@GetMapping("/salary")
@@ -88,7 +88,7 @@ public class HrEmployeeRESTController {
 			
 			if (params.containsKey("min_salary")) {
 				
-				for (EmployeeDto employeeDto : new ArrayList<EmployeeDto>(Employees.getEmployessMap().values())) {
+				for (EmployeeDto employeeDto : new ArrayList<EmployeeDto>(Employees.getEmployees().values())) {
 					
 					if (employeeDto.getSalary() > Integer.parseInt(params.get("min_salary"))) {
 						higherSalaryEmployees.add(employeeDto);
