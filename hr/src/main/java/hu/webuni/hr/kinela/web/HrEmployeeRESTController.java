@@ -28,13 +28,6 @@ import hu.webuni.hr.kinla.dto.EmployeeDto;
 @RestController
 @RequestMapping("/api/employees")
 public class HrEmployeeRESTController {
-
-		//private Map<Long, EmployeeDto> employees = new HashMap<>();
-		
-//		{
-//			employees.put(1L, new EmployeeDto(1, "Mani", "developer", 100, LocalDateTime.of(2010, 1, 1, 1, 1)));
-//			employees.put(2L, new EmployeeDto(2, "Della", "architect", 100, LocalDateTime.of(2015, 1, 1, 1, 1)));
-//		}
 		
 		@GetMapping
 		public List<EmployeeDto> getAllEmployees() {
@@ -57,7 +50,6 @@ public class HrEmployeeRESTController {
 		@PostMapping
 		public EmployeeDto createEmployee(@RequestBody EmployeeDto employee) {
 			
-			//Employees.getEmployessMap().put(employee.getId(), employee);
 			Employees.addEmployee(employee);
 			
 			return employee;

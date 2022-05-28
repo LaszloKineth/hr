@@ -30,9 +30,9 @@ public class Employees {
 //		employees.add(new Employee(2, "Della", "architect", 100, LocalDateTime.of(2015, 1, 1, 1, 1)));
 //		employees.add(new Employee(3, "Zsé", "boss", 100, LocalDateTime.of(2018, 1, 1, 1, 1)));
 		
-		employees.put(1L, new EmployeeDto(1, "Mani", "developer", 100, "2010-01-01 01:01"));
-		employees.put(2L, new EmployeeDto(2, "Della", "architect", 100, "2015-01-01 01:01"));
-		employees.put(3L, new EmployeeDto(3, "Zsé", "boss", 100, "2018-01-01 01:01"));
+		employees.put(1L, new EmployeeDto(1, "Mani", "developer", 100, "2010-01-01 01:01", "/employees/modify?id="));
+		employees.put(2L, new EmployeeDto(2, "Della", "architect", 100, "2015-01-01 01:01", "/employees/modify?id="));
+		employees.put(3L, new EmployeeDto(3, "Zsé", "boss", 100, "2018-01-01 01:01", "/employees/modify?id="));
 		
 		Employees.setEmployees(employees);
 	}
@@ -63,6 +63,13 @@ public class Employees {
 		List<EmployeeDto> employeesList = new ArrayList<EmployeeDto>(Employees.getEmployees().values());
 
 		return employeesList;
+	}
+	
+	public static EmployeeDto getEmployeeById(int id) {
+		
+		List<EmployeeDto> employees = getEmployeesList();
+		
+		return employees.get(id);
 	}
 		
 }

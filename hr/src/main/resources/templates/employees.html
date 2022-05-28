@@ -29,7 +29,8 @@ input {background-color:#566573; color:lightgray; width: 80%;}
 		</tr>
 		<tr th:each="employee : ${employees}">
 			<td th:text="${employee.id}">id</td>
-			<td th:text="${employee.name}">name</td>
+		<!--  	<td th:text="${employee.name}"></td>-->
+			<td><a th:text="${employee.name}" th:href="${employee.modifyLink}"></a></td>
 			<td th:text="${employee.title}">title</td>
 			<td th:text="${employee.salary}">salary</td>
 			<td th:text="${employee.startDateOfWork}">start</td>
@@ -44,6 +45,7 @@ input {background-color:#566573; color:lightgray; width: 80%;}
 		<tr><td style="text-align: right;">Title:</td><td><input th:field="*{title}"/></td></tr>
 		<tr><td style="text-align: right;">Salary:</td><td><input th:field="*{salary}"/></td></tr>
 		<tr><td style="text-align: right;">Start date of work (date pattern: yyyy-MM-dd HH:mm) :</td><td><input th:field="*{startDateOfWork}"/></td></tr>
+	<!-- <tr><td><input type="hidden" th:value="*{modifyLink}" th:attr="modifyLink='/employees/modify?id='"/><br></td></tr>  -->
 		<tr><td><br></td></tr>
 		<tr><td><br></td><td><input type="submit" value="   Add new employee    "/></td></tr>
 		<tr><td><br></td></tr>

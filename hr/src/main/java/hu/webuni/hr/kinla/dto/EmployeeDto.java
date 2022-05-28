@@ -11,24 +11,24 @@ public class EmployeeDto {
 	private String title;
 	private int salary;
 	private LocalDateTime startDateOfWork;
+	private String modifyLink;
 
-	public EmployeeDto(long id, String name, String title, int salary, LocalDateTime startDateOfWork) {
+	public EmployeeDto(long id, String name, String title, int salary, LocalDateTime startDateOfWork, String defaultLink) {
 		this.id = id;
 		this.name = name;
 		this.title = title;
 		this.salary = salary;
 		this.startDateOfWork = startDateOfWork;
+		this.modifyLink = defaultLink + id;
 	}
 
-	public EmployeeDto(long id, String name, String title, int salary, String startDateOfWork) {
+	public EmployeeDto(long id, String name, String title, int salary, String startDateOfWork, String defaultLink) {
 		this.id = id;
 		this.name = name;
 		this.title = title;
 		this.salary = salary;
 		setStartDateOfWork(startDateOfWork);
-	}
-
-	public EmployeeDto() {
+		this.modifyLink = defaultLink + id;
 	}
 
 	public long getId() {
@@ -75,6 +75,14 @@ public class EmployeeDto {
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		this.startDateOfWork = LocalDateTime.parse(startDateOfWork, formatter);
+	}
+
+	public String getModifyLink() {
+		return modifyLink;
+	}
+
+	public void setModifyLink(String modifyLink) {
+		this.modifyLink = modifyLink;
 	}
 	
 }
