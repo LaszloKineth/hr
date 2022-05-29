@@ -16,6 +16,8 @@ import hu.webuni.hr.kinla.dto.EmployeeDto;
 public class Employees {
 	
 	private static Map<Long, EmployeeDto> employees;
+	private static String modifyUrl = "/employees/modify?id=";
+	private static int idCounter = 1;
 	
 	public Employees() {
 		initEmployees();
@@ -23,16 +25,14 @@ public class Employees {
 
 	public static void initEmployees() {
 		
-		//List<EmployeeDto> employees = new ArrayList<EmployeeDto>();
 		Map<Long, EmployeeDto> employees = new HashMap<>();
 		
-//		employees.add(new Employee(1, "Mani", "developer", 100, LocalDateTime.of(2010, 1, 1, 1, 1)));
-//		employees.add(new Employee(2, "Della", "architect", 100, LocalDateTime.of(2015, 1, 1, 1, 1)));
-//		employees.add(new Employee(3, "Zsé", "boss", 100, LocalDateTime.of(2018, 1, 1, 1, 1)));
-		
-		employees.put(1L, new EmployeeDto(1, "Mani", "developer", 100, "2010-01-01 01:01", "/employees/modify?id="));
-		employees.put(2L, new EmployeeDto(2, "Della", "architect", 100, "2015-01-01 01:01", "/employees/modify?id="));
-		employees.put(3L, new EmployeeDto(3, "Zsé", "boss", 100, "2018-01-01 01:01", "/employees/modify?id="));
+		employees.put(1L, new EmployeeDto(1, "Mani", "developer", 100, "2010-01-01 01:01", modifyUrl));
+		idCounter++;
+		employees.put(2L, new EmployeeDto(2, "Della", "architect", 100, "2015-01-01 01:01", modifyUrl));
+		idCounter++;
+		employees.put(3L, new EmployeeDto(3, "Zsé", "boss", 100, "2018-01-01 01:01", modifyUrl));
+		idCounter++;
 		
 		Employees.setEmployees(employees);
 	}
@@ -46,15 +46,17 @@ public class Employees {
 	}
 	
 	public static long getElements() {
-		return employees.size();
+		return idCounter++;
 	}
 	
 	public static void addEmployee(EmployeeDto employee) {
-		employee.setId(getElements() + 1);
+		employee.setId(getElements());
+		employee.setModifyLink(modifyUrl + employee.getId());
 		employees.put(employee.getId(), employee);
 	}
 		
 	public static void modifyEmployee(long id, EmployeeDto employee) {
+		employee.setModifyLink(modifyUrl + employee.getId());
 		employees.put(id, employee);
 	}
 	

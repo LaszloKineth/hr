@@ -13,14 +13,14 @@ public class EmployeeDto {
 	private LocalDateTime startDateOfWork;
 	private String modifyLink;
 
-	public EmployeeDto(long id, String name, String title, int salary, LocalDateTime startDateOfWork, String defaultLink) {
-		this.id = id;
-		this.name = name;
-		this.title = title;
-		this.salary = salary;
-		this.startDateOfWork = startDateOfWork;
-		this.modifyLink = defaultLink + id;
-	}
+//	public EmployeeDto(long id, String name, String title, int salary, LocalDateTime startDateOfWork, String defaultLink) {
+//		this.id = id;
+//		this.name = name;
+//		this.title = title;
+//		this.salary = salary;
+//		this.startDateOfWork = startDateOfWork;
+//		this.modifyLink = defaultLink + id;
+//	}
 
 	public EmployeeDto(long id, String name, String title, int salary, String startDateOfWork, String defaultLink) {
 		this.id = id;
@@ -29,6 +29,9 @@ public class EmployeeDto {
 		this.salary = salary;
 		setStartDateOfWork(startDateOfWork);
 		this.modifyLink = defaultLink + id;
+	}
+	
+	public EmployeeDto() {
 	}
 
 	public long getId() {
