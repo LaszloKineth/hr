@@ -73,27 +73,24 @@ public class HrEmployeeRESTController {
 			Employees.getEmployees().remove(id);
 		}
 	
-		@GetMapping("/salary")
-		public ResponseEntity<List<EmployeeDto>> getEmployeesWithGreaterSalary(@RequestParam Map<String, String> params) {
+		@GetMapping(params = "min_salary")
+		public ResponseEntity<List<EmployeeDto>> getEmployeesWithGreaterSalary(@RequestParam int min_salary) {
 
 			List<EmployeeDto> higherSalaryEmployees = new ArrayList<>();
 			
-			if (params.containsKey("min_salary")) {
-				
-				for (EmployeeDto employeeDto : new ArrayList<EmployeeDto>(Employees.getEmployees().values())) {
+			for (EmployeeDto employeeDto : new ArrayList<EmployeeDto>(Employees.getEmployees().values())) {
 					
-					if (employeeDto.getSalary() > Integer.parseInt(params.get("min_salary"))) {
+				if (employeeDto.getSalary() >  min_salary) {
 						higherSalaryEmployees.add(employeeDto);
-					}
-				}
-				
-				if (higherSalaryEmployees.isEmpty()) {
-					return ResponseEntity.noContent().build();
-				} else {
-					return ResponseEntity.ok(higherSalaryEmployees);
 				}
 			}
-			return ResponseEntity.noContent().build();
+				
+			if (higherSalaryEmployees.isEmpty()) {
+				return ResponseEntity.noContent().build();
+			} else {
+				return ResponseEntity.ok(higherSalaryEmployees);
+			}
+
 		}
 
 }
