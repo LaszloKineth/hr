@@ -1,24 +1,40 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-
 <meta charset="UTF-8">
-
 <title>kINEla Apps - HR</title>
-
 <style>
-body {background-color:#272626; color:lightgray;}
-table  {border: 1px solid #566573; border-collapse: collapse; width: 60%;}
-td {border: 0px solid #566573; width: 25%; text-align: center;}
-th  {border: 1px solid #566573; border-collapse: collapse;}
-input {background-color:#566573; color:lightgray; width: 80%;}
+body {
+	background-color: #272626;
+	color: lightgray;
+}
+
+table {
+	border: 1px solid #566573;
+	border-collapse: collapse;
+	width: 60%;
+}
+
+td {
+	border: 0px solid #566573;
+	width: 22%;
+	text-align: center;
+}
+
+th {
+	border: 1px solid #566573;
+	border-collapse: collapse;
+}
+
+input {
+	background-color: #566573;
+	color: lightgray;
+	width: 80%;
+}
 </style>
-
 </head>
-
 <body>
-	<h1>Employees</h1>
+	<h1>Employee data modification</h1>
 	<table>
 		<tr>
 			<th>Id</th>
@@ -26,23 +42,21 @@ input {background-color:#566573; color:lightgray; width: 80%;}
 			<th>Title</th>
 			<th>Salary</th>
 			<th>First day</th>
-			<th>Remove employee</th>
 		</tr>
-		<tr th:each="employee : ${employees}">
+		<tr th:each="employee : ${employeeById}">
 			<td th:text="${employee.id}">id</td>
-			<td><a th:href="@{/modifyEmployee/{id}(id = ${employee.id})}" th:text="${employee.name}">Name</td>
-<!-- 		<td><a th:text="${employee.name}" th:href="${employee.modifyLink}"></a></td>  -->	
+	 		<td th:text="${employee.name}">name</td>	
 			<td th:text="${employee.title}">title</td>
 			<td th:text="${employee.salary}">salary</td>
 			<td th:text="${employee.startDateOfWork}">start</td>
-	 		<td><a th:href="@{/removeEmployee/{id}(id = ${employee.id})}">Remove</td>	
 		</tr>
 	</table>
 <br/><br/>
+ <!-- 
 	<table>
 	<form th:action="@{/employees}" method="post" th:object="${newEmployee}">
 		<tr><td><br></td></tr>
-		<!-- <tr><td style="text-align: right;">Id:</td><td><input th:field="*{id}" /></td></tr>  -->
+		<tr><td style="text-align: right;">Id:</td><td><input th:field="*{id}" /></td></tr>
 		<tr><td><input type="hidden" th:field="*{id}"/><br></td></tr>
 		<tr><td style="text-align: right;">Name:</td><td><input th:field="*{name}"/></td></tr>
 		<tr><td style="text-align: right;">Title:</td><td><input th:field="*{title}"/></td></tr>
@@ -54,5 +68,6 @@ input {background-color:#566573; color:lightgray; width: 80%;}
 		<tr><td><br></td></tr>
 	</form>
 	</table>
+ -->
 </body>
 </html>

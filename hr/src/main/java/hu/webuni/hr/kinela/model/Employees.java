@@ -67,11 +67,16 @@ public class Employees {
 		return employeesList;
 	}
 	
-	public static EmployeeDto getEmployeeById(int id) {
+	public static EmployeeDto getEmployeeByListId(int id) {
 		
 		List<EmployeeDto> employees = getEmployeesList();
 		
 		return employees.get(id);
 	}
+
+	public static EmployeeDto getEmployeeByMaptId(int id) {
 		
+		return employees.get(id);
+	}
+	
 }
