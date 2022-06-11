@@ -106,5 +106,5 @@ public class HrEmployeeRESTController {
 	public void deleteEmployee(@PathVariable long id) {
 		Employees.getEmployees().remove(id);
 	}
-
+	
 }
