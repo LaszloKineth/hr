@@ -40,7 +40,7 @@ input {background-color:#566573; color:lightgray; width: 80%;}
 	</table>
 <br/><br/>
 	<table>
-	<form th:action="@{/modifyEmployees}" method="post" th:object="${newEmployee}">
+	<form th:action="@{/employees}" method="post" th:object="${newEmployee}">
 		<tr><td><br></td></tr>
 		<!-- <tr><td style="text-align: right;">Id:</td><td><input th:field="*{id}" /></td></tr>  -->
 		<tr><td><input type="hidden" th:field="*{id}"/><br></td></tr>
