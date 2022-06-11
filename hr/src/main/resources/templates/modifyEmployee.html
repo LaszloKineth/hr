@@ -35,6 +35,7 @@ input {
 </head>
 <body>
 	<h1>Employee data modification</h1>
+
 	<table>
 		<tr>
 			<th>Id</th>
@@ -52,22 +53,21 @@ input {
 		</tr>
 	</table>
 <br/><br/>
- <!-- 
+
+
 	<table>
-	<form th:action="@{/employees}" method="post" th:object="${newEmployee}">
+	<form th:action="@{/modifyEmployee}" method="post" th:object="${employeeById}">
 		<tr><td><br></td></tr>
-		<tr><td style="text-align: right;">Id:</td><td><input th:field="*{id}" /></td></tr>
-		<tr><td><input type="hidden" th:field="*{id}"/><br></td></tr>
+		<tr><td style="text-align: right;">Id (cannot be modified):</td><td><input th:field="*{id}" readonly/></td></tr>
 		<tr><td style="text-align: right;">Name:</td><td><input th:field="*{name}"/></td></tr>
 		<tr><td style="text-align: right;">Title:</td><td><input th:field="*{title}"/></td></tr>
 		<tr><td style="text-align: right;">Salary:</td><td><input th:field="*{salary}"/></td></tr>
-		<tr><td style="text-align: right;">Start date of work (date pattern: yyyy-MM-dd HH:mm) :</td><td><input th:field="*{startDateOfWork}"/></td></tr>
-		<tr><td><input type="hidden" th:value="*{modifyLink}" th:attr="modifyLink='/employees/modify?id='"/><br></td></tr>
+		<tr><td style="text-align: right;">Start date of work (date pattern: yyyy-MM-ddTHH:mm) :</td><td><input th:field="*{startDateOfWorkString}"/></td></tr>	
 		<tr><td><br></td></tr>
-		<tr><td><br></td><td><input type="submit" value="   Add new employee    "/></td></tr>
+		<tr><td><br></td><td><input type="submit" value="   Modify employee    "/></td></tr>
 		<tr><td><br></td></tr>
 	</form>
 	</table>
- -->
+
 </body>
 </html>

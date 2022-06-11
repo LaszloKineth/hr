@@ -23,7 +23,7 @@ public class HrEmployeeTLCController {
 
 	@GetMapping("/")
 	public String home() {
-		return "index";
+		return "redirect:employees";
 	}
 
 	@GetMapping("/employees")
@@ -41,21 +41,23 @@ public class HrEmployeeTLCController {
 		return "redirect:employees";
 	}
 
-//	@GetMapping("/modifyEmployee")
-//	public String modifyEmployee(Map<String, Object> model, @RequestParam(value = "id", required = false) Integer id) {
-//
-//		model.put("employeeById", Employees.getEmployeeById(id));
-//
-//		return "modifyEmployee";
-//	}
-
-	@GetMapping("/modifyEmployee/{id}")
+	@GetMapping("/employees/{id}")
 	public String modifyEmployee(Map<String, Object> model, @PathVariable int id) {
 
-		if(id != 0) model.put("employeeById", Employees.getEmployeeByListId(id));
-
+		model.put("employeeById", Employees.getEmployeeByListId(id));
+		
 		return "modifyEmployee";
 	}
+	
+
+	@PostMapping("/modifyEmployee")
+	public String updateEmployee(EmployeeDto employee) {
+		
+		Employees.modifyEmployee(employee.getId(), employee);
+
+		return "redirect:/employees";
+	}
+	
 	
 	@GetMapping("/removeEmployee/{id}")
 	public String removeEmployee(@PathVariable long id) {

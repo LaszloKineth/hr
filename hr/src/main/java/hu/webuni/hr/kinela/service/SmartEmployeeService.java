@@ -26,7 +26,8 @@ public class SmartEmployeeService implements EmployeeService {
 
 	@Override
 	public int getPayRaisePercent(EmployeeDto employee) {
-
+		
+		//LocalDateTime ldt = LocalDateTime.parse(employee.getStartDateOfWork());
 		double yearsWorked = (ChronoUnit.DAYS.between(employee.getStartDateOfWork(), LocalDateTime.now()) / 365);
 		
 		if (yearsWorked > properties.getYears().getMax()) {

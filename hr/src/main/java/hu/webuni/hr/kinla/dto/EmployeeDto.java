@@ -2,6 +2,9 @@ package hu.webuni.hr.kinla.dto;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class EmployeeDto {
 
@@ -11,24 +14,13 @@ public class EmployeeDto {
 	private String title;
 	private int salary;
 	private LocalDateTime startDateOfWork;
-	private String modifyLink;
 
-//	public EmployeeDto(long id, String name, String title, int salary, LocalDateTime startDateOfWork, String defaultLink) {
-//		this.id = id;
-//		this.name = name;
-//		this.title = title;
-//		this.salary = salary;
-//		this.startDateOfWork = startDateOfWork;
-//		this.modifyLink = defaultLink + id;
-//	}
-
-	public EmployeeDto(long id, String name, String title, int salary, String startDateOfWork, String defaultLink) {
+	public EmployeeDto(long id, String name, String title, int salary, String startDateOfWork) {
 		this.id = id;
 		this.name = name;
 		this.title = title;
 		this.salary = salary;
 		setStartDateOfWork(startDateOfWork);
-		this.modifyLink = defaultLink + id;
 	}
 	
 	public EmployeeDto() {
@@ -70,22 +62,18 @@ public class EmployeeDto {
 		return startDateOfWork;
 	}
 
-//	public void setStartDateOfWork(LocalDateTime startDateOfWork) {
-//		this.startDateOfWork = startDateOfWork;
-//	}
+	public String getStartDateOfWorkString() {
+		return startDateOfWork.format(DateTimeFormatter.ISO_DATE_TIME);
+	}
+	
+	public void setStartDateOfWorkString(String startDateOfWork) {
+		setStartDateOfWork(startDateOfWork);
+	}
 
 	public void setStartDateOfWork(String startDateOfWork) {
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 		this.startDateOfWork = LocalDateTime.parse(startDateOfWork, formatter);
 	}
 
-	public String getModifyLink() {
-		return modifyLink;
-	}
-
-	public void setModifyLink(String modifyLink) {
-		this.modifyLink = modifyLink;
-	}
-	
 }

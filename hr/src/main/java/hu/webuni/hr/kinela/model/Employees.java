@@ -16,7 +16,6 @@ import hu.webuni.hr.kinla.dto.EmployeeDto;
 public class Employees {
 	
 	private static Map<Long, EmployeeDto> employees;
-	private static String modifyUrl = "/employees/modify?id=";
 	private static int idCounter = 1;
 	
 	public Employees() {
@@ -27,11 +26,11 @@ public class Employees {
 		
 		Map<Long, EmployeeDto> employees = new HashMap<>();
 		
-		employees.put(1L, new EmployeeDto(1, "Mani", "developer", 100, "2010-01-01 01:01", modifyUrl));
+		employees.put(1L, new EmployeeDto(1, "Mani", "developer", 100, "2010-01-01T01:01"));
 		idCounter++;
-		employees.put(2L, new EmployeeDto(2, "Della", "architect", 100, "2015-01-01 01:01", modifyUrl));
+		employees.put(2L, new EmployeeDto(2, "Della", "architect", 100, "2015-01-01T01:01"));
 		idCounter++;
-		employees.put(3L, new EmployeeDto(3, "Zsé", "boss", 100, "2018-01-01 01:01", modifyUrl));
+		employees.put(3L, new EmployeeDto(3, "Zsé", "boss", 100, "2018-01-01T01:01"));
 		idCounter++;
 		
 		Employees.setEmployees(employees);
@@ -51,12 +50,10 @@ public class Employees {
 	
 	public static void addEmployee(EmployeeDto employee) {
 		employee.setId(getElements());
-		employee.setModifyLink(modifyUrl + employee.getId());
 		employees.put(employee.getId(), employee);
 	}
 		
 	public static void modifyEmployee(long id, EmployeeDto employee) {
-		employee.setModifyLink(modifyUrl + employee.getId());
 		employees.put(id, employee);
 	}
 	
@@ -71,7 +68,7 @@ public class Employees {
 		
 		List<EmployeeDto> employees = getEmployeesList();
 		
-		return employees.get(id);
+		return employees.stream().filter(emp -> emp.getId() == id).findFirst().get();
 	}
 
 	public static EmployeeDto getEmployeeByMaptId(int id) {
