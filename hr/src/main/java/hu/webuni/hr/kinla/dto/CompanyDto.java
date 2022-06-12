@@ -1,21 +1,14 @@
 package hu.webuni.hr.kinla.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompanyDto {
 	private int id;
 	private String name;
 	private String address;
-	private List<EmployeeDto> employees;
+	private List<EmployeeDto> employees = new ArrayList<>();
 	
-	public CompanyDto(int id, String name, String address, List<EmployeeDto> employees) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.address = address;
-		this.employees = employees;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -48,8 +41,8 @@ public class CompanyDto {
 		this.employees = employees;
 	}
 	
-	public boolean addEmployee(EmployeeDto employee) {
-		return employees.add(employee);
+	public void addEmployee(EmployeeDto employee) {
+		employees.add(employee);
 	}
 	
 	public EmployeeDto getEmployeeById(int id) {

@@ -58,8 +58,13 @@ public class HrCompanyRESTController {
 	}
 
 	
+	@GetMapping("/{id}/employees")
+	public ResponseEntity<List<EmployeeDto>> getEmployees(@PathVariable int id) {
+		return ResponseEntity.ok(companies.stream().filter(comp -> comp.getId() == id).findFirst().get().getEmployees());
+	}
+	
 		
-	@PostMapping("/{id}/employees")
+	@PutMapping("/{id}/employees")
 	public ResponseEntity<EmployeeDto> addEmployee(@PathVariable int id, @RequestBody EmployeeDto employee) {
 
 		CompanyDto tempCompany = companies.stream().filter(comp -> comp.getId() == id).findFirst().get();
@@ -67,8 +72,9 @@ public class HrCompanyRESTController {
 		if(tempCompany == null) {
 			return ResponseEntity.notFound().build();
 		} else {
-			tempCompany.getEmployees().add(employee);
-//			return ResponseEntity.ok(employee);
+//			tempCompany.getEmployees().add(employee);
+			companies.stream().filter(comp -> comp.getId() == id).findFirst().get().addEmployee(employee);
+			return ResponseEntity.ok(employee);
 		}
 		
 //		
@@ -81,7 +87,7 @@ public class HrCompanyRESTController {
 //			}
 //		}
 		
-		return ResponseEntity.ok(employee);
+//		return ResponseEntity.ok(employee);
 	}
 	
 }
