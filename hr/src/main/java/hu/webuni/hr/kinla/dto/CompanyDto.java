@@ -3,12 +3,30 @@ package hu.webuni.hr.kinla.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author Laszlo Kineth (kinela) - kinela77<at>gmail.com 
+ *
+ */
+
 public class CompanyDto {
 	private int id;
 	private String name;
 	private String address;
 	private List<EmployeeDto> employees = new ArrayList<>();
 	
+	public CompanyDto(int id, String name, String address, List<EmployeeDto> employees) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.employees = employees;
+	}
+	
+	public CompanyDto() {
+		
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -47,14 +65,10 @@ public class CompanyDto {
 	
 	public EmployeeDto getEmployeeById(int id) {
 		
-		for (EmployeeDto employeeDto : employees) {
-			if(employeeDto.getId() == id) {
-				return employeeDto;
-			}
-		}
-		
-		return null;
+		return employees.stream().filter(emp -> emp.getId() == id).findFirst().get();
 	}
 	
-	
+	public void removeEmployeeById(int id) {
+		employees.remove(employees.stream().filter(emp -> emp.getId() == id).findFirst().get());
+	}
 }

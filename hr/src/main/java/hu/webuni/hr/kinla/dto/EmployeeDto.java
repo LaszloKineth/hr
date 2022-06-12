@@ -6,8 +6,13 @@ import java.time.format.DateTimeFormatterBuilder;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class EmployeeDto {
+/**
+ * 
+ * @author Laszlo Kineth (kinela) - kinela77<at>gmail.com 
+ *
+ */
 
+public class EmployeeDto {
 
 	private long id;
 	private String name;

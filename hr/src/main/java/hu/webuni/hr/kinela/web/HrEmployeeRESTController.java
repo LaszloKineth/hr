@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import hu.webuni.hr.kinela.model.Employees;
+import hu.webuni.hr.kinela.service.EmployeeService;
+import hu.webuni.hr.kinela.service.SmartEmployeeService;
 import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 /**
@@ -28,6 +31,11 @@ import hu.webuni.hr.kinla.dto.EmployeeDto;
 @RequestMapping("/api/employees")
 public class HrEmployeeRESTController {
 
+	@Autowired
+	EmployeeService employeeService;
+	@Autowired
+	SmartEmployeeService smartEmployeeService;
+	
 //		1. version
 //	
 //		@GetMapping
@@ -105,6 +113,11 @@ public class HrEmployeeRESTController {
 	@DeleteMapping("/{id}")
 	public void deleteEmployee(@PathVariable long id) {
 		Employees.getEmployees().remove(id);
+	}
+
+	@GetMapping("/payRaise")
+	public int getPayRaisePercent(@RequestBody EmployeeDto employee) {
+		return smartEmployeeService.getPayRaisePercent(employee);
 	}
 	
 }
