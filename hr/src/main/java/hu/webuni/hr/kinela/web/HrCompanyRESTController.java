@@ -68,7 +68,7 @@ public class HrCompanyRESTController {
 			return ResponseEntity.notFound().build();
 		} else {
 			tempCompany.getEmployees().add(employee);
-			return ResponseEntity.ok(employee);
+//			return ResponseEntity.ok(employee);
 		}
 		
 //		
