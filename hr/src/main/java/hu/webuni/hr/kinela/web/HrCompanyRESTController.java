@@ -64,7 +64,7 @@ public class HrCompanyRESTController {
 	}
 	
 		
-	@PutMapping("/{id}/employees")
+	@PostMapping("/{id}/employees")
 	public ResponseEntity<EmployeeDto> addEmployee(@PathVariable int id, @RequestBody EmployeeDto employee) {
 
 		CompanyDto tempCompany = companies.stream().filter(comp -> comp.getId() == id).findFirst().get();
