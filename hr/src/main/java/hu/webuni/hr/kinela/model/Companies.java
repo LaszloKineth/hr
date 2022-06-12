@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.webuni.hr.kinla.dto.CompanyDto;
+import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 public class Companies {
 	
+
 	private static List<CompanyDto> companies = new ArrayList();
 	private static int companiesCounter = 1;
 	
@@ -80,5 +82,4 @@ public class Companies {
 		}
 		return null;
 	}
-	
-}
+}	
