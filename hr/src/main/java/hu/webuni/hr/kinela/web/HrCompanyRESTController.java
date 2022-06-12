@@ -65,29 +65,13 @@ public class HrCompanyRESTController {
 	
 		
 	@PostMapping("/{id}/employees")
-	public ResponseEntity<EmployeeDto> addEmployee(@PathVariable int id, @RequestBody EmployeeDto employee) {
+	public ResponseEntity<List<EmployeeDto>> addEmployee(@PathVariable int id, @RequestBody List<EmployeeDto> employees) {
 
-		CompanyDto tempCompany = companies.stream().filter(comp -> comp.getId() == id).findFirst().get();
+		companies.stream().filter(comp -> comp.getId() == id).findFirst().get().setEmployees(employees); // Ez működik, így csináltad te is, de itt a teljes listát kicseréljük, azaz, ha nem írod bele újra a már bent lévőket, akkor elvesznek.
 		
-		if(tempCompany == null) {
-			return ResponseEntity.notFound().build();
-		} else {
-//			tempCompany.getEmployees().add(employee);
-			companies.stream().filter(comp -> comp.getId() == id).findFirst().get().addEmployee(employee);
-			return ResponseEntity.ok(employee);
-		}
+//		companies.stream().filter(comp -> comp.getId() == id).findFirst().get().addEmployee(employee); // Én így próbáltam. Egy EmployeeDto-t adnék fel a listának és erre jön a Null Pointer Exception 
 		
-//		
-//		for (CompanyDto comp : Companies.getCompanies()) {
-//			if(comp.getId() == id) {
-//				Companies.removeCompany(id);
-//				comp.addEmployee(employee);
-//				Companies.addModifiedCompany(comp);
-//				break;
-//			}
-//		}
-		
-//		return ResponseEntity.ok(employee);
+		return ResponseEntity.ok(employees);
 	}
 	
 }
