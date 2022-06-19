@@ -13,9 +13,9 @@ import hu.webuni.hr.kinla.dto.EmployeeDto;
 @Service
 public class SalaryService {
 
-	private EmployeeService employeeService;
+	private EmployeePayRaiseService employeeService;
 
-	public SalaryService(EmployeeService employeeService) {
+	public SalaryService(EmployeePayRaiseService employeeService) {
 		this.employeeService = employeeService;
 	}
 	

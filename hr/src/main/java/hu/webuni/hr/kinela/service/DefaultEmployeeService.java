@@ -12,7 +12,7 @@ import hu.webuni.hr.kinla.dto.EmployeeDto;
  */
 
 @Service
-public class DefaultEmployeeService implements EmployeeService {
+public class DefaultEmployeeService implements EmployeePayRaiseService {
 
 	@Value("${hr.percent.dfault}")
 	int defaultValue;

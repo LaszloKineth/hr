@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import hu.webuni.hr.kinela.config.EmployeeConfigurationProperties;
@@ -15,7 +16,8 @@ import hu.webuni.hr.kinla.dto.EmployeeDto;
  */
 
 @Service
-public class SmartEmployeeService implements EmployeeService {
+@Primary
+public class SmartEmployeeService implements EmployeePayRaiseService {
 
 	/**
 	 * Values from configuration class

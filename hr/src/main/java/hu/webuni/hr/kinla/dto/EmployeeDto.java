@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Positive;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -15,12 +19,18 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class EmployeeDto {
 
 	private long id;
+	@NotEmpty(message = "Name cannot be empty.")
 	private String name;
+	@NotEmpty(message = "Titel cannot be empty.")
 	private String title;
+	@NotEmpty(message = "Salary cannot be empty.")
+	@Positive
 	private int salary;
+	@NotEmpty(message = "Entry date cannot be empty.")
+	@Past(message ="The entry date must be in past")
 	private LocalDateTime startDateOfWork;
 
-	public EmployeeDto(long id, String name, String title, int salary, String startDateOfWork) {
+	public EmployeeDto(long id, String name, String title, int salary, LocalDateTime startDateOfWork) {
 		this.id = id;
 		this.name = name;
 		this.title = title;
@@ -71,14 +81,12 @@ public class EmployeeDto {
 		return startDateOfWork.format(DateTimeFormatter.ISO_DATE_TIME);
 	}
 	
-	public void setStartDateOfWorkString(String startDateOfWork) {
-		setStartDateOfWork(startDateOfWork);
-	}
+//	public void setStartDateOfWorkString(String startDateOfWork) {
+//		setStartDateOfWork(startDateOfWork);
+//	}
 
-	public void setStartDateOfWork(String startDateOfWork) {
-
-		DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-		this.startDateOfWork = LocalDateTime.parse(startDateOfWork, formatter);
+	public void setStartDateOfWork(LocalDateTime startDateOfWork) {
+		this.startDateOfWork = startDateOfWork;
 	}
 
 }

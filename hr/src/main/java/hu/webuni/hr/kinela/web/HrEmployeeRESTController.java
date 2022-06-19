@@ -2,7 +2,8 @@ package hu.webuni.hr.kinela.web;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import hu.webuni.hr.kinela.model.Employees;
-import hu.webuni.hr.kinela.service.EmployeeService;
+import hu.webuni.hr.kinela.mapper.EmployeeMapper;
+import hu.webuni.hr.kinela.mapper.EmployeeMapperImp;
+import hu.webuni.hr.kinela.model.Employee;
+import hu.webuni.hr.kinela.model.EmployeeServices;
+import hu.webuni.hr.kinela.service.EmployeePayRaiseService;
 import hu.webuni.hr.kinela.service.SmartEmployeeService;
 import hu.webuni.hr.kinla.dto.EmployeeDto;
 
@@ -32,53 +36,27 @@ import hu.webuni.hr.kinla.dto.EmployeeDto;
 public class HrEmployeeRESTController {
 
 	@Autowired
-	EmployeeService employeeService;
+	EmployeePayRaiseService employeePayRiseService;
 	@Autowired
 	SmartEmployeeService smartEmployeeService;
+	@Autowired
+	EmployeeMapperImp employeeMapperImp;
 	
-//		1. version
-//	
-//		@GetMapping
-//		public List<EmployeeDto> getAllEmployees() {
-//			
-//			return Employees.getEmployeesList();
-//		}
-//		
-//		@GetMapping(params = "min_salary")
-//		public ResponseEntity<List<EmployeeDto>> getEmployeesWithGreaterSalary(@RequestParam(required = false) int min_salary) {
-//			
-//			List<EmployeeDto> higherSalaryEmployees = new ArrayList<>();
-//			
-//			for (EmployeeDto employeeDto : new ArrayList<EmployeeDto>(Employees.getEmployees().values())) {
-//					
-//				if (employeeDto.getSalary() >  min_salary) {
-//						higherSalaryEmployees.add(employeeDto);
-//				}
-//			}
-//				
-//			if (higherSalaryEmployees.isEmpty()) {
-//				return ResponseEntity.noContent().build();
-//			} else {
-//				return ResponseEntity.ok(higherSalaryEmployees);
-//			}
-//
-//		}
-
-	
-// 2. version
 	@GetMapping
 	public ResponseEntity<List<EmployeeDto>> getAllEmployees(@RequestParam(required = false) Integer min_salary) {
 
 		if (min_salary == null) {
-			return ResponseEntity.ok(Employees.getEmployeesList());
+			return ResponseEntity.ok(employeeMapperImp.employeesToEmployeesDto(EmployeeServices.getEmployeesList()));
 
 		} else {
 			List<EmployeeDto> higherSalaryEmployees = new ArrayList<>();
 
-			for (EmployeeDto employeeDto : new ArrayList<EmployeeDto>(Employees.getEmployees().values())) {
-
-				if (employeeDto.getSalary() > min_salary) {
-					higherSalaryEmployees.add(employeeDto);
+			for (Employee employee : new ArrayList<Employee>(EmployeeServices.getEmployees().values())) {
+				
+				EmployeeDto tempEmployeeDto = employeeMapperImp.employeeToEmployeeDto(employee);
+				
+				if (tempEmployeeDto.getSalary() > min_salary) {
+					higherSalaryEmployees.add(tempEmployeeDto);
 				}
 			}
 
@@ -90,29 +68,29 @@ public class HrEmployeeRESTController {
 	@GetMapping("/{id}")
 	public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable long id) {
 
-		return ResponseEntity.ok(Employees.getEmployees().get(id));
+		return ResponseEntity.ok(employeeMapperImp.employeeToEmployeeDto(EmployeeServices.getEmployees().get(id)));
 	}
 
 	@PostMapping
-	public EmployeeDto createEmployee(@RequestBody EmployeeDto employee) {
+	public EmployeeDto createEmployee(@RequestBody Employee employee) {
 
-		Employees.addEmployee(employee);
+		EmployeeServices.addEmployee(employee);
 
-		return employee;
+		return employeeMapperImp.employeeToEmployeeDto(employee);
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<EmployeeDto> modifíEmployee(@PathVariable long id, @RequestBody EmployeeDto employee) {
 
 		employee.setId(id);
-		Employees.modifyEmployee(id, employee);
+		EmployeeServices.modifyEmployee(id, employeeMapperImp.employeeDtoToEmployee(employee));
 
 		return ResponseEntity.ok(employee);
 	}
 
 	@DeleteMapping("/{id}")
 	public void deleteEmployee(@PathVariable long id) {
-		Employees.getEmployees().remove(id);
+		EmployeeServices.getEmployees().remove(id);
 	}
 
 	@GetMapping("/payRaise")

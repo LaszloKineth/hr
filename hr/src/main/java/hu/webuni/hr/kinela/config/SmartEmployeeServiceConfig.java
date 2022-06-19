@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import hu.webuni.hr.kinela.service.EmployeeService;
+import hu.webuni.hr.kinela.service.EmployeePayRaiseService;
 import hu.webuni.hr.kinela.service.SmartEmployeeService;
 
 /**
@@ -18,7 +18,7 @@ import hu.webuni.hr.kinela.service.SmartEmployeeService;
 public class SmartEmployeeServiceConfig {
 
 	@Bean
-	public EmployeeService employeeService() {
+	public EmployeePayRaiseService employeePayRaiseService() {
 
 		return new SmartEmployeeService();
 	}

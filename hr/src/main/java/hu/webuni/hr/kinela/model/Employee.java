@@ -11,84 +11,79 @@ import java.time.format.DateTimeFormatter;
 
 public class Employee {
 
-	private long id;
-	private String name;
-	private String title;
-	private int salary;
-	private LocalDateTime startDateOfWork;
-	private String datePattern = "yyyy-MM-dd HH:mm";
+	private long employeeId;
+	private String employeeName;
+	private String employeeTitle;
+	private int employeeSalary;
+	private LocalDateTime employeeStartDateOfWork;
 
-	public Employee(long id, String name, String title, int salary, LocalDateTime startDateOfWork) {
-		this.id = id;
-		this.name = name;
-		this.title = title;
-		this.salary = salary;
-		this.startDateOfWork = startDateOfWork;
+	
+	
+	public Employee(long emloyeeId, String employeeName, String employeeTitle, int employeeSalary,
+			LocalDateTime employeeStartDateOfWork) {
+		super();
+		this.employeeId = emloyeeId;
+		this.employeeName = employeeName;
+		this.employeeTitle = employeeTitle;
+		this.employeeSalary = employeeSalary;
+		this.employeeStartDateOfWork = employeeStartDateOfWork;
 	}
 
-	public Employee(long id, String name, String title, int salary, String startDateOfWork) {
-		this.id = id;
-		this.name = name;
-		this.title = title;
-		this.salary = salary;
-		setStartDateOfWork(startDateOfWork);
+	public Employee(long emloyeeId, String employeeName, String employeeTitle, int employeeSalary,
+			String employeeStartDateOfWork) {
+		super();
+		this.employeeId = emloyeeId;
+		this.employeeName = employeeName;
+		this.employeeTitle = employeeTitle;
+		this.employeeSalary = employeeSalary;
+		setStartDateOfWork(employeeStartDateOfWork);
 	}
-
-	public Employee() {
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public int getSalary() {
-		return salary;
-	}
-
-	public void setSalary(int salary) {
-		this.salary = salary;
-	}
-
-	public LocalDateTime getStartDateOfWork() {
-		return startDateOfWork;
-	}
-
-//	public void setStartDateOfWork(LocalDateTime startDateOfWork) {
-//		this.startDateOfWork = startDateOfWork;
-//	}
+	
+	public Employee() {}
 
 	public void setStartDateOfWork(String startDateOfWork) {
-
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(getDatePattern());
-		this.startDateOfWork = LocalDateTime.parse(startDateOfWork, formatter);
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+		this.employeeStartDateOfWork = LocalDateTime.parse(startDateOfWork, formatter);
 	}
 
-	public String getDatePattern() {
-		return datePattern;
+	public long getEmloyeeId() {
+		return employeeId;
 	}
 
-	public void setDatePattern(String datePattern) {
-		this.datePattern = datePattern;
+	public void setEmloyeeId(long emloyeeId) {
+		this.employeeId = emloyeeId;
+	}
+
+	public String getEmployeeName() {
+		return employeeName;
+	}
+
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
+
+	public String getEmployeeTitle() {
+		return employeeTitle;
+	}
+
+	public void setEmployeeTitle(String employeeTitle) {
+		this.employeeTitle = employeeTitle;
+	}
+
+	public int getEmployeeSalary() {
+		return employeeSalary;
+	}
+
+	public void setEmployeeSalary(int employeeSalary) {
+		this.employeeSalary = employeeSalary;
+	}
+
+	public LocalDateTime getEmployeeStartDateOfWork() {
+		return employeeStartDateOfWork;
+	}
+
+	public void setEmployeeStartDateOfWork(LocalDateTime employeeStartDateOfWork) {
+		this.employeeStartDateOfWork = employeeStartDateOfWork;
 	}
 
 }

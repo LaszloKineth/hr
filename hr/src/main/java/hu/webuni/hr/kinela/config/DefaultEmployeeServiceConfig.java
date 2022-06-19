@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import hu.webuni.hr.kinela.service.DefaultEmployeeService;
-import hu.webuni.hr.kinela.service.EmployeeService;
+import hu.webuni.hr.kinela.service.EmployeePayRaiseService;
 
 /**
  * 
@@ -18,7 +18,7 @@ import hu.webuni.hr.kinela.service.EmployeeService;
 public class DefaultEmployeeServiceConfig {
 	
 	@Bean
-	public EmployeeService employeeService() {
+	public EmployeePayRaiseService employeeService() {
 		
 		return new DefaultEmployeeService();
 	}
