@@ -29,7 +29,7 @@ public class EmployeeDto {
 	@NotEmpty(message = "Entry date cannot be empty.")
 	@Past(message ="The entry date must be in past")
 	private LocalDateTime startDateOfWork;
-
+	
 	public EmployeeDto(long id, String name, String title, int salary, LocalDateTime startDateOfWork) {
 		this.id = id;
 		this.name = name;
@@ -76,14 +76,6 @@ public class EmployeeDto {
 	public LocalDateTime getStartDateOfWork() {
 		return startDateOfWork;
 	}
-
-	public String getStartDateOfWorkString() {
-		return startDateOfWork.format(DateTimeFormatter.ISO_DATE_TIME);
-	}
-	
-//	public void setStartDateOfWorkString(String startDateOfWork) {
-//		setStartDateOfWork(startDateOfWork);
-//	}
 
 	public void setStartDateOfWork(LocalDateTime startDateOfWork) {
 		this.startDateOfWork = startDateOfWork;

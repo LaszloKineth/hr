@@ -60,17 +60,21 @@ public class EmployeeServices {
 	}
 	
 	public static List<Employee> getEmployeesList() {
-		List<Employee> employeesList = new ArrayList<Employee>(EmployeeServices.getEmployees().values());
+		List<Employee> employeesList = new ArrayList<Employee>(employees.values());
 		return employeesList;
 	}
 	
-	public static Employee getEmployeeByListId(int id) {
+	public static Employee getEmployeeByListId(long id) {
 		List<Employee> employees = getEmployeesList();
 		return employees.stream().filter(emp -> emp.getEmloyeeId() == id).findFirst().get();
 	}
 
-	public static Employee getEmployeeByMaptId(int id) {
+	public static Employee getEmployeeByMaptId(long id) {
 		return employees.get(id);
-	} 
+	}
+	
+	public static void removeEmployee(long id) {
+		employees.remove(id);
+	}
 	
 }

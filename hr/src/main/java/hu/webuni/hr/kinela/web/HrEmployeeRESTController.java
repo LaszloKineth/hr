@@ -3,8 +3,6 @@ package hu.webuni.hr.kinela.web;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import hu.webuni.hr.kinela.mapper.EmployeeMapper;
 import hu.webuni.hr.kinela.mapper.EmployeeMapperImp;
 import hu.webuni.hr.kinela.model.Employee;
 import hu.webuni.hr.kinela.model.EmployeeServices;
@@ -36,9 +33,9 @@ import hu.webuni.hr.kinla.dto.EmployeeDto;
 public class HrEmployeeRESTController {
 
 	@Autowired
-	EmployeePayRaiseService employeePayRiseService;
-	@Autowired
 	SmartEmployeeService smartEmployeeService;
+	@Autowired
+	EmployeePayRaiseService employeePayRaiseService;
 	@Autowired
 	EmployeeMapperImp employeeMapperImp;
 	
@@ -72,11 +69,12 @@ public class HrEmployeeRESTController {
 	}
 
 	@PostMapping
-	public EmployeeDto createEmployee(@RequestBody Employee employee) {
+	public EmployeeDto createEmployee(@RequestBody EmployeeDto employeeDto) {
 
-		EmployeeServices.addEmployee(employee);
+		
+		EmployeeServices.addEmployee(employeeMapperImp.employeeDtoToEmployee(employeeDto));
 
-		return employeeMapperImp.employeeToEmployeeDto(employee);
+		return employeeDto;
 	}
 
 	@PutMapping("/{id}")
@@ -95,7 +93,7 @@ public class HrEmployeeRESTController {
 
 	@GetMapping("/payRaise")
 	public int getPayRaisePercent(@RequestBody EmployeeDto employee) {
-		return smartEmployeeService.getPayRaisePercent(employee);
+		return employeePayRaiseService.getPayRaisePercent(employee);
 	}
 	
 }

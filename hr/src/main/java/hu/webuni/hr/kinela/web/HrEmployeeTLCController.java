@@ -34,7 +34,7 @@ public class HrEmployeeTLCController {
 
 	@GetMapping("/employees")
 	public String allEmployees(Map<String, Object> model) {
-		model.put("employees", EmployeeServices.getEmployeesList());
+		model.put("employees", employeeMapper.employeesToEmployeesDto(EmployeeServices.getEmployeesList()));
 		model.put("newEmployee", new EmployeeDto());
 
 		return "employees";
@@ -50,7 +50,7 @@ public class HrEmployeeTLCController {
 	@GetMapping("/employees/{id}")
 	public String modifyEmployee(Map<String, Object> model, @PathVariable int id) {
 
-		model.put("employeeById", EmployeeServices.getEmployeeByListId(id));
+		model.put("employeeById", employeeMapper.employeeToEmployeeDto(EmployeeServices.getEmployeeByListId(id)));
 		
 		return "modifyEmployee";
 	}
@@ -59,7 +59,7 @@ public class HrEmployeeTLCController {
 	@PostMapping("/modifyEmployee")
 	public String updateEmployee(EmployeeDto employee) {
 		
-		EmployeeServices.modifyEmployee(employee.getId(), employeeMapper.employeeDtoToEmployee(employee));
+		EmployeeServices.modifyEmployee(employeeMapper.employeeDtoToEmployee(employee).getEmloyeeId(), employeeMapper.employeeDtoToEmployee(employee));
 
 		return "redirect:/employees";
 	}
@@ -68,7 +68,7 @@ public class HrEmployeeTLCController {
 	@GetMapping("/removeEmployee/{id}")
 	public String removeEmployee(@PathVariable long id) {
 
-		EmployeeServices.getEmployees().remove(id);
+		EmployeeServices.removeEmployee(id);
 
 		return "redirect:/employees";
 	}
