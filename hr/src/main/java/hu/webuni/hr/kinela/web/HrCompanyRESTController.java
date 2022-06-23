@@ -96,19 +96,8 @@ public class HrCompanyRESTController {
 		
 	@PostMapping("/{id}/employees")
 	public ResponseEntity<EmployeeDto> addEmployee(@PathVariable int id, @RequestBody EmployeeDto employee) {
-
-// VERZIÓ 1. - Ez a Null Pointer Exception-re fut. Nem tudom miért 
 		companies.stream().filter(comp -> comp.getId() == id).findFirst().get().addEmployee(employee); // Én így próbáltam. Egy EmployeeDto-t adnék fel a listának és erre jön a Null Pointer Exception 
 
-		
-// VERZIÓ 2. Ez működik, de én máshogy csinálnám, mert elvesznek a már meglévők
-//		companies.stream().filter(comp -> comp.getId() == id).findFirst().get().setEmployees(employees); // Ez működik, így csináltad te is, de itt a teljes listát kicseréljük, azaz, ha nem írod bele újra a már bent lévőket, akkor elvesznek.
-		
-// VERZIÓ 3. Megkerülés, de nem szép megoldás		
-//		List<EmployeeDto> emp = companies.stream().filter(comp -> comp.getId() == id).findFirst().get().getEmployees();
-//		emp.add(employee);
-//		companies.stream().filter(comp -> comp.getId() == id).findFirst().get().setEmployees(emp);
-		
 		return ResponseEntity.ok(employee);
 	}
 	

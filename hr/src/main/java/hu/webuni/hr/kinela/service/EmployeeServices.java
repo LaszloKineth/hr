@@ -1,4 +1,4 @@
-package hu.webuni.hr.kinela.model;
+package hu.webuni.hr.kinela.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+import hu.webuni.hr.kinela.model.Employee;
 import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 /**

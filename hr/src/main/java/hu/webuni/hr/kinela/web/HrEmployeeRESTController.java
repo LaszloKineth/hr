@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hu.webuni.hr.kinela.mapper.EmployeeMapperImp;
 import hu.webuni.hr.kinela.model.Employee;
-import hu.webuni.hr.kinela.model.EmployeeServices;
 import hu.webuni.hr.kinela.service.EmployeePayRaiseService;
+import hu.webuni.hr.kinela.service.EmployeeServices;
 import hu.webuni.hr.kinela.service.SmartEmployeeService;
 import hu.webuni.hr.kinla.dto.EmployeeDto;
 

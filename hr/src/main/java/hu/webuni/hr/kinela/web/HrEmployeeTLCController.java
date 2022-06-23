@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import hu.webuni.hr.kinela.mapper.EmployeeMapper;
 import hu.webuni.hr.kinela.mapper.EmployeeMapperImp;
-import hu.webuni.hr.kinela.model.EmployeeServices;
+import hu.webuni.hr.kinela.service.EmployeeServices;
 import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 /**
