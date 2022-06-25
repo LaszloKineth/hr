@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import hu.webuni.hr.kinela.mapper.CompanyMapperImp;
 import hu.webuni.hr.kinela.model.Companies;
+import hu.webuni.hr.kinela.service.CompanyService;
 import hu.webuni.hr.kinla.dto.CompanyDto;
 import hu.webuni.hr.kinla.dto.EmployeeDto;
 
@@ -29,28 +31,39 @@ import hu.webuni.hr.kinla.dto.EmployeeDto;
 @RequestMapping("/api/companies")
 public class HrCompanyRESTController {
 	
-	private List<CompanyDto> companies = new ArrayList<>();
+	//private List<CompanyDto> companies = new ArrayList<>();
 	private int idCounter = 1;
+	
+//	@GetMapping
+//	public ResponseEntity<List<CompanyDto>> getAllCompanies(@RequestParam(required = false) Boolean full) {
+//		if(full != null && full) 
+//			return ResponseEntity.ok(companies);
+//		else 
+//			return ResponseEntity.ok(companies
+//					.stream()
+//					.map(comp -> new CompanyDto(comp.getId(), comp.getName(), comp.getAddress(), null))
+//					.collect(Collectors.toList()));
+//	}
 
 	@GetMapping
 	public ResponseEntity<List<CompanyDto>> getAllCompanies(@RequestParam(required = false) Boolean full) {
 		if(full != null && full) 
-			return ResponseEntity.ok(companies);
+			return ResponseEntity.ok(CompanyService.getAllCompanies(full));
 		else 
-			return ResponseEntity.ok(companies
+			return ResponseEntity.ok(CompanyService.getAllCompanies(full)
 					.stream()
 					.map(comp -> new CompanyDto(comp.getId(), comp.getName(), comp.getAddress(), null))
 					.collect(Collectors.toList()));
 	}
-
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<CompanyDto> getCompanieById(@PathVariable int id, @RequestParam(required = false) Boolean full) {
 		if(full != null && full) 
-			return ResponseEntity.ok(companies.stream().filter(comp -> comp.getId() == id)
+			return ResponseEntity.ok(CompanyService.getCompanies().stream().filter(comp -> comp.getId() == id)
 					.findFirst()
 					.get());
 		else
-			return ResponseEntity.ok(companies
+			return ResponseEntity.ok(CompanyService.getCompanies()
 					.stream()
 					.map(comp -> new CompanyDto(comp.getId(), comp.getName(), comp.getAddress(), null))
 					.collect(Collectors.toList())
@@ -63,47 +76,40 @@ public class HrCompanyRESTController {
 	@PostMapping
 	public CompanyDto createCompany(@RequestBody CompanyDto company) {
 		company.setId(idCounter++);
-		companies.add(company);
+		CompanyService.createCompany(company);
 		return company;
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<CompanyDto> modifíCompany(@PathVariable int id, @RequestBody CompanyDto company) {
-		CompanyDto tempCompany = company;
-		tempCompany.setId(id);
-		
-		companies.remove(companies.stream().filter(comp -> comp.getId() == id).findFirst().get());
-		companies.add(tempCompany);
-		
-		return ResponseEntity.ok(tempCompany);
+		CompanyService.modifíCompany(id, company);
+		return ResponseEntity.ok(company);
 	}
 
 	@DeleteMapping("/{id}")
 	public void deleteCompany(@PathVariable int id) {
-		companies.remove(companies.stream().filter(comp -> comp.getId() == id).findFirst().get());
+		CompanyService.deleteCompany(id);
 	}
-
 	
 	@GetMapping("/{id}/employees")
 	public ResponseEntity<List<EmployeeDto>> getEmployees(@PathVariable int id) {
-		return ResponseEntity.ok(companies.stream().filter(comp -> comp.getId() == id).findFirst().get().getEmployees());
+		return ResponseEntity.ok(CompanyService.getCompanies().stream().filter(comp -> comp.getId() == id).findFirst().get().getEmployees());
 	}
 	
 	@GetMapping("/{id}/employees/{employeeId}")
 	public ResponseEntity<EmployeeDto> getEmployee(@PathVariable int id, @PathVariable int employeeId) {
-		return ResponseEntity.ok(companies.stream().filter(comp -> comp.getId() == id).findFirst().get().getEmployeeById(employeeId));
+		return ResponseEntity.ok(CompanyService.getCompanies().stream().filter(comp -> comp.getId() == id).findFirst().get().getEmployeeById(employeeId));
 	}
 		
 	@PostMapping("/{id}/employees")
 	public ResponseEntity<EmployeeDto> addEmployee(@PathVariable int id, @RequestBody EmployeeDto employee) {
-		companies.stream().filter(comp -> comp.getId() == id).findFirst().get().addEmployee(employee); // Én így próbáltam. Egy EmployeeDto-t adnék fel a listának és erre jön a Null Pointer Exception 
-
+		CompanyService.addEmployee(id, employee);
 		return ResponseEntity.ok(employee);
 	}
 	
 	@DeleteMapping("/{id}/employees/{employeeId}")
 	public void removeEmployee(@PathVariable int id, @PathVariable int employeeId) {
-		companies.stream().filter(comp -> comp.getId() == id).findFirst().get().removeEmployeeById(employeeId);
+		CompanyService.removeEmployee(id, employeeId);
 	}
 	
 }

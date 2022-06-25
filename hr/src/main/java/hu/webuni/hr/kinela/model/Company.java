@@ -3,15 +3,19 @@ package hu.webuni.hr.kinela.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.webuni.hr.kinela.mapper.CompanyMapperImp;
+import hu.webuni.hr.kinela.mapper.EmployeeMapperImp;
 import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 public class Company {
 	private int companyId;
 	private String companyName;
 	private String companyAddress;
-	private List<EmployeeDto> companyEmployees = new ArrayList<>();
+	private List<Employee> companyEmployees = new ArrayList<>();
+	private EmployeeMapperImp employeeMapper = new EmployeeMapperImp();
+	private int employeeCount = 1;
 	
-	public Company(int companyId, String companyName, String companyAddress, List<EmployeeDto> companyEmployees) {
+	public Company(int companyId, String companyName, String companyAddress, List<Employee> companyEmployees) {
 		super();
 		this.companyId = companyId;
 		this.companyName = companyName;
@@ -48,19 +52,24 @@ public class Company {
 	}
 
 	public List<EmployeeDto> getCompanyEmployees() {
-		return companyEmployees;
+		return employeeMapper.employeesToEmployeesDto(companyEmployees);
 	}
 
-	public void setCompanyEmployees(List<EmployeeDto> companyEmployees) {
-		this.companyEmployees = companyEmployees;
+	public void setCompanyEmployees(List<EmployeeDto> list) {
+		this.companyEmployees = employeeMapper.employessDtoToEmployees(list);
 	}
 	
 	public EmployeeDto getEmployeeById(int id) {
 		
-		return companyEmployees.stream().filter(emp -> emp.getId() == id).findFirst().get();
+		return employeeMapper.employeesToEmployeesDto(companyEmployees).stream().filter(emp -> emp.getId() == id).findFirst().get();
 	}
 	
 	public void removeEmployeeById(int id) {
-		companyEmployees.remove(companyEmployees.stream().filter(emp -> emp.getId() == id).findFirst().get());
+		companyEmployees.remove(companyEmployees.stream().filter(emp -> emp.getEmloyeeId() == id).findFirst().get());
+	}
+	
+	public void addEmployee(Employee employee) {
+		employee.setEmloyeeId(employeeCount++);
+		companyEmployees.add(employee);
 	}
 }
