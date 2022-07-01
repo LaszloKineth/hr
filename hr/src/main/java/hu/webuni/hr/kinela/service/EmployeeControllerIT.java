@@ -37,10 +37,43 @@ public class EmployeeControllerIT {
 		
 		List<EmployeeDto> employeesAfterTest = getAllEmployeesGETrequest();
 		
-		assertThat(employeesAfterTest.subList(0, employeesAfterTest.size())).containsExactlyElementsOf(employeesBeforeTest);
-		
-		assertThat(employeesAfterTest.get(employeesAfterTest.size()-1)).isEqualTo(newEmployee);
+		assertThat(employeesAfterTest.contains(newEmployee));
+			
 	 }
+	
+	@Test
+	void testModifyEmployeePUT() {
+		
+		EmployeeDto modifiedEmployee = mapper.employeeToEmployeeDto(new Employee(100, "Modi Fy", "TEST-ER", 130, LocalDateTime.now()));
+		modifyEmployeePUTrequest(1, modifiedEmployee);
+		
+		assertThat(getEmployeeDTO(1).equals(modifiedEmployee));
+	}
+
+	private EmployeeDto getEmployeeDTO(int i) {
+		
+		EmployeeDto emp = webTestClient
+			.get()
+			.uri(EMPLOYEE_URI + "/" + i)
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody(EmployeeDto.class)
+			.returnResult()
+			.getResponseBody();
+			
+		return emp;
+	}
+
+	private void modifyEmployeePUTrequest(int i, EmployeeDto modifiedEmployee) {
+		webTestClient
+			.put()
+			.uri(EMPLOYEE_URI + "/" + i)
+			.bodyValue(modifiedEmployee)
+			.exchange()
+			.expectStatus()
+			.isOk();
+	}
 
 	private void addEmployeeWithPOST(EmployeeDto employee) {
 		webTestClient
