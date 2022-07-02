@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import hu.webuni.hr.kinela.mapper.EmployeeMapperImp;
+import hu.webuni.hr.kinela.mapper.EmployeeMapperMyImp;
 import hu.webuni.hr.kinela.model.Employee;
 import hu.webuni.hr.kinla.dto.EmployeeDto;
 
@@ -25,7 +25,7 @@ public class EmployeeControllerIT {
 	WebTestClient webTestClient;
 	
 	@Autowired
-	EmployeeMapperImp mapper;
+	EmployeeMapperMyImp mapper;
 	
 	@Test
 	 void testAddEployeePOST() {

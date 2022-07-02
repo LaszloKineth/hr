@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import hu.webuni.hr.kinela.mapper.EmployeeMapper;
-import hu.webuni.hr.kinela.mapper.EmployeeMapperImp;
+import hu.webuni.hr.kinela.mapper.EmployeeMapperMyImp;
 import hu.webuni.hr.kinela.service.EmployeeServices;
 import hu.webuni.hr.kinla.dto.EmployeeDto;
 
@@ -25,7 +25,7 @@ import hu.webuni.hr.kinla.dto.EmployeeDto;
 public class HrEmployeeTLCController {
 
 	@Autowired
-	EmployeeMapperImp employeeMapper;
+	EmployeeMapper employeeMapper;
 	
 	@GetMapping("/")
 	public String home() {
@@ -59,7 +59,7 @@ public class HrEmployeeTLCController {
 	@PostMapping("/modifyEmployee")
 	public String updateEmployee(EmployeeDto employee) {
 		
-		EmployeeServices.modifyEmployee(employeeMapper.employeeDtoToEmployee(employee).getEmloyeeId(), employeeMapper.employeeDtoToEmployee(employee));
+		EmployeeServices.modifyEmployee(employeeMapper.employeeDtoToEmployee(employee).getEmployeeId(), employeeMapper.employeeDtoToEmployee(employee));
 
 		return "redirect:/employees";
 	}

@@ -3,6 +3,8 @@ package hu.webuni.hr.kinela.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import hu.webuni.hr.kinela.mapper.EmployeeMapperImp;
+import hu.webuni.hr.kinela.mapper.EmployeeMapper;
 import hu.webuni.hr.kinela.model.Employee;
 import hu.webuni.hr.kinela.service.EmployeePayRaiseService;
 import hu.webuni.hr.kinela.service.EmployeeServices;
@@ -37,10 +39,10 @@ public class HrEmployeeRESTController {
 	@Autowired
 	EmployeePayRaiseService employeePayRaiseService;
 	@Autowired
-	EmployeeMapperImp employeeMapperImp;
+	EmployeeMapper employeeMapperImp;
 	
 	@GetMapping
-	public ResponseEntity<List<EmployeeDto>> getAllEmployees(@RequestParam(required = false) Integer min_salary) {
+	public ResponseEntity<List<EmployeeDto>> getAllEmployees(@RequestParam(required = false) @Valid Integer min_salary) {
 
 		if (min_salary == null) {
 			return ResponseEntity.ok(employeeMapperImp.employeesToEmployeesDto(EmployeeServices.getEmployeesList()));
@@ -69,7 +71,7 @@ public class HrEmployeeRESTController {
 	}
 
 	@PostMapping
-	public EmployeeDto createEmployee(@RequestBody EmployeeDto employeeDto) {
+	public EmployeeDto createEmployee(@RequestBody @Valid EmployeeDto employeeDto) {
 
 		
 		EmployeeServices.addEmployee(employeeMapperImp.employeeDtoToEmployee(employeeDto));
@@ -78,7 +80,7 @@ public class HrEmployeeRESTController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<EmployeeDto> modifíEmployee(@PathVariable long id, @RequestBody EmployeeDto employee) {
+	public ResponseEntity<EmployeeDto> modifíEmployee(@PathVariable long id, @RequestBody @Valid EmployeeDto employee) {
 
 		employee.setId(id);
 		EmployeeServices.modifyEmployee(id, employeeMapperImp.employeeDtoToEmployee(employee));
@@ -92,7 +94,7 @@ public class HrEmployeeRESTController {
 	}
 
 	@GetMapping("/payRaise")
-	public int getPayRaisePercent(@RequestBody EmployeeDto employee) {
+	public int getPayRaisePercent(@RequestBody @Valid EmployeeDto employee) {
 		return employeePayRaiseService.getPayRaisePercent(employee);
 	}
 	

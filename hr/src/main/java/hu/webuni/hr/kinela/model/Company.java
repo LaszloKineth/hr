@@ -3,8 +3,8 @@ package hu.webuni.hr.kinela.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.webuni.hr.kinela.mapper.CompanyMapperImp;
-import hu.webuni.hr.kinela.mapper.EmployeeMapperImp;
+import hu.webuni.hr.kinela.mapper.CompanyMapperMyImp;
+import hu.webuni.hr.kinela.mapper.EmployeeMapperMyImp;
 import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 public class Company {
@@ -12,7 +12,7 @@ public class Company {
 	private String companyName;
 	private String companyAddress;
 	private List<Employee> companyEmployees = new ArrayList<>();
-	private EmployeeMapperImp employeeMapper = new EmployeeMapperImp();
+	private EmployeeMapperMyImp employeeMapper = new EmployeeMapperMyImp();
 	private int employeeCount = 1;
 	
 	public Company(int companyId, String companyName, String companyAddress, List<Employee> companyEmployees) {
@@ -65,11 +65,11 @@ public class Company {
 	}
 	
 	public void removeEmployeeById(int id) {
-		companyEmployees.remove(companyEmployees.stream().filter(emp -> emp.getEmloyeeId() == id).findFirst().get());
+		companyEmployees.remove(companyEmployees.stream().filter(emp -> emp.getEmployeeId() == id).findFirst().get());
 	}
 	
 	public void addEmployee(Employee employee) {
-		employee.setEmloyeeId(employeeCount++);
+		employee.setEmployeeId(employeeCount++);
 		companyEmployees.add(employee);
 	}
 }

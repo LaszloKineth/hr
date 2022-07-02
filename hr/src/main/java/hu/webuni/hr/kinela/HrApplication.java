@@ -8,7 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import hu.webuni.hr.kinela.mapper.EmployeeMapper;
-import hu.webuni.hr.kinela.mapper.EmployeeMapperImp;
+import hu.webuni.hr.kinela.mapper.EmployeeMapperMyImp;
 import hu.webuni.hr.kinela.model.Employee;
 import hu.webuni.hr.kinela.service.EmployeePayRaiseService;
 import hu.webuni.hr.kinela.service.EmployeeServices;
@@ -27,7 +27,7 @@ public class HrApplication implements CommandLineRunner {
 	@Autowired
 	EmployeePayRaiseService employeePayRaiseService;
 	@Autowired
-	EmployeeMapperImp employeeMapper;
+	EmployeeMapper employeeMapper;
 
 	{
 		EmployeeServices.initEmployees();

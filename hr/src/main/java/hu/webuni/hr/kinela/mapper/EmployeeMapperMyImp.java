@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component;
 import hu.webuni.hr.kinela.model.Employee;
 import hu.webuni.hr.kinla.dto.EmployeeDto;
 
-@Component
-public class EmployeeMapperImp implements EmployeeMapper {
+public class EmployeeMapperMyImp implements EmployeeMapper {
 
 	@Override
 	public EmployeeDto employeeToEmployeeDto(Employee employee) {
@@ -19,7 +18,7 @@ public class EmployeeMapperImp implements EmployeeMapper {
 
         EmployeeDto employeeDto = new EmployeeDto();
 
-        employeeDto.setId(employee.getEmloyeeId());
+        employeeDto.setId(employee.getEmployeeId());
         employeeDto.setName(employee.getEmployeeName());
         employeeDto.setSalary(employee.getEmployeeSalary());
         employeeDto.setTitle(employee.getEmployeeTitle());
@@ -36,7 +35,7 @@ public class EmployeeMapperImp implements EmployeeMapper {
 
         Employee employee = new Employee();
         
-        employee.setEmloyeeId(employeeDto.getId());
+        employee.setEmployeeId(employeeDto.getId());
         employee.setEmployeeName(employeeDto.getName());
         employee.setEmployeeSalary(employeeDto.getSalary());
         employee.setEmployeeStartDateOfWork(employeeDto.getStartDateOfWork());

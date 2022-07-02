@@ -52,8 +52,8 @@ public class EmployeeServices {
 	}
 	
 	public static void addEmployee(Employee employee) {
-		employee.setEmloyeeId(getElements());
-		employees.put(employee.getEmloyeeId(), employee);
+		employee.setEmployeeId(getElements());
+		employees.put(employee.getEmployeeId(), employee);
 	}
 		
 	public static void modifyEmployee(long id, Employee employee) {
@@ -67,7 +67,7 @@ public class EmployeeServices {
 	
 	public static Employee getEmployeeByListId(long id) {
 		List<Employee> employees = getEmployeesList();
-		return employees.stream().filter(emp -> emp.getEmloyeeId() == id).findFirst().get();
+		return employees.stream().filter(emp -> emp.getEmployeeId() == id).findFirst().get();
 	}
 
 	public static Employee getEmployeeByMaptId(long id) {

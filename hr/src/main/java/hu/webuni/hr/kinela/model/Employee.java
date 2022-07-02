@@ -19,20 +19,20 @@ public class Employee {
 
 	
 	
-	public Employee(long emloyeeId, String employeeName, String employeeTitle, int employeeSalary,
+	public Employee(long employeeId, String employeeName, String employeeTitle, int employeeSalary,
 			LocalDateTime employeeStartDateOfWork) {
 		super();
-		this.employeeId = emloyeeId;
+		this.employeeId = employeeId;
 		this.employeeName = employeeName;
 		this.employeeTitle = employeeTitle;
 		this.employeeSalary = employeeSalary;
 		this.employeeStartDateOfWork = employeeStartDateOfWork;
 	}
 
-	public Employee(long emloyeeId, String employeeName, String employeeTitle, int employeeSalary,
+	public Employee(long employeeId, String employeeName, String employeeTitle, int employeeSalary,
 			String employeeStartDateOfWork) {
 		super();
-		this.employeeId = emloyeeId;
+		this.employeeId = employeeId;
 		this.employeeName = employeeName;
 		this.employeeTitle = employeeTitle;
 		this.employeeSalary = employeeSalary;
@@ -46,12 +46,12 @@ public class Employee {
 		this.employeeStartDateOfWork = LocalDateTime.parse(startDateOfWork, formatter);
 	}
 
-	public long getEmloyeeId() {
+	public long getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmloyeeId(long emloyeeId) {
-		this.employeeId = emloyeeId;
+	public void setEmployeeId(long employeeId) {
+		this.employeeId = employeeId;
 	}
 
 	public String getEmployeeName() {

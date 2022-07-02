@@ -6,7 +6,7 @@ import java.util.List;
 import hu.webuni.hr.kinela.model.Company;
 import hu.webuni.hr.kinla.dto.CompanyDto;
 
-public class CompanyMapperImp implements CompanyMapper {
+public class CompanyMapperMyImp implements CompanyMapper {
 
 	@Override
 	public CompanyDto companyToCompanyDto(Company company) {

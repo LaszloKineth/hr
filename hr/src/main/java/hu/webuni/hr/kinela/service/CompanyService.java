@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import hu.webuni.hr.kinela.mapper.CompanyMapperImp;
-import hu.webuni.hr.kinela.mapper.EmployeeMapperImp;
+import hu.webuni.hr.kinela.mapper.CompanyMapper;
+import hu.webuni.hr.kinela.mapper.CompanyMapperMyImp;
+import hu.webuni.hr.kinela.mapper.EmployeeMapper;
+import hu.webuni.hr.kinela.mapper.EmployeeMapperMyImp;
 import hu.webuni.hr.kinela.model.Company;
 import hu.webuni.hr.kinla.dto.CompanyDto;
 import hu.webuni.hr.kinla.dto.EmployeeDto;
@@ -16,10 +18,17 @@ import hu.webuni.hr.kinla.dto.EmployeeDto;
 @Service
 public class CompanyService {
 
-	private static List<Company> companies = new ArrayList<>();
-	private static int idCounter = 1;
-	private static CompanyMapperImp companyMapper = new CompanyMapperImp();
-	private static EmployeeMapperImp employeeMapper = new EmployeeMapperImp();
+	private List<Company> companies = new ArrayList<>();
+	private int idCounter = 1;
+	//private static CompanyMapperMyImp companyMapper = new CompanyMapperMyImp();
+	//private static EmployeeMapperMyImp employeeMapper = new EmployeeMapperMyImp();
+	
+	@Autowired
+	EmployeeMapper employeeMapper;
+	
+	@Autowired
+	CompanyMapper companyMapper;
+	
 
 	public CompanyService() {
 		super();
@@ -30,15 +39,15 @@ public class CompanyService {
 		setCompanies(companies);
 	}
 
-	public static List<CompanyDto> getCompanies() {
+	public List<CompanyDto> getCompanies() {
 		return companyMapper.companiesToCompanysDtos(companies);
 	}
 
-	public static void setCompanies(List<CompanyDto> companiess) {
+	public void setCompanies(List<CompanyDto> companiess) {
 		companies = companyMapper.companyDtosToCompanies(companiess);
 	}
 	
-	public static List<CompanyDto> getAllCompanies(Boolean full) {
+	public List<CompanyDto> getAllCompanies(Boolean full) {
 		if(full != null && full) 
 			return companyMapper.companiesToCompanysDtos(companies);
 		else 
@@ -48,7 +57,7 @@ public class CompanyService {
 					.collect(Collectors.toList());
 	}
 
-	public static CompanyDto getCompanieById(int id, Boolean full) {
+	public CompanyDto getCompanieById(int id, Boolean full) {
 		if(full != null && full) 
 			return companyMapper
 					.companiesToCompanysDtos(companies)
@@ -67,7 +76,7 @@ public class CompanyService {
 					.get();
 	}
 	
-	public static CompanyDto getCompanieById(int id) {
+	public CompanyDto getCompanieById(int id) {
 
 			return companyMapper.companiesToCompanysDtos(companies)
 					.stream()
@@ -79,13 +88,13 @@ public class CompanyService {
 					.get();
 	}
 
-	public static CompanyDto createCompany(CompanyDto company) {
+	public CompanyDto createCompany(CompanyDto company) {
 		company.setId(idCounter++);
 		companies.add(companyMapper.companyDtoToCompany(company));
 		return company;
 	}
 
-	public static CompanyDto modifíCompany(int id, CompanyDto company) {
+	public CompanyDto modifíCompany(int id, CompanyDto company) {
 		Company tempCompany = companyMapper.companyDtoToCompany(company);
 		tempCompany.setCompanyId(id);
 		
@@ -96,25 +105,25 @@ public class CompanyService {
 		return companyMapper.companyToCompanyDto(tempCompany);
 	}
 
-	public static void deleteCompany(int id) {
+	public void deleteCompany(int id) {
 		companies.remove(companies.stream().filter(comp -> comp.getCompanyId() == id).findFirst().get());
 	}
 
-	public static List<EmployeeDto> getEmployees(int id) {
+	public List<EmployeeDto> getEmployees(int id) {
 		return companies.stream().filter(comp -> comp.getCompanyId() == id).findFirst().get().getCompanyEmployees();
 	}
 	
-	public static EmployeeDto getEmployee(int id, int employeeId) {
+	public EmployeeDto getEmployee(int id, int employeeId) {
 		return companies.stream().filter(comp -> comp.getCompanyId() == id).findFirst().get().getEmployeeById(employeeId);
 	}
 		
-	public static EmployeeDto addEmployee(int id, EmployeeDto employee) {
+	public EmployeeDto addEmployee(int id, EmployeeDto employee) {
 		companies.stream().filter(comp -> comp.getCompanyId() == id).findFirst().get().addEmployee(employeeMapper.employeeDtoToEmployee(employee));
 
 		return employee;
 	}
 	
-	public static void removeEmployee(int id, int employeeId) {
+	public void removeEmployee(int id, int employeeId) {
 		companies.stream().filter(comp -> comp.getCompanyId() == id).findFirst().get().removeEmployeeById(employeeId);
 	}
 	
