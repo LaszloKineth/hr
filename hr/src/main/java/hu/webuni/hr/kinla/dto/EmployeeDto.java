@@ -1,14 +1,12 @@
 package hu.webuni.hr.kinla.dto;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Positive;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 
@@ -20,17 +18,21 @@ public class EmployeeDto {
 
 	private long id;
 	@NotEmpty(message = "Name cannot be empty.")
+	@NotBlank
 	private String name;
 	@NotEmpty(message = "Titel cannot be empty.")
+	@NotBlank
 	private String title;
 	@NotEmpty(message = "Salary cannot be empty.")
-	@Positive
+	@NotBlank
+	@Positive(message = "Salary must be a pozitive number.")
 	private int salary;
 	@NotEmpty(message = "Entry date cannot be empty.")
+	@NotBlank
 	@Past(message ="The entry date must be in past")
 	private LocalDateTime startDateOfWork;
 	
-	public EmployeeDto(long id, String name, String title, int salary, LocalDateTime startDateOfWork) {
+	public EmployeeDto(@NotEmpty @NotBlank @Positive long id, @NotEmpty @NotBlank String name, @NotEmpty @NotBlank String title, @NotEmpty @NotBlank @Positive int salary, LocalDateTime startDateOfWork) {
 		this.id = id;
 		this.name = name;
 		this.title = title;
@@ -45,7 +47,7 @@ public class EmployeeDto {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(@NotEmpty @NotBlank @Positive long id) {
 		this.id = id;
 	}
 
@@ -53,7 +55,7 @@ public class EmployeeDto {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(@NotEmpty @NotBlank String name) {
 		this.name = name;
 	}
 
@@ -61,7 +63,7 @@ public class EmployeeDto {
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(@NotEmpty @NotBlank String title) {
 		this.title = title;
 	}
 
@@ -69,7 +71,7 @@ public class EmployeeDto {
 		return salary;
 	}
 
-	public void setSalary(int salary) {
+	public void setSalary(@NotEmpty @NotBlank @Positive int salary) {
 		this.salary = salary;
 	}
 
@@ -77,7 +79,7 @@ public class EmployeeDto {
 		return startDateOfWork;
 	}
 
-	public void setStartDateOfWork(LocalDateTime startDateOfWork) {
+	public void setStartDateOfWork(@NotEmpty @NotBlank @Past LocalDateTime startDateOfWork) {
 		this.startDateOfWork = startDateOfWork;
 	}
 

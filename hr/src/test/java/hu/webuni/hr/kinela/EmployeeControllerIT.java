@@ -1,8 +1,7 @@
-package hu.webuni.hr.kinela.service;
+package hu.webuni.hr.kinela;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import hu.webuni.hr.kinela.mapper.EmployeeMapperMyImp;
+import hu.webuni.hr.kinela.mapper.EmployeeMapper;
 import hu.webuni.hr.kinela.model.Employee;
 import hu.webuni.hr.kinla.dto.EmployeeDto;
 
@@ -25,7 +24,7 @@ public class EmployeeControllerIT {
 	WebTestClient webTestClient;
 	
 	@Autowired
-	EmployeeMapperMyImp mapper;
+	EmployeeMapper mapper;
 	
 	@Test
 	 void testAddEployeePOST() {

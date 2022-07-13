@@ -20,8 +20,6 @@ public class CompanyService {
 
 	private List<Company> companies = new ArrayList<>();
 	private int idCounter = 1;
-	//private static CompanyMapperMyImp companyMapper = new CompanyMapperMyImp();
-	//private static EmployeeMapperMyImp employeeMapper = new EmployeeMapperMyImp();
 	
 	@Autowired
 	EmployeeMapper employeeMapper;

@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +35,7 @@ import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 @RestController
 @RequestMapping("/api/employees")
+@Validated
 public class HrEmployeeRESTController {
 
 	@Autowired
@@ -42,7 +46,7 @@ public class HrEmployeeRESTController {
 	EmployeeMapper employeeMapperImp;
 	
 	@GetMapping
-	public ResponseEntity<List<EmployeeDto>> getAllEmployees(@RequestParam(required = false) @Valid Integer min_salary) {
+	public ResponseEntity<List<EmployeeDto>> getAllEmployees(@RequestParam(required = false) @NotEmpty @Positive Integer min_salary) {
 
 		if (min_salary == null) {
 			return ResponseEntity.ok(employeeMapperImp.employeesToEmployeesDto(EmployeeServices.getEmployeesList()));
@@ -65,13 +69,13 @@ public class HrEmployeeRESTController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable long id) {
+	public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable @NotEmpty @Positive long id) {
 
 		return ResponseEntity.ok(employeeMapperImp.employeeToEmployeeDto(EmployeeServices.getEmployees().get(id)));
 	}
 
 	@PostMapping
-	public EmployeeDto createEmployee(@RequestBody @Valid EmployeeDto employeeDto) {
+	public EmployeeDto createEmployee(@RequestBody @Validated EmployeeDto employeeDto) {
 
 		
 		EmployeeServices.addEmployee(employeeMapperImp.employeeDtoToEmployee(employeeDto));
@@ -80,7 +84,7 @@ public class HrEmployeeRESTController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<EmployeeDto> modifíEmployee(@PathVariable long id, @RequestBody @Valid EmployeeDto employee) {
+	public ResponseEntity<EmployeeDto> modifíEmployee(@PathVariable @NotEmpty @Positive long id, @RequestBody @Valid EmployeeDto employee) {
 
 		employee.setId(id);
 		EmployeeServices.modifyEmployee(id, employeeMapperImp.employeeDtoToEmployee(employee));
@@ -89,7 +93,7 @@ public class HrEmployeeRESTController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteEmployee(@PathVariable long id) {
+	public void deleteEmployee(@PathVariable @NotEmpty @Positive long id) {
 		EmployeeServices.getEmployees().remove(id);
 	}
 

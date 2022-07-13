@@ -8,8 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import hu.webuni.hr.kinela.mapper.EmployeeMapper;
-import hu.webuni.hr.kinela.mapper.EmployeeMapperMyImp;
-import hu.webuni.hr.kinela.model.Employee;
 import hu.webuni.hr.kinela.service.EmployeePayRaiseService;
 import hu.webuni.hr.kinela.service.EmployeeServices;
 import hu.webuni.hr.kinela.service.SalaryService;
@@ -26,9 +24,9 @@ public class HrApplication implements CommandLineRunner {
 
 	@Autowired
 	EmployeePayRaiseService employeePayRaiseService;
-	@Autowired
+	@Autowired(required = true)
 	EmployeeMapper employeeMapper;
-
+	
 	{
 		EmployeeServices.initEmployees();
 	}
@@ -52,6 +50,8 @@ public class HrApplication implements CommandLineRunner {
 					+ ". Service Type: "
 					+ employeePayRaiseService.getClass().getSimpleName());
 		}
+		
+		System.out.println("\n---=== System started and ready to use ===---");
 
 	}
 
