@@ -46,7 +46,7 @@ public class HrEmployeeRESTController {
 	EmployeeMapper employeeMapperImp;
 	
 	@GetMapping
-	public ResponseEntity<List<EmployeeDto>> getAllEmployees(@RequestParam(required = false) @NotEmpty @Positive Integer min_salary) {
+	public ResponseEntity<List<EmployeeDto>> getAllEmployees(@RequestParam(required = false) @Positive Integer min_salary) {
 
 		if (min_salary == null) {
 			return ResponseEntity.ok(employeeMapperImp.employeesToEmployeesDto(EmployeeServices.getEmployeesList()));
@@ -69,7 +69,7 @@ public class HrEmployeeRESTController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable @NotEmpty @Positive long id) {
+	public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable @Positive long id) {
 
 		return ResponseEntity.ok(employeeMapperImp.employeeToEmployeeDto(EmployeeServices.getEmployees().get(id)));
 	}
@@ -84,7 +84,7 @@ public class HrEmployeeRESTController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<EmployeeDto> modifíEmployee(@PathVariable @NotEmpty @Positive long id, @RequestBody @Valid EmployeeDto employee) {
+	public ResponseEntity<EmployeeDto> modifíEmployee(@PathVariable @Positive long id, @RequestBody @Valid EmployeeDto employee) {
 
 		employee.setId(id);
 		EmployeeServices.modifyEmployee(id, employeeMapperImp.employeeDtoToEmployee(employee));
@@ -93,7 +93,7 @@ public class HrEmployeeRESTController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteEmployee(@PathVariable @NotEmpty @Positive long id) {
+	public void deleteEmployee(@PathVariable @Positive long id) {
 		EmployeeServices.getEmployees().remove(id);
 	}
 

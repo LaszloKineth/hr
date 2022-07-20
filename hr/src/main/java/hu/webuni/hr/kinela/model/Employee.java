@@ -23,12 +23,8 @@ public class Employee {
 	@NotEmpty(message = "Titel cannot be empty.")
 	@NotBlank
 	private String employeeTitle;
-	@NotEmpty(message = "Salary cannot be empty.")
-	@NotBlank
 	@Positive(message = "Salary must be a pozitive number.")
 	private int employeeSalary;
-	@NotEmpty(message = "Entry date cannot be empty.")
-	@NotBlank
 	@Past(message ="The entry date must be in past")
 	private LocalDateTime employeeStartDateOfWork;
 
