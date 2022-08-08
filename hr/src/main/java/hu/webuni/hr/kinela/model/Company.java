@@ -51,17 +51,17 @@ public class Company {
 		this.companyAddress = companyAddress;
 	}
 
-	public List<EmployeeDto> getCompanyEmployees() {
-		return employeeMapper.employeesToEmployeesDto(companyEmployees);
+	public List<Employee> getCompanyEmployees() {
+		return companyEmployees;
 	}
 
-	public void setCompanyEmployees(List<EmployeeDto> list) {
-		this.companyEmployees = employeeMapper.employessDtoToEmployees(list);
+	public void setCompanyEmployees(List<Employee> list) {
+		this.companyEmployees = list;
 	}
 	
-	public EmployeeDto getEmployeeById(int id) {
+	public Employee getEmployeeById(int id) {
 		
-		return employeeMapper.employeesToEmployeesDto(companyEmployees).stream().filter(emp -> emp.getId() == id).findFirst().get();
+		return companyEmployees.stream().filter(emp -> emp.getEmployeeId() == id).findFirst().get();
 	}
 	
 	public void removeEmployeeById(int id) {

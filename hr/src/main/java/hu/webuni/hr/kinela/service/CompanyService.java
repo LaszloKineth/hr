@@ -12,6 +12,7 @@ import hu.webuni.hr.kinela.mapper.CompanyMapperMyImp;
 import hu.webuni.hr.kinela.mapper.EmployeeMapper;
 import hu.webuni.hr.kinela.mapper.EmployeeMapperMyImp;
 import hu.webuni.hr.kinela.model.Company;
+import hu.webuni.hr.kinela.model.Employee;
 import hu.webuni.hr.kinla.dto.CompanyDto;
 import hu.webuni.hr.kinla.dto.EmployeeDto;
 
@@ -21,102 +22,93 @@ public class CompanyService {
 	private List<Company> companies = new ArrayList<>();
 	private int idCounter = 1;
 	
-	@Autowired
-	EmployeeMapper employeeMapper;
-	
-	@Autowired
-	CompanyMapper companyMapper;
-	
-
 	public CompanyService() {
 		super();
 	}
 
-	public CompanyService(List<CompanyDto> companies) {
+	public CompanyService(List<Company> companies) {
 		super();
 		setCompanies(companies);
 	}
 
-	public List<CompanyDto> getCompanies() {
-		return companyMapper.companiesToCompanysDtos(companies);
+	public List<Company> getCompanies() {
+		return companies;
 	}
 
-	public void setCompanies(List<CompanyDto> companiess) {
-		companies = companyMapper.companyDtosToCompanies(companiess);
+	public void setCompanies(List<Company> companiess) {
+		companies = companiess;
 	}
 	
-	public List<CompanyDto> getAllCompanies(Boolean full) {
+	public List<Company> getAllCompanies(Boolean full) {
 		if(full != null && full) 
-			return companyMapper.companiesToCompanysDtos(companies);
+			return companies;
 		else 
-			return companyMapper.companiesToCompanysDtos(companies)
+			return companies
 					.stream()
-					.map(comp -> new CompanyDto(comp.getId(), comp.getName(), comp.getAddress(), null))
+					.map(comp -> new Company(comp.getCompanyId(), comp.getCompanyName(), comp.getCompanyAddress(), null))
 					.collect(Collectors.toList());
 	}
 
-	public CompanyDto getCompanieById(int id, Boolean full) {
+	public Company getCompanieById(int id, Boolean full) {
 		if(full != null && full) 
-			return companyMapper
-					.companiesToCompanysDtos(companies)
+			return companies
 					.stream()
-					.filter(comp -> comp.getId() == id)
+					.filter(comp -> comp.getCompanyId() == id)
 					.findFirst()
 					.get();
 		else
-			return companyMapper.companiesToCompanysDtos(companies)
+			return companies
 					.stream()
-					.map(comp -> new CompanyDto(comp.getId(), comp.getName(), comp.getAddress(), null))
+					.map(comp -> new Company(comp.getCompanyId(), comp.getCompanyName(), comp.getCompanyAddress(), null))
 					.collect(Collectors.toList())
 					.stream()
-					.filter(comp -> comp.getId() == id)
+					.filter(comp -> comp.getCompanyId() == id)
 					.findFirst()
 					.get();
 	}
 	
-	public CompanyDto getCompanieById(int id) {
+	public Company getCompanieById(int id) {
 
-			return companyMapper.companiesToCompanysDtos(companies)
+			return companies
 					.stream()
-					.map(comp -> new CompanyDto(comp.getId(), comp.getName(), comp.getAddress(), null))
+					.map(comp -> new Company(comp.getCompanyId(), comp.getCompanyName(), comp.getCompanyAddress(), null))
 					.collect(Collectors.toList())
 					.stream()
-					.filter(comp -> comp.getId() == id)
+					.filter(comp -> comp.getCompanyId() == id)
 					.findFirst()
 					.get();
 	}
 
-	public CompanyDto createCompany(CompanyDto company) {
-		company.setId(idCounter++);
-		companies.add(companyMapper.companyDtoToCompany(company));
+	public Company createCompany(Company company) {
+		company.setCompanyId(idCounter++);
+		companies.add(company);
 		return company;
 	}
 
-	public CompanyDto modifíCompany(int id, CompanyDto company) {
-		Company tempCompany = companyMapper.companyDtoToCompany(company);
+	public Company modifíCompany(int id, Company company) {
+		Company tempCompany = company;
 		tempCompany.setCompanyId(id);
 		
-		//companies.remove(companies.stream().filter(comp -> comp.getCompanyId() == id).findFirst().get());
 		companies.removeIf(com -> com.getCompanyId() == id);
 		companies.add(tempCompany);
 		
-		return companyMapper.companyToCompanyDto(tempCompany);
+		return tempCompany;
 	}
 
 	public void deleteCompany(int id) {
 		companies.remove(companies.stream().filter(comp -> comp.getCompanyId() == id).findFirst().get());
 	}
 
-	public List<EmployeeDto> getEmployees(int id) {
+	public List<Employee> getEmployees(int id) {
 		return companies.stream().filter(comp -> comp.getCompanyId() == id).findFirst().get().getCompanyEmployees();
 	}
 	
-	public EmployeeDto getEmployee(int id, int employeeId) {
+	public Employee getEmployee(int id, int employeeId) {
 		return companies.stream().filter(comp -> comp.getCompanyId() == id).findFirst().get().getEmployeeById(employeeId);
 	}
 		
-	public EmployeeDto addEmployee(int id, EmployeeDto employee) {
-		companies.stream().filter(comp -> comp.getCompanyId() == id).findFirst().get().addEmployee(employeeMapper.employeeDtoToEmployee(employee));
+	public Employee addEmployee(int id, Employee employee) {
+		companies.stream().filter(comp -> comp.getCompanyId() == id).findFirst().get().addEmployee(employee);
 
 		return employee;
 	}

@@ -19,7 +19,7 @@ public class CompanyMapperMyImp implements CompanyMapper {
         companyDto.setId(company.getCompanyId());
         companyDto.setName(company.getCompanyName());
         companyDto.setAddress(company.getCompanyAddress());
-        companyDto.setEmployees(company.getCompanyEmployees());
+//        companyDto.setEmployees(company.getCompanyEmployees());
 
         return companyDto;
 	}
@@ -36,7 +36,7 @@ public class CompanyMapperMyImp implements CompanyMapper {
         company.setCompanyId(companyDto.getId());
         company.setCompanyName(companyDto.getName());
         company.setCompanyAddress(companyDto.getAddress());
-        company.setCompanyEmployees(companyDto.getEmployees());
+//        company.setCompanyEmployees(companyDto.getEmployees());
 
         return company;
 		

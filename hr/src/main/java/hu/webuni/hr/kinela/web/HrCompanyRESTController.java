@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import hu.webuni.hr.kinela.mapper.CompanyMapper;
+import hu.webuni.hr.kinela.mapper.EmployeeMapper;
 import hu.webuni.hr.kinela.service.CompanyService;
 import hu.webuni.hr.kinla.dto.CompanyDto;
 import hu.webuni.hr.kinla.dto.EmployeeDto;
@@ -34,13 +36,19 @@ public class HrCompanyRESTController {
 	@Autowired
 	CompanyService companyService;
 	
+	@Autowired
+	EmployeeMapper employeeMapper;
+	
+	@Autowired
+	CompanyMapper companyMapper;
+	
 	
 	@GetMapping
 	public ResponseEntity<List<CompanyDto>> getAllCompanies(@RequestParam(required = false) Boolean full) {
 		if(full != null && full) 
-			return ResponseEntity.ok(companyService.getAllCompanies(full));
+			return ResponseEntity.ok(companyMapper.companiesToCompanysDtos(companyService.getAllCompanies(full)));
 		else 
-			return ResponseEntity.ok(companyService.getAllCompanies(full)
+			return ResponseEntity.ok(companyMapper.companiesToCompanysDtos(companyService.getAllCompanies(full))
 					.stream()
 					.map(comp -> new CompanyDto(comp.getId(), comp.getName(), comp.getAddress(), null))
 					.collect(Collectors.toList()));
@@ -49,13 +57,13 @@ public class HrCompanyRESTController {
 	@GetMapping("/{id}")
 	public ResponseEntity<CompanyDto> getCompanieById(@PathVariable int id, @RequestParam(required = false) Boolean full) {
 		if(full != null && full) 
-			return ResponseEntity.ok(companyService.getCompanies().stream().filter(comp -> comp.getId() == id)
+			return ResponseEntity.ok(companyMapper.companiesToCompanysDtos(companyService.getCompanies()).stream().filter(comp -> comp.getId() == id)
 					.findFirst()
 					.get());
 		else
 			return ResponseEntity.ok(companyService.getCompanies()
 					.stream()
-					.map(comp -> new CompanyDto(comp.getId(), comp.getName(), comp.getAddress(), null))
+					.map(comp -> new CompanyDto(comp.getCompanyId(), comp.getCompanyName(), comp.getCompanyAddress(), null))
 					.collect(Collectors.toList())
 					.stream()
 					.filter(comp -> comp.getId() == id)
@@ -66,13 +74,13 @@ public class HrCompanyRESTController {
 	@PostMapping
 	public CompanyDto createCompany(@RequestBody CompanyDto company) {
 		company.setId(idCounter++);
-		companyService.createCompany(company);
+		companyService.createCompany(companyMapper.companyDtoToCompany(company));
 		return company;
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<CompanyDto> modifíCompany(@PathVariable int id, @RequestBody CompanyDto company) {
-		companyService.modifíCompany(id, company);
+		companyService.modifíCompany(id, companyMapper.companyDtoToCompany(company));
 		return ResponseEntity.ok(company);
 	}
 
@@ -83,17 +91,17 @@ public class HrCompanyRESTController {
 	
 	@GetMapping("/{id}/employees")
 	public ResponseEntity<List<EmployeeDto>> getEmployees(@PathVariable int id) {
-		return ResponseEntity.ok(companyService.getCompanies().stream().filter(comp -> comp.getId() == id).findFirst().get().getEmployees());
+		return ResponseEntity.ok(employeeMapper.employeesToEmployeesDto(companyService.getCompanies().stream().filter(comp -> comp.getCompanyId() == id).findFirst().get().getCompanyEmployees()));
 	}
 	
 	@GetMapping("/{id}/employees/{employeeId}")
 	public ResponseEntity<EmployeeDto> getEmployee(@PathVariable int id, @PathVariable int employeeId) {
-		return ResponseEntity.ok(companyService.getCompanies().stream().filter(comp -> comp.getId() == id).findFirst().get().getEmployeeById(employeeId));
+		return ResponseEntity.ok(employeeMapper.employeeToEmployeeDto(companyService.getCompanies().stream().filter(comp -> comp.getCompanyId() == id).findFirst().get().getEmployeeById(employeeId)));
 	}
 		
 	@PostMapping("/{id}/employees")
 	public ResponseEntity<EmployeeDto> addEmployee(@PathVariable int id, @RequestBody EmployeeDto employee) {
-		companyService.addEmployee(id, employee);
+		companyService.addEmployee(id, employeeMapper.employeeDtoToEmployee(employee));
 		return ResponseEntity.ok(employee);
 	}
 	

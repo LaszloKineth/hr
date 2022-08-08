@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.test.web.reactive.server.WebTestClient.ResponseSpec;
 
 import hu.webuni.hr.kinela.mapper.EmployeeMapper;
 import hu.webuni.hr.kinela.model.Employee;
@@ -25,14 +26,37 @@ public class EmployeeControllerIT {
 	
 	@Autowired
 	EmployeeMapper mapper;
-	
+
 	@Test
-	 void testAddEployeePOST() {
+	 void goodRequestTestAddEployeePOST() {
 		 
 		List<EmployeeDto> employeesBeforeTest = getAllEmployeesGETrequest(); 
 		
-		EmployeeDto newEmployee = mapper.employeeToEmployeeDto(new Employee(10, "Tenth Man", "TEST-ER", 130, LocalDateTime.now()));
-		addEmployeeWithPOST(newEmployee);
+		EmployeeDto newEmployee = new EmployeeDto(10, "Test Name", "TEST-ER", 130, LocalDateTime.now());
+		addGoodEmployeeWithPOST(newEmployee);
+		
+		List<EmployeeDto> employeesAfterTest = getAllEmployeesGETrequest();
+		
+		assertThat(employeesAfterTest.contains(newEmployee));
+			
+	 }
+
+	@Test
+	void goodRequestTestModifyEmployeePUT() {
+		
+		EmployeeDto modifiedEmployee = new EmployeeDto(100, "Test Name", "TEST-ER", 130, LocalDateTime.now());
+		modifyGoodEmployeePUTrequest(1, modifiedEmployee);
+		
+		assertThat(getEmployeeDTO(1).equals(modifiedEmployee));
+	}	
+	
+	@Test
+	 void badRequestTestAddEployeePOST() {
+		 
+		List<EmployeeDto> employeesBeforeTest = getAllEmployeesGETrequest(); 
+		
+		EmployeeDto newEmployee = new EmployeeDto(10, "", "TEST-ER", 130, LocalDateTime.now());
+		addBadEmployeeWithPOST(newEmployee);
 		
 		List<EmployeeDto> employeesAfterTest = getAllEmployeesGETrequest();
 		
@@ -41,10 +65,10 @@ public class EmployeeControllerIT {
 	 }
 	
 	@Test
-	void testModifyEmployeePUT() {
+	void badTestModifyEmployeePUT() {
 		
-		EmployeeDto modifiedEmployee = mapper.employeeToEmployeeDto(new Employee(100, "Modi Fy", "TEST-ER", 130, LocalDateTime.now()));
-		modifyEmployeePUTrequest(1, modifiedEmployee);
+		EmployeeDto modifiedEmployee = new EmployeeDto(100, "", "TEST-ER", 130, LocalDateTime.now());
+		modifyBadEmployeePUTrequest(1, modifiedEmployee);
 		
 		assertThat(getEmployeeDTO(1).equals(modifiedEmployee));
 	}
@@ -64,8 +88,20 @@ public class EmployeeControllerIT {
 		return emp;
 	}
 
-	private void modifyEmployeePUTrequest(int i, EmployeeDto modifiedEmployee) {
-		webTestClient
+	private void modifyBadEmployeePUTrequest(int i, EmployeeDto modifiedEmployee) {
+		
+		ResponseSpec badRequest = webTestClient
+			.put()
+			.uri(EMPLOYEE_URI + "/" + i)
+			.bodyValue(modifiedEmployee)
+			.exchange()
+			.expectStatus()
+			.isBadRequest();
+	}
+
+	private void modifyGoodEmployeePUTrequest(int i, EmployeeDto modifiedEmployee) {
+		
+		ResponseSpec badRequest = webTestClient
 			.put()
 			.uri(EMPLOYEE_URI + "/" + i)
 			.bodyValue(modifiedEmployee)
@@ -73,8 +109,8 @@ public class EmployeeControllerIT {
 			.expectStatus()
 			.isOk();
 	}
-
-	private void addEmployeeWithPOST(EmployeeDto employee) {
+	
+	private void addGoodEmployeeWithPOST(EmployeeDto employee) {
 		webTestClient
 			.post()
 			.uri(EMPLOYEE_URI)
@@ -84,6 +120,16 @@ public class EmployeeControllerIT {
 			.isOk();
 	}
 
+	private void addBadEmployeeWithPOST(EmployeeDto employee) {
+		webTestClient
+			.post()
+			.uri(EMPLOYEE_URI)
+			.bodyValue(employee)
+			.exchange()
+			.expectStatus()
+			.isBadRequest();
+	}
+	
 	private List<EmployeeDto> getAllEmployeesGETrequest() {
 		
 		List<EmployeeDto> responseList = webTestClient
