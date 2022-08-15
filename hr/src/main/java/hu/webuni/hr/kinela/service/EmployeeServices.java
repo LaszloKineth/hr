@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import hu.webuni.hr.kinela.model.Employee;
 import hu.webuni.hr.kinla.dto.EmployeeDto;
@@ -16,16 +17,17 @@ import hu.webuni.hr.kinla.dto.EmployeeDto;
  *
  */
 
+@Service
 public class EmployeeServices {
 	
-	private static Map<Long, Employee> employees;
-	private static int idCounter = 1;
+	private Map<Long, Employee> employees;
+	private int idCounter = 1;
 	
 	public EmployeeServices() {
 		initEmployees();
 	}
 
-	public static void initEmployees() {
+	public void initEmployees() {
 		
 		Map<Long, Employee> employees = new HashMap<>();
 		
@@ -36,45 +38,45 @@ public class EmployeeServices {
 		employees.put(3L, new Employee(3, "Zsé", "boss", 100, "2018-01-01T01:01"));
 		idCounter++;
 		
-		EmployeeServices.setEmployees(employees);
+		setEmployees(employees);
 	}
 
-	private static void setEmployees(Map<Long, Employee> employees) {
-		EmployeeServices.employees = employees;
+	private void setEmployees(Map<Long, Employee> employees) {
+		this.employees = employees;
 	}
 	
-	public static Map<Long, Employee> getEmployees() {
+	public Map<Long, Employee> getEmployees() {
 		return employees;
 	}
 	
-	public static long getElements() {
+	public long getElements() {
 		return idCounter++;
 	}
 	
-	public static void addEmployee(Employee employee) {
+	public void addEmployee(Employee employee) {
 		employee.setEmployeeId(getElements());
 		employees.put(employee.getEmployeeId(), employee);
 	}
 		
-	public static void modifyEmployee(long id, Employee employee) {
+	public void modifyEmployee(long id, Employee employee) {
 		employees.put(id, employee);
 	}
 	
-	public static List<Employee> getEmployeesList() {
+	public List<Employee> getEmployeesList() {
 		List<Employee> employeesList = new ArrayList<Employee>(employees.values());
 		return employeesList;
 	}
 	
-	public static Employee getEmployeeByListId(long id) {
+	public Employee getEmployeeByListId(long id) {
 		List<Employee> employees = getEmployeesList();
 		return employees.stream().filter(emp -> emp.getEmployeeId() == id).findFirst().get();
 	}
 
-	public static Employee getEmployeeByMaptId(long id) {
+	public Employee getEmployeeByMaptId(long id) {
 		return employees.get(id);
 	}
 	
-	public static void removeEmployee(long id) {
+	public void removeEmployee(long id) {
 		employees.remove(id);
 	}
 	

@@ -26,6 +26,8 @@ public class HrEmployeeTLCController {
 
 	@Autowired
 	EmployeeMapper employeeMapper;
+	@Autowired
+	EmployeeServices employeeServices;
 	
 	@GetMapping("/")
 	public String home() {
@@ -34,7 +36,7 @@ public class HrEmployeeTLCController {
 
 	@GetMapping("/employees")
 	public String allEmployees(Map<String, Object> model) {
-		model.put("employees", employeeMapper.employeesToEmployeesDto(EmployeeServices.getEmployeesList()));
+		model.put("employees", employeeMapper.employeesToEmployeesDto(employeeServices.getEmployeesList()));
 		model.put("newEmployee", new EmployeeDto());
 
 		return "employees";
@@ -42,7 +44,7 @@ public class HrEmployeeTLCController {
 
 	@PostMapping("/employees")
 	public String addEmployee(EmployeeDto employee) {
-		EmployeeServices.addEmployee(employeeMapper.employeeDtoToEmployee(employee));
+		employeeServices.addEmployee(employeeMapper.employeeDtoToEmployee(employee));
 
 		return "redirect:employees";
 	}
@@ -50,7 +52,7 @@ public class HrEmployeeTLCController {
 	@GetMapping("/employees/{id}")
 	public String modifyEmployee(Map<String, Object> model, @PathVariable int id) {
 
-		model.put("employeeById", employeeMapper.employeeToEmployeeDto(EmployeeServices.getEmployeeByListId(id)));
+		model.put("employeeById", employeeMapper.employeeToEmployeeDto(employeeServices.getEmployeeByListId(id)));
 		
 		return "modifyEmployee";
 	}
@@ -59,7 +61,7 @@ public class HrEmployeeTLCController {
 	@PostMapping("/modifyEmployee")
 	public String updateEmployee(EmployeeDto employee) {
 		
-		EmployeeServices.modifyEmployee(employeeMapper.employeeDtoToEmployee(employee).getEmployeeId(), employeeMapper.employeeDtoToEmployee(employee));
+		employeeServices.modifyEmployee(employeeMapper.employeeDtoToEmployee(employee).getEmployeeId(), employeeMapper.employeeDtoToEmployee(employee));
 
 		return "redirect:/employees";
 	}
@@ -68,7 +70,7 @@ public class HrEmployeeTLCController {
 	@GetMapping("/removeEmployee/{id}")
 	public String removeEmployee(@PathVariable long id) {
 
-		EmployeeServices.removeEmployee(id);
+		employeeServices.removeEmployee(id);
 
 		return "redirect:/employees";
 	}

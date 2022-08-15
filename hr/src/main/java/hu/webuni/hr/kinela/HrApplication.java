@@ -26,10 +26,8 @@ public class HrApplication implements CommandLineRunner {
 	EmployeePayRaiseService employeePayRaiseService;
 	@Autowired(required = true)
 	EmployeeMapper employeeMapper;
-	
-	{
-		EmployeeServices.initEmployees();
-	}
+	@Autowired(required = true)
+	EmployeeServices employeeServices;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(HrApplication.class, args);
@@ -38,7 +36,7 @@ public class HrApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		List<EmployeeDto> dto = employeeMapper.employeesToEmployeesDto(EmployeeServices.getEmployeesList());
+		List<EmployeeDto> dto = employeeMapper.employeesToEmployeesDto(employeeServices.getEmployeesList());
 		
 		for (EmployeeDto employee2 : dto) {
 			

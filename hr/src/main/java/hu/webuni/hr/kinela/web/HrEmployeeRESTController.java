@@ -44,17 +44,19 @@ public class HrEmployeeRESTController {
 	EmployeePayRaiseService employeePayRaiseService;
 	@Autowired
 	EmployeeMapper employeeMapperImp;
+	@Autowired
+	EmployeeServices employeeServices;	
 	
 	@GetMapping
 	public ResponseEntity<List<EmployeeDto>> getAllEmployees(@RequestParam(required = false) @Positive Integer min_salary) {
 
 		if (min_salary == null) {
-			return ResponseEntity.ok(employeeMapperImp.employeesToEmployeesDto(EmployeeServices.getEmployeesList()));
+			return ResponseEntity.ok(employeeMapperImp.employeesToEmployeesDto(employeeServices.getEmployeesList()));
 
 		} else {
 			List<EmployeeDto> higherSalaryEmployees = new ArrayList<>();
 
-			for (Employee employee : new ArrayList<Employee>(EmployeeServices.getEmployees().values())) {
+			for (Employee employee : new ArrayList<Employee>(employeeServices.getEmployees().values())) {
 				
 				EmployeeDto tempEmployeeDto = employeeMapperImp.employeeToEmployeeDto(employee);
 				
@@ -71,14 +73,14 @@ public class HrEmployeeRESTController {
 	@GetMapping("/{id}")
 	public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable @Positive long id) {
 
-		return ResponseEntity.ok(employeeMapperImp.employeeToEmployeeDto(EmployeeServices.getEmployees().get(id)));
+		return ResponseEntity.ok(employeeMapperImp.employeeToEmployeeDto(employeeServices.getEmployees().get(id)));
 	}
 
 	@PostMapping
 	public EmployeeDto createEmployee(@RequestBody @Validated EmployeeDto employeeDto) {
 
 		
-		EmployeeServices.addEmployee(employeeMapperImp.employeeDtoToEmployee(employeeDto));
+		employeeServices.addEmployee(employeeMapperImp.employeeDtoToEmployee(employeeDto));
 
 		return employeeDto;
 	}
@@ -87,14 +89,14 @@ public class HrEmployeeRESTController {
 	public ResponseEntity<EmployeeDto> modifíEmployee(@PathVariable @Positive long id, @RequestBody @Valid EmployeeDto employee) {
 
 		employee.setId(id);
-		EmployeeServices.modifyEmployee(id, employeeMapperImp.employeeDtoToEmployee(employee));
+		employeeServices.modifyEmployee(id, employeeMapperImp.employeeDtoToEmployee(employee));
 
 		return ResponseEntity.ok(employee);
 	}
 
 	@DeleteMapping("/{id}")
 	public void deleteEmployee(@PathVariable @Positive long id) {
-		EmployeeServices.getEmployees().remove(id);
+		employeeServices.getEmployees().remove(id);
 	}
 
 	@GetMapping("/payRaise")
