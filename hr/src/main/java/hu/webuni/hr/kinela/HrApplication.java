@@ -36,20 +36,20 @@ public class HrApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		List<EmployeeDto> dto = employeeMapper.employeesToEmployeesDto(employeeServices.getEmployeesList());
-		
-		for (EmployeeDto employee2 : dto) {
-			
-			System.out.println("\n" + employee2.getName() + "'s salary is " + employee2.getSalary()
-					+ " now. He/She working since "
-					+ employee2.getStartDateOfWork() 
-					+ " After salary upgrade it is "
-					+ new SalaryService(employeePayRaiseService).getEmployeeSalary(employee2) 
-					+ ". Service Type: "
-					+ employeePayRaiseService.getClass().getSimpleName());
-		}
-		
-		System.out.println("\n---=== System started and ready to use ===---");
+//		List<EmployeeDto> dto = employeeMapper.employeesToEmployeesDto(employeeServices.getEmployeesList());
+//		
+//		for (EmployeeDto employee2 : dto) {
+//			
+//			System.out.println("\n" + employee2.getName() + "'s salary is " + employee2.getSalary()
+//					+ " now. He/She working since "
+//					+ employee2.getStartDateOfWork() 
+//					+ " After salary upgrade it is "
+//					+ new SalaryService(employeePayRaiseService).getEmployeeSalary(employee2) 
+//					+ ". Service Type: "
+//					+ employeePayRaiseService.getClass().getSimpleName());
+//		}
+//		
+//		System.out.println("\n---=== System started and ready to use ===---");
 
 	}
 

@@ -52,7 +52,7 @@ public class HrEmployeeTLCController {
 	@GetMapping("/employees/{id}")
 	public String modifyEmployee(Map<String, Object> model, @PathVariable int id) {
 
-		model.put("employeeById", employeeMapper.employeeToEmployeeDto(employeeServices.getEmployeeByListId(id)));
+		model.put("employeeById", employeeMapper.employeeToEmployeeDto(employeeServices.getEmployeeById(id)));
 		
 		return "modifyEmployee";
 	}

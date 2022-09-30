@@ -56,7 +56,7 @@ public class HrEmployeeRESTController {
 		} else {
 			List<EmployeeDto> higherSalaryEmployees = new ArrayList<>();
 
-			for (Employee employee : new ArrayList<Employee>(employeeServices.getEmployees().values())) {
+			for (Employee employee : employeeServices.getEmployees()) {
 				
 				EmployeeDto tempEmployeeDto = employeeMapperImp.employeeToEmployeeDto(employee);
 				
@@ -73,7 +73,7 @@ public class HrEmployeeRESTController {
 	@GetMapping("/{id}")
 	public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable @Positive long id) {
 
-		return ResponseEntity.ok(employeeMapperImp.employeeToEmployeeDto(employeeServices.getEmployees().get(id)));
+		return ResponseEntity.ok(employeeMapperImp.employeeToEmployeeDto(employeeServices.getEmployeeById(id)));
 	}
 
 	@PostMapping
@@ -96,7 +96,7 @@ public class HrEmployeeRESTController {
 
 	@DeleteMapping("/{id}")
 	public void deleteEmployee(@PathVariable @Positive long id) {
-		employeeServices.getEmployees().remove(id);
+		employeeServices.removeEmployee(id);
 	}
 
 	@GetMapping("/payRaise")
