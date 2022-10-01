@@ -1,5 +1,6 @@
 package hu.webuni.hr.kinela.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -55,4 +56,7 @@ public class EmployeeServices {
 		return employeeRepository.findEmployeesWhosNameStartWith(nameStarts);
 	}
 	
+	public List<Employee> getEmployeesWhosStartBetween(String startdate, String enddate) {
+		return employeeRepository.findEmployeesWhosStartBetween(startdate, enddate);
+	}
 }

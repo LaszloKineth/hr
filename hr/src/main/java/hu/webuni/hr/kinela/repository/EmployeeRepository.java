@@ -1,6 +1,6 @@
 package hu.webuni.hr.kinela.repository;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,6 +22,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	
 //	List<Employee> findByNameStartingWithIgnoreCase(String namestarts);
 	
-//	List<Employee> findByStartDateBefore(LocalDate startdate);
+	@Query(value = "SELECT * FROM employee WHERE startdate BETWEEN :startdate AND :enddate", nativeQuery = true)
+	List<Employee> findEmployeesWhosStartBetween(String startdate, String enddate);
+	
+//	List<Employee> findByStartDateBetween(String fromdate, String todate);
 	
 }

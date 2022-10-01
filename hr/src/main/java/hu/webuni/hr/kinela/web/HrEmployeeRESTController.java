@@ -1,5 +1,6 @@
 package hu.webuni.hr.kinela.web;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,11 +106,17 @@ public class HrEmployeeRESTController {
 	}
 	
 	@GetMapping("/queries")
-	public List<Employee> getQueries(@RequestParam(required = false) String title, @RequestParam(required = false) String namestarts) {
+	public List<Employee> getQueries(@RequestParam(required = false) String title
+			, @RequestParam(required = false) String namestarts
+			, @RequestParam(required = false) String startdate
+			, @RequestParam(required = false) String enddate) 
+	{
 		if(title != null && namestarts == null) {
 			return employeeServices.getEmployeeWithSpecificTitle(title);
 		} else if(title == null && namestarts != null) {
 			return employeeServices.getEmployeesWhowsNameStartedWith(namestarts);
+		} else if(title == null && namestarts == null && startdate != null && enddate != null ) {
+			return employeeServices.getEmployeesWhosStartBetween(startdate, enddate);
 		} else return null;
 	}
 	
