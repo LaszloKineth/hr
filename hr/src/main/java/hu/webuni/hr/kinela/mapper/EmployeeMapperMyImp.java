@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import hu.webuni.hr.kinela.dto.EmployeeDto;
 import hu.webuni.hr.kinela.model.Employee;
-import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 public class EmployeeMapperMyImp implements EmployeeMapper {
 
@@ -18,12 +18,12 @@ public class EmployeeMapperMyImp implements EmployeeMapper {
 
         EmployeeDto employeeDto = new EmployeeDto();
 
-        employeeDto.setId(employee.getEmployeeId());
-        employeeDto.setName(employee.getEmployeeName());
-        employeeDto.setSalary(employee.getEmployeeSalary());
-        employeeDto.setTitle(employee.getEmployeeTitle());
-        employeeDto.setStartDateOfWork(employee.getEmployeeStartDateOfWork());
-
+//        employeeDto.setId(employee.getEmployeeId());
+//        employeeDto.setName(employee.getEmployeeName());
+//        employeeDto.setSalary(employee.getEmployeeSalary());
+//        employeeDto.setTitle(employee.getEmployeeTitle());
+//        employeeDto.setStartDateOfWork(employee.getEmployeeStartDateOfWork());
+//
         return employeeDto;
 	}
 
@@ -35,11 +35,11 @@ public class EmployeeMapperMyImp implements EmployeeMapper {
 
         Employee employee = new Employee();
         
-        employee.setEmployeeId(employeeDto.getId());
-        employee.setEmployeeName(employeeDto.getName());
-        employee.setEmployeeSalary(employeeDto.getSalary());
-        employee.setEmployeeStartDateOfWork(employeeDto.getStartDateOfWork());
-        employee.setEmployeeTitle(employeeDto.getTitle());
+//        employee.setEmployeeId(employeeDto.getId());
+//        employee.setEmployeeName(employeeDto.getName());
+//        employee.setEmployeeSalary(employeeDto.getSalary());
+//        employee.setEmployeeStartDateOfWork(employeeDto.getStartDateOfWork());
+//        employee.setEmployeeTitle(employeeDto.getTitle());
 
         return employee;
 	}

@@ -1,6 +1,5 @@
 package hu.webuni.hr.kinela.web;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import hu.webuni.hr.kinela.dto.EmployeeDto;
 import hu.webuni.hr.kinela.mapper.EmployeeMapper;
-import hu.webuni.hr.kinela.mapper.EmployeeMapperMyImp;
 import hu.webuni.hr.kinela.service.EmployeeServices;
-import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 /**
  * 
@@ -62,7 +59,6 @@ public class HrEmployeeTLCController {
 	public String updateEmployee(EmployeeDto employee) {
 		
 		employeeServices.modifyEmployee(employeeMapper.employeeDtoToEmployee(employee).getEmployeeId(), employeeMapper.employeeDtoToEmployee(employee));
-
 		return "redirect:/employees";
 	}
 	

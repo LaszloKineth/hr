@@ -12,9 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.web.reactive.server.WebTestClient.ResponseSpec;
 
+import hu.webuni.hr.kinela.dto.EmployeeDto;
 import hu.webuni.hr.kinela.mapper.EmployeeMapper;
 import hu.webuni.hr.kinela.model.Employee;
-import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class EmployeeControllerIT {

@@ -1,7 +1,5 @@
 package hu.webuni.hr.kinela;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,8 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import hu.webuni.hr.kinela.mapper.EmployeeMapper;
 import hu.webuni.hr.kinela.service.EmployeePayRaiseService;
 import hu.webuni.hr.kinela.service.EmployeeServices;
-import hu.webuni.hr.kinela.service.SalaryService;
-import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 /**
  * 

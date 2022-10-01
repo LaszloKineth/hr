@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import hu.webuni.hr.kinela.dto.CompanyDto;
+import hu.webuni.hr.kinela.dto.EmployeeDto;
 import hu.webuni.hr.kinela.mapper.CompanyMapper;
 import hu.webuni.hr.kinela.mapper.EmployeeMapper;
 import hu.webuni.hr.kinela.service.CompanyService;
-import hu.webuni.hr.kinla.dto.CompanyDto;
-import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 /**
  * 

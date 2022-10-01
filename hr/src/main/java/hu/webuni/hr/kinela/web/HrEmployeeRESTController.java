@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.batch.BatchDataSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import hu.webuni.hr.kinela.dto.EmployeeDto;
 import hu.webuni.hr.kinela.mapper.EmployeeMapper;
 import hu.webuni.hr.kinela.model.Employee;
 import hu.webuni.hr.kinela.service.EmployeePayRaiseService;
 import hu.webuni.hr.kinela.service.EmployeeServices;
 import hu.webuni.hr.kinela.service.SmartEmployeeService;
-import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 /**
  * 
@@ -56,7 +56,7 @@ public class HrEmployeeRESTController {
 		} else {
 			List<EmployeeDto> higherSalaryEmployees = new ArrayList<>();
 
-			for (Employee employee : employeeServices.getEmployees()) {
+			for (Employee employee : employeeServices.getEmployeesList()) {
 				
 				EmployeeDto tempEmployeeDto = employeeMapperImp.employeeToEmployeeDto(employee);
 				
@@ -102,6 +102,15 @@ public class HrEmployeeRESTController {
 	@GetMapping("/payRaise")
 	public int getPayRaisePercent(@RequestBody @Valid EmployeeDto employee) {
 		return employeePayRaiseService.getPayRaisePercent(employee);
+	}
+	
+	@GetMapping("/queries")
+	public List<Employee> getQueries(@RequestParam(required = false) String title, @RequestParam(required = false) String namestarts) {
+		if(title != null && namestarts == null) {
+			return employeeServices.getEmployeeWithSpecificTitle(title);
+		} else if(title == null && namestarts != null) {
+			return employeeServices.getEmployeesWhowsNameStartedWith(namestarts);
+		} else return null;
 	}
 	
 }

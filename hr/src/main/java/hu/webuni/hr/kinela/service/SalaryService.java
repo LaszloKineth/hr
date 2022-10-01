@@ -2,7 +2,7 @@ package hu.webuni.hr.kinela.service;
 
 import org.springframework.stereotype.Service;
 
-import hu.webuni.hr.kinla.dto.EmployeeDto;
+import hu.webuni.hr.kinela.dto.EmployeeDto;
 
 /**
  * 

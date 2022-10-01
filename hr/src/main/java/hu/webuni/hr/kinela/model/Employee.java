@@ -35,11 +35,6 @@ public class Employee {
 	@Past(message ="The entry date must be in past")
 	private LocalDateTime startdate;
 
-	
-	
-	public Employee() {
-	}
-
 //	public Employee(long id, String name, String title, int salary,
 //			LocalDateTime startdate) {
 //		super();
@@ -106,5 +101,5 @@ public class Employee {
 	public void setEmployeeStartDateOfWork(LocalDateTime startdate) {
 		this.startdate = startdate;
 	}
-
+	
 }

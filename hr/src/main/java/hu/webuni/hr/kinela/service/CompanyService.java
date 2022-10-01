@@ -7,14 +7,14 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import hu.webuni.hr.kinela.dto.CompanyDto;
+import hu.webuni.hr.kinela.dto.EmployeeDto;
 import hu.webuni.hr.kinela.mapper.CompanyMapper;
 import hu.webuni.hr.kinela.mapper.CompanyMapperMyImp;
 import hu.webuni.hr.kinela.mapper.EmployeeMapper;
 import hu.webuni.hr.kinela.mapper.EmployeeMapperMyImp;
 import hu.webuni.hr.kinela.model.Company;
 import hu.webuni.hr.kinela.model.Employee;
-import hu.webuni.hr.kinla.dto.CompanyDto;
-import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 @Service
 public class CompanyService {

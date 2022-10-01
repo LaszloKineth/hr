@@ -7,8 +7,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.factory.Mappers;
 
+import hu.webuni.hr.kinela.dto.EmployeeDto;
 import hu.webuni.hr.kinela.model.Employee;
-import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 @Mapper (componentModel = MappingConstants.ComponentModel.SPRING)
 public interface EmployeeMapper {

@@ -3,9 +3,9 @@ package hu.webuni.hr.kinela.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.webuni.hr.kinela.dto.EmployeeDto;
 import hu.webuni.hr.kinela.mapper.CompanyMapperMyImp;
 import hu.webuni.hr.kinela.mapper.EmployeeMapperMyImp;
-import hu.webuni.hr.kinla.dto.EmployeeDto;
 
 public class Company {
 	private int companyId;
@@ -62,10 +62,12 @@ public class Company {
 	public Employee getEmployeeById(int id) {
 		
 		return companyEmployees.stream().filter(emp -> emp.getEmployeeId() == id).findFirst().get();
+
 	}
 	
 	public void removeEmployeeById(int id) {
 		companyEmployees.remove(companyEmployees.stream().filter(emp -> emp.getEmployeeId() == id).findFirst().get());
+
 	}
 	
 	public void addEmployee(Employee employee) {

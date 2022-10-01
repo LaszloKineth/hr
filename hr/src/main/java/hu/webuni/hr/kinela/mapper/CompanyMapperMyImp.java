@@ -3,8 +3,8 @@ package hu.webuni.hr.kinela.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.webuni.hr.kinela.dto.CompanyDto;
 import hu.webuni.hr.kinela.model.Company;
-import hu.webuni.hr.kinla.dto.CompanyDto;
 
 public class CompanyMapperMyImp implements CompanyMapper {
 

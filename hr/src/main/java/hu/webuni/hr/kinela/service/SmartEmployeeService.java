@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import hu.webuni.hr.kinela.config.EmployeeConfigurationProperties;
-import hu.webuni.hr.kinla.dto.EmployeeDto;
+import hu.webuni.hr.kinela.dto.EmployeeDto;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package hu.webuni.hr.kinla.dto;
+package hu.webuni.hr.kinela.dto;
 
 import java.time.LocalDateTime;
 

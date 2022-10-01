@@ -3,8 +3,8 @@ package hu.webuni.hr.kinela.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.webuni.hr.kinla.dto.CompanyDto;
-import hu.webuni.hr.kinla.dto.EmployeeDto;
+import hu.webuni.hr.kinela.dto.CompanyDto;
+import hu.webuni.hr.kinela.dto.EmployeeDto;
 
 public class Companies {
 	
