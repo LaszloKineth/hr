@@ -56,7 +56,7 @@ public class EmployeeServices {
 		return employeeRepository.findEmployeesWhosNameStartWith(nameStarts);
 	}
 	
-	public List<Employee> getEmployeesWhosStartBetween(String startdate, String enddate) {
+	public List<Employee> getEmployeesWhosStartBetween(LocalDateTime startdate, LocalDateTime enddate) {
 		return employeeRepository.findEmployeesWhosStartBetween(startdate, enddate);
 	}
 }

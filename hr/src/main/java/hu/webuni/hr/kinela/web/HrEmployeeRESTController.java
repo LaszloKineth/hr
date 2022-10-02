@@ -9,6 +9,8 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.batch.BatchDataSource;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import hu.webuni.hr.kinela.dto.EmployeeDto;
 import hu.webuni.hr.kinela.mapper.EmployeeMapper;
 import hu.webuni.hr.kinela.model.Employee;
+import hu.webuni.hr.kinela.repository.EmployeeRepository;
 import hu.webuni.hr.kinela.service.EmployeePayRaiseService;
 import hu.webuni.hr.kinela.service.EmployeeServices;
 import hu.webuni.hr.kinela.service.SmartEmployeeService;
@@ -46,7 +49,9 @@ public class HrEmployeeRESTController {
 	@Autowired
 	EmployeeMapper employeeMapperImp;
 	@Autowired
-	EmployeeServices employeeServices;	
+	EmployeeServices employeeServices;
+	@Autowired
+	EmployeeRepository employeeRepository;
 	
 	@GetMapping
 	public ResponseEntity<List<EmployeeDto>> getAllEmployees(@RequestParam(required = false) @Positive Integer min_salary) {
@@ -108,15 +113,18 @@ public class HrEmployeeRESTController {
 	@GetMapping("/queries")
 	public List<Employee> getQueries(@RequestParam(required = false) String title
 			, @RequestParam(required = false) String namestarts
-			, @RequestParam(required = false) String startdate
-			, @RequestParam(required = false) String enddate) 
+			, @RequestParam(required = false) @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime startdate
+			, @RequestParam(required = false) @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime enddate) 
 	{
 		if(title != null && namestarts == null) {
-			return employeeServices.getEmployeeWithSpecificTitle(title);
+//			return employeeServices.getEmployeeWithSpecificTitle(title);
+			return employeeRepository.findByTitle(title);
 		} else if(title == null && namestarts != null) {
-			return employeeServices.getEmployeesWhowsNameStartedWith(namestarts);
+//			return employeeServices.getEmployeesWhowsNameStartedWith(namestarts);
+			return employeeRepository.findEmployeesWhosNameStartWith(namestarts);
 		} else if(title == null && namestarts == null && startdate != null && enddate != null ) {
-			return employeeServices.getEmployeesWhosStartBetween(startdate, enddate);
+//			return employeeServices.getEmployeesWhosStartBetween(startdate, enddate);
+			return employeeRepository.findEmployeesWhosStartBetween(startdate, enddate);
 		} else return null;
 	}
 	
