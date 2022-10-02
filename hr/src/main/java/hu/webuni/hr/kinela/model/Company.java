@@ -1,77 +1,87 @@
 package hu.webuni.hr.kinela.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-import hu.webuni.hr.kinela.dto.EmployeeDto;
-import hu.webuni.hr.kinela.mapper.CompanyMapperMyImp;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import hu.webuni.hr.kinela.mapper.EmployeeMapper;
 import hu.webuni.hr.kinela.mapper.EmployeeMapperMyImp;
 
+@Entity
 public class Company {
-	private int companyId;
-	private String companyName;
-	private String companyAddress;
-	private List<Employee> companyEmployees = new ArrayList<>();
-	private EmployeeMapperMyImp employeeMapper = new EmployeeMapperMyImp();
-	private int employeeCount = 1;
 	
-	public Company(int companyId, String companyName, String companyAddress, List<Employee> companyEmployees) {
+	@Id
+	@GeneratedValue 
+	private int id;
+	
+	private String name;
+	private String address;
+
+	@OneToMany(mappedBy = "company")
+	private List<Employee> employees;
+	
+	public Company(int id, String name, String address, List<Employee> employees) {
 		super();
-		this.companyId = companyId;
-		this.companyName = companyName;
-		this.companyAddress = companyAddress;
-		this.companyEmployees = companyEmployees;
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.employees = employees;
 	}
 
 	public Company() {
 		super();
 	}
 
-	public int getCompanyId() {
-		return companyId;
-	}
-
-	public void setCompanyId(int companyId) {
-		this.companyId = companyId;
-	}
-
-	public String getCompanyName() {
-		return companyName;
-	}
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-
-	public String getCompanyAddress() {
-		return companyAddress;
-	}
-
-	public void setCompanyAddress(String companyAddress) {
-		this.companyAddress = companyAddress;
-	}
-
-	public List<Employee> getCompanyEmployees() {
-		return companyEmployees;
-	}
-
-	public void setCompanyEmployees(List<Employee> list) {
-		this.companyEmployees = list;
-	}
-	
 	public Employee getEmployeeById(int id) {
-		
-		return companyEmployees.stream().filter(emp -> emp.getEmployeeId() == id).findFirst().get();
+		return employees.stream().filter(emp -> emp.getEmployeeId() == id).findFirst().get();
 
 	}
 	
 	public void removeEmployeeById(int id) {
-		companyEmployees.remove(companyEmployees.stream().filter(emp -> emp.getEmployeeId() == id).findFirst().get());
-
+		employees.remove(employees.stream().filter(emp -> emp.getEmployeeId() == id).findFirst().get());
 	}
 	
 	public void addEmployee(Employee employee) {
-		employee.setEmployeeId(employeeCount++);
-		companyEmployees.add(employee);
+		employees.add(employee);
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public List<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
+	}
+
 }

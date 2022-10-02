@@ -25,6 +25,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	@Query(value = "SELECT * FROM employee WHERE startdate BETWEEN :startdate AND :enddate", nativeQuery = true)
 	List<Employee> findEmployeesWhosStartBetween(LocalDateTime startdate, LocalDateTime enddate);
 	
-//	List<Employee> findByStartDateBetween(String fromdate, String todate);
+//	List<Employee> findByStartDateBetween(LocalDateTime fromdate, LocalDateTime todate);
 	
 }

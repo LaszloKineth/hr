@@ -45,7 +45,7 @@ public class CompanyService {
 		else 
 			return companies
 					.stream()
-					.map(comp -> new Company(comp.getCompanyId(), comp.getCompanyName(), comp.getCompanyAddress(), null))
+					.map(comp -> new Company(comp.getId(), comp.getName(), comp.getAddress(), null))
 					.collect(Collectors.toList());
 	}
 
@@ -53,16 +53,16 @@ public class CompanyService {
 		if(full != null && full) 
 			return companies
 					.stream()
-					.filter(comp -> comp.getCompanyId() == id)
+					.filter(comp -> comp.getId() == id)
 					.findFirst()
 					.get();
 		else
 			return companies
 					.stream()
-					.map(comp -> new Company(comp.getCompanyId(), comp.getCompanyName(), comp.getCompanyAddress(), null))
+					.map(comp -> new Company(comp.getId(), comp.getName(), comp.getAddress(), null))
 					.collect(Collectors.toList())
 					.stream()
-					.filter(comp -> comp.getCompanyId() == id)
+					.filter(comp -> comp.getId() == id)
 					.findFirst()
 					.get();
 	}
@@ -71,50 +71,50 @@ public class CompanyService {
 
 			return companies
 					.stream()
-					.map(comp -> new Company(comp.getCompanyId(), comp.getCompanyName(), comp.getCompanyAddress(), null))
+					.map(comp -> new Company(comp.getId(), comp.getName(), comp.getAddress(), null))
 					.collect(Collectors.toList())
 					.stream()
-					.filter(comp -> comp.getCompanyId() == id)
+					.filter(comp -> comp.getId() == id)
 					.findFirst()
 					.get();
 	}
 
 	public Company createCompany(Company company) {
-		company.setCompanyId(idCounter++);
+		company.setId(idCounter++);
 		companies.add(company);
 		return company;
 	}
 
 	public Company modifíCompany(int id, Company company) {
 		Company tempCompany = company;
-		tempCompany.setCompanyId(id);
+		tempCompany.setId(id);
 		
-		companies.removeIf(com -> com.getCompanyId() == id);
+		companies.removeIf(com -> com.getId() == id);
 		companies.add(tempCompany);
 		
 		return tempCompany;
 	}
 
 	public void deleteCompany(int id) {
-		companies.remove(companies.stream().filter(comp -> comp.getCompanyId() == id).findFirst().get());
+		companies.remove(companies.stream().filter(comp -> comp.getId() == id).findFirst().get());
 	}
 
 	public List<Employee> getEmployees(int id) {
-		return companies.stream().filter(comp -> comp.getCompanyId() == id).findFirst().get().getCompanyEmployees();
+		return companies.stream().filter(comp -> comp.getId() == id).findFirst().get().getEmployees();
 	}
 	
 	public Employee getEmployee(int id, int employeeId) {
-		return companies.stream().filter(comp -> comp.getCompanyId() == id).findFirst().get().getEmployeeById(employeeId);
+		return companies.stream().filter(comp -> comp.getId() == id).findFirst().get().getEmployeeById(employeeId);
 	}
 		
 	public Employee addEmployee(int id, Employee employee) {
-		companies.stream().filter(comp -> comp.getCompanyId() == id).findFirst().get().addEmployee(employee);
+		companies.stream().filter(comp -> comp.getId() == id).findFirst().get().addEmployee(employee);
 
 		return employee;
 	}
 	
 	public void removeEmployee(int id, int employeeId) {
-		companies.stream().filter(comp -> comp.getCompanyId() == id).findFirst().get().removeEmployeeById(employeeId);
+		companies.stream().filter(comp -> comp.getId() == id).findFirst().get().removeEmployeeById(employeeId);
 	}
 	
 }

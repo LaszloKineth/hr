@@ -63,7 +63,7 @@ public class HrCompanyRESTController {
 		else
 			return ResponseEntity.ok(companyService.getCompanies()
 					.stream()
-					.map(comp -> new CompanyDto(comp.getCompanyId(), comp.getCompanyName(), comp.getCompanyAddress(), null))
+					.map(comp -> new CompanyDto(comp.getId(), comp.getName(), comp.getAddress(), null))
 					.collect(Collectors.toList())
 					.stream()
 					.filter(comp -> comp.getId() == id)
@@ -91,12 +91,26 @@ public class HrCompanyRESTController {
 	
 	@GetMapping("/{id}/employees")
 	public ResponseEntity<List<EmployeeDto>> getEmployees(@PathVariable int id) {
-		return ResponseEntity.ok(employeeMapper.employeesToEmployeesDto(companyService.getCompanies().stream().filter(comp -> comp.getCompanyId() == id).findFirst().get().getCompanyEmployees()));
+		return ResponseEntity.ok(employeeMapper
+				.employeesToEmployeesDto(companyService
+						.getCompanies()
+						.stream()
+						.filter(comp -> comp.getId() == id)
+						.findFirst()
+						.get()
+						.getEmployees()));
 	}
 	
 	@GetMapping("/{id}/employees/{employeeId}")
 	public ResponseEntity<EmployeeDto> getEmployee(@PathVariable int id, @PathVariable int employeeId) {
-		return ResponseEntity.ok(employeeMapper.employeeToEmployeeDto(companyService.getCompanies().stream().filter(comp -> comp.getCompanyId() == id).findFirst().get().getEmployeeById(employeeId)));
+		return ResponseEntity.ok(employeeMapper
+				.employeeToEmployeeDto(companyService
+						.getCompanies()
+						.stream()
+						.filter(comp -> comp.getId() == id)
+						.findFirst()
+						.get()
+						.getEmployeeById(employeeId)));
 	}
 		
 	@PostMapping("/{id}/employees")

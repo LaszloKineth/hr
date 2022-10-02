@@ -12,16 +12,17 @@ import hu.webuni.hr.kinela.model.Company;
 @Mapper (componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CompanyMapper {
 	
-	@Mapping(source = "companyId", target = "id")
-	@Mapping(source = "companyName", target = "name")
-	@Mapping(source = "companyAddress", target = "address")
-	@Mapping(source = "companyEmployees", target = "employees")
+	@Mapping(source = "id", target = "id")
+	@Mapping(source = "name", target = "name")
+	@Mapping(source = "address", target = "address")
+	@Mapping(source = "employees", target = "employees")
 	CompanyDto companyToCompanyDto(Company company);
 	
-	@Mapping(source = "id", target = "companyId")
-	@Mapping(source = "name", target = "companyName")
-	@Mapping(source = "address", target = "companyAddress")
-	@Mapping(source = "employees", target = "companyEmployees")
+	@Mapping(source = "id", target = "id")
+	@Mapping(source = "name", target = "name")
+	@Mapping(source = "address", target = "address")
+	@Mapping(source = "employees", target = "employees")
+	
 	Company companyDtoToCompany(CompanyDto CompanyDto);
 
 	List<CompanyDto> companiesToCompanysDtos(List<Company> companies);
