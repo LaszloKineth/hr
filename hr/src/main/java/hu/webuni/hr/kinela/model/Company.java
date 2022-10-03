@@ -19,7 +19,7 @@ public class Company {
 	
 	@Id
 	@GeneratedValue 
-	private int id;
+	private long id;
 	
 	private String name;
 	private String address;
@@ -52,11 +52,11 @@ public class Company {
 		employees.add(employee);
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

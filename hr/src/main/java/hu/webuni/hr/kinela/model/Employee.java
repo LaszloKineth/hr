@@ -43,6 +43,8 @@ public class Employee {
 	@Past(message ="The entry date must be in past")
 	private LocalDateTime startdate;
 	
+	private long company_id;
+	
 	public long getEmployeeId() {
 		return id;
 	}
@@ -89,6 +91,14 @@ public class Employee {
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public long getCompany_id() {
+		return company_id;
+	}
+
+	public void setCompany_id(long company_id) {
+		this.company_id = company_id;
 	}
 	
 }

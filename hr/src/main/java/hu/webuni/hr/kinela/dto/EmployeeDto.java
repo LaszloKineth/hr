@@ -27,6 +27,7 @@ public class EmployeeDto {
 	private int salary;
 	@Past(message ="The entry date must be in past")
 	private LocalDateTime startDateOfWork;
+	private long company_id;
 	
 	public EmployeeDto(long id, String name, String title, int salary, LocalDateTime startDateOfWork) {
 		this.id = id;
@@ -79,4 +80,12 @@ public class EmployeeDto {
 		this.startDateOfWork = startDateOfWork;
 	}
 
+	public long getCompany_id() {
+		return company_id;
+	}
+
+	public void setCompany_id(long company_id) {
+		this.company_id = company_id;
+	}
+	
 }

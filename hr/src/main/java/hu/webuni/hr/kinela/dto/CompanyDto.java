@@ -10,7 +10,7 @@ import java.util.List;
  */
 
 public class CompanyDto {
-	private int id;
+	private long id;
 	private String name;
 	private String address;
 	private List<EmployeeDto> employees = new ArrayList<>();
@@ -27,11 +27,11 @@ public class CompanyDto {
 		
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
