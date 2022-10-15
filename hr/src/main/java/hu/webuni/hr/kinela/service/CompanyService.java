@@ -25,114 +25,64 @@ public class CompanyService {
 	@Autowired
 	CompanyRepository companyRepository;
 	
-//	private List<Company> companies = new ArrayList<>();
-//	private int idCounter = 1;
+	@Autowired
+	CompanyMapper companyMapper;
 	
-	public CompanyService() {
-		super();
-	}
-
-//	public CompanyService(List<Company> companies) {
-//		super();
-//		setCompanies(companies);
+	@Autowired
+	EmployeeMapper employeeMapper;
+	
+//	public List<Company> getCompanies() {
+//		return companyRepository.findAll();
+//	}
+//	
+//	public List<Company> getCompaniesWithEmployees() {
+//		return companyRepository.getCompanyesWithEmployees();
+//	}
+//
+//	@Transactional
+//	public void addCompanie(Company company) {
+//		companyRepository.save(company);
+//	}
+//	
+//	public Company getCompanieById(long id) {
+//		return companyRepository.findById(id);
+//	}
+//
+//	@Transactional
+//	public void modifíCompany(long id, Company company) {
+//		company.setId(id);
+//		companyRepository.save(company);
+//	}
+//
+//	@Transactional
+//	public void deleteCompany(long id) {
+//		companyRepository.deleteById(id);
 //	}
 
-	public List<Company> getCompanies() {
-//		return companies;
-		return companyRepository.findAll();
+	// ============================= //
+	
+	
+	public List<CompanyDto> getCompanies() {
+		return  companyMapper.companiesToCompanysDtos(companyRepository.findAll());
 	}
-
-//	public void setCompanies(List<Company> companies) {
-//		companies = companiess;
-//	}
 	
 	@Transactional
 	public void addCompanie(Company company) {
 		companyRepository.save(company);
 	}
 	
-//	public List<Company> getAllCompanies(Boolean full) {
-//		if(full != null && full) 
-//			return companies;
-//		else 
-//			return companies
-//					.stream()
-//					.map(comp -> new Company(comp.getId(), comp.getName(), comp.getAddress(), null))
-//					.collect(Collectors.toList());
-//	}
-
-//	public Company getCompanieById(int id, Boolean full) {
-//		if(full != null && full) 
-//			return companies
-//					.stream()
-//					.filter(comp -> comp.getId() == id)
-//					.findFirst()
-//					.get();
-//		else
-//			return companies
-//					.stream()
-//					.map(comp -> new Company(comp.getId(), comp.getName(), comp.getAddress(), null))
-//					.collect(Collectors.toList())
-//					.stream()
-//					.filter(comp -> comp.getId() == id)
-//					.findFirst()
-//					.get();
-//	}
-	
 	public Company getCompanieById(long id) {
-//
-//			return companies
-//					.stream()
-//					.map(comp -> new Company(comp.getId(), comp.getName(), comp.getAddress(), null))
-//					.collect(Collectors.toList())
-//					.stream()
-//					.filter(comp -> comp.getId() == id)
-//					.findFirst()
-//					.get();
-			return companyRepository.findById(id);
+		return companyRepository.findById(id);
 	}
-
-//	public Company createCompany(Company company) {
-//		company.setId(idCounter++);
-//		companies.add(company);
-//		return company;
-//	}
 
 	@Transactional
 	public void modifíCompany(long id, Company company) {
-//		Company tempCompany = company;
-//		tempCompany.setId(id);
-//		
-//		companies.removeIf(com -> com.getId() == id);
-//		companies.add(tempCompany);
-//		
-//		return tempCompany;
 		company.setId(id);
 		companyRepository.save(company);
 	}
 
 	@Transactional
-	public void deleteCompany(long id) {
-//		companies.remove(companies.stream().filter(comp -> comp.getId() == id).findFirst().get());
+	public void removeCompany(long id) {
 		companyRepository.deleteById(id);
-	}
-
-//	public List<Employee> getEmployees(int id) {
-//		return companies.stream().filter(comp -> comp.getId() == id).findFirst().get().getEmployees();
-//	}
-//	
-//	public Employee getEmployee(int id, int employeeId) {
-//		return companies.stream().filter(comp -> comp.getId() == id).findFirst().get().getEmployeeById(employeeId);
-//	}
-//		
-//	public Employee addEmployee(int id, Employee employee) {
-//		companies.stream().filter(comp -> comp.getId() == id).findFirst().get().addEmployee(employee);
-//
-//		return employee;
-//	}
-//	
-//	public void removeEmployee(int id, int employeeId) {
-//		companies.stream().filter(comp -> comp.getId() == id).findFirst().get().removeEmployeeById(employeeId);
-//	}
-	
+	}	
 }

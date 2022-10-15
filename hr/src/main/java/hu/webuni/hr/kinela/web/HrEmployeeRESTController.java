@@ -117,13 +117,10 @@ public class HrEmployeeRESTController {
 			, @RequestParam(required = false) @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime enddate) 
 	{
 		if(title != null && namestarts == null) {
-//			return employeeServices.getEmployeeWithSpecificTitle(title);
 			return employeeRepository.findByTitle(title);
 		} else if(title == null && namestarts != null) {
-//			return employeeServices.getEmployeesWhowsNameStartedWith(namestarts);
 			return employeeRepository.findEmployeesWhosNameStartWith(namestarts);
 		} else if(title == null && namestarts == null && startdate != null && enddate != null ) {
-//			return employeeServices.getEmployeesWhosStartBetween(startdate, enddate);
 			return employeeRepository.findEmployeesWhosStartBetween(startdate, enddate);
 		} else return null;
 	}

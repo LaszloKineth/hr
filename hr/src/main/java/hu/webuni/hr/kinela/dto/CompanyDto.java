@@ -13,15 +13,7 @@ public class CompanyDto {
 	private long id;
 	private String name;
 	private String address;
-	private List<EmployeeDto> employees = new ArrayList<>();
-	
-	public CompanyDto(int id, String name, String address, List<EmployeeDto> employees) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.address = address;
-		this.employees = employees;
-	}
+	private List<EmployeeDto> employees;
 	
 	public CompanyDto() {
 		

@@ -1,7 +1,6 @@
 package hu.webuni.hr.kinela.web;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import hu.webuni.hr.kinela.dto.CompanyDto;
@@ -20,6 +18,7 @@ import hu.webuni.hr.kinela.dto.EmployeeDto;
 import hu.webuni.hr.kinela.mapper.CompanyMapper;
 import hu.webuni.hr.kinela.mapper.EmployeeMapper;
 import hu.webuni.hr.kinela.model.Company;
+import hu.webuni.hr.kinela.model.Employee;
 import hu.webuni.hr.kinela.service.CompanyService;
 import hu.webuni.hr.kinela.service.EmployeeServices;
 
@@ -47,44 +46,49 @@ public class HrCompanyRESTController {
 	
 	@GetMapping
 	public ResponseEntity<List<CompanyDto>> getAllCompanies() {
-		return ResponseEntity.ok(companyMapper.companiesToCompanysDtos(companyService.getCompanies()));
+		return ResponseEntity.ok(companyService.getCompanies());
+	}
+	
+	@GetMapping("/employees/all")
+	public ResponseEntity<List<EmployeeDto>> getAllEmployeWithCompanyId() {
+		return ResponseEntity.ok(employeeMapper.employeesToEmployeesDto(employeeServices.getEmployeesList()));
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<CompanyDto> getCompanyById(@PathVariable long id) {
-		return ResponseEntity.ok((companyMapper.companyToCompanyDto(companyService.getCompanieById(id))));
+	public ResponseEntity<Company> getCompanyById(@PathVariable long id) {
+		return ResponseEntity.ok(companyService.getCompanieById(id));
 	}
 
 	@PostMapping
-	public void createCompany(@RequestBody CompanyDto company) {
-		companyService.addCompanie(companyMapper.companyDtoToCompany(company));
+	public void addCompany(@RequestBody Company company) {
+		companyService.addCompanie(company);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<CompanyDto> modifíCompany(@PathVariable long id, @RequestBody CompanyDto company) {
-		companyService.modifíCompany(id, companyMapper.companyDtoToCompany(company));
+	public ResponseEntity<Company> modifíCompany(@PathVariable long id, @RequestBody Company company) {
+		companyService.modifíCompany(id, company);
 		return ResponseEntity.ok(company);
+	}
+	
+	@PostMapping("/employee")
+	public void addEmployeeToCompany(@RequestBody EmployeeDto employee) {
+		employeeServices.addEmployee(employeeMapper.employeeDtoToEmployee(employee));
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteCompany(@PathVariable int id) {
-		companyService.deleteCompany(id);
+	public void removeCompany(@PathVariable int id) {
+		companyService.removeCompany(id);
 	}
 
-	@GetMapping("/{id}/employees")
+	@GetMapping("/employee/{id}")
 	public ResponseEntity<EmployeeDto> getEmployee(@PathVariable long id) {
 		return ResponseEntity.ok(employeeMapper.employeeToEmployeeDto(employeeServices.getEmployeeById(id)));
 	}
 
-	@PostMapping("/{id}/employees")
-	public ResponseEntity<EmployeeDto> addEmployee(@PathVariable long id, @RequestBody EmployeeDto employee) {
-		employeeServices.addEmployee(employeeMapper.employeeDtoToEmployee(employee));
-		return ResponseEntity.ok(employee);
-	}
-
-	@DeleteMapping("/{id}/employees/{employeeId}")
-	public void removeEmployee(@PathVariable long id) {
-		employeeServices.removeEmployee(id);
-	}
-	
+//	@PostMapping("/employees/{id}")
+//	public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee, @PathVariable long id) {
+//		employee.setCompany_id(id);
+//		employeeServices.addEmployee(employee);
+//		return ResponseEntity.ok(employee);
+//	}
 }

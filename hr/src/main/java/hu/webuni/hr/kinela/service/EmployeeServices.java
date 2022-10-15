@@ -25,9 +25,7 @@ public class EmployeeServices {
 	
 	@Transactional
 	public void addEmployee(Employee employee) {
-		employee.setEmployeeId(0);
 		employeeRepository.save(employee);
-		
 	}
 
 	public Employee getEmployeeById(long id) {
@@ -44,6 +42,7 @@ public class EmployeeServices {
 		return employeeRepository.findAll();
 	}
 	
+	@Transactional
 	public void removeEmployee(long id) {
 		employeeRepository.delete(getEmployeeById(id));
 	}

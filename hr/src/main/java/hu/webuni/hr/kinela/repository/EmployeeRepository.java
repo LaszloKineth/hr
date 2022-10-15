@@ -27,4 +27,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	
 //	List<Employee> findByStartDateBetween(LocalDateTime fromdate, LocalDateTime todate);
 	
+	@Query(value = "SELECT * FROM company c JOIN employee e ON c.id=e.company_id", nativeQuery = true)
+	List<Employee> getAllCompanyWithEmployees();
 }

@@ -2,7 +2,9 @@ package hu.webuni.hr.kinela.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -11,12 +13,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Positive;
-
-/**
- * 
- * @author Laszlo Kineth (kinela) - kinela77<at>gmail.com
- *
- */
 
 @Entity
 public class Employee {
@@ -35,7 +31,7 @@ public class Employee {
 	
 	@NotEmpty(message = "Titel cannot be empty.")
 	@NotBlank
-		private String title;
+	private String title;
 	
 	@Positive(message = "Salary must be a pozitive number.")
 	private int salary;

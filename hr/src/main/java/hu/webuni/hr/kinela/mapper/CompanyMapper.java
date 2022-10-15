@@ -22,7 +22,6 @@ public interface CompanyMapper {
 	@Mapping(source = "name", target = "name")
 	@Mapping(source = "address", target = "address")
 	@Mapping(source = "employees", target = "employees")
-	
 	Company companyDtoToCompany(CompanyDto CompanyDto);
 
 	List<CompanyDto> companiesToCompanysDtos(List<Company> companies);
