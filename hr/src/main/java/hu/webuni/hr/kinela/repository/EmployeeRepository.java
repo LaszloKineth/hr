@@ -29,4 +29,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	
 	@Query(value = "SELECT * FROM company c JOIN employee e ON c.id=e.company_id", nativeQuery = true)
 	List<Employee> getAllCompanyWithEmployees();
+	
+	@Query(value = "DELETE FROM employee", nativeQuery = true)
+	void clearDB();
+	
+	@Query(value = "INSERT INTO employee (id, name, salary, startdate, title, company_id) VALUES (1, 'First Employee', 100, '2020-01-01T01:01:01', 'Generated User', 1);", nativeQuery = true)
+	void insertTestData();
 }

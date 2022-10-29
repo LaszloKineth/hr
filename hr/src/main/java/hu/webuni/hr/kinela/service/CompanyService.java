@@ -31,37 +31,6 @@ public class CompanyService {
 	@Autowired
 	EmployeeMapper employeeMapper;
 	
-//	public List<Company> getCompanies() {
-//		return companyRepository.findAll();
-//	}
-//	
-//	public List<Company> getCompaniesWithEmployees() {
-//		return companyRepository.getCompanyesWithEmployees();
-//	}
-//
-//	@Transactional
-//	public void addCompanie(Company company) {
-//		companyRepository.save(company);
-//	}
-//	
-//	public Company getCompanieById(long id) {
-//		return companyRepository.findById(id);
-//	}
-//
-//	@Transactional
-//	public void modifíCompany(long id, Company company) {
-//		company.setId(id);
-//		companyRepository.save(company);
-//	}
-//
-//	@Transactional
-//	public void deleteCompany(long id) {
-//		companyRepository.deleteById(id);
-//	}
-
-	// ============================= //
-	
-	
 	public List<CompanyDto> getCompanies() {
 		return  companyMapper.companiesToCompanysDtos(companyRepository.findAll());
 	}
@@ -84,5 +53,5 @@ public class CompanyService {
 	@Transactional
 	public void removeCompany(long id) {
 		companyRepository.deleteById(id);
-	}	
+	}
 }

@@ -1,11 +1,15 @@
 package hu.webuni.hr.kinela;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import hu.webuni.hr.kinela.mapper.EmployeeMapper;
+import hu.webuni.hr.kinela.repository.CompanyRepository;
+import hu.webuni.hr.kinela.repository.EmployeeRepository;
 import hu.webuni.hr.kinela.service.EmployeePayRaiseService;
 import hu.webuni.hr.kinela.service.EmployeeServices;
 
@@ -20,10 +24,18 @@ public class HrApplication implements CommandLineRunner {
 
 	@Autowired
 	EmployeePayRaiseService employeePayRaiseService;
+	
 	@Autowired(required = true)
 	EmployeeMapper employeeMapper;
+	
 	@Autowired(required = true)
 	EmployeeServices employeeServices;
+	
+	@Autowired
+	CompanyRepository companyRepository;
+	
+	@Autowired
+	EmployeeRepository employeeRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(HrApplication.class, args);
@@ -31,22 +43,35 @@ public class HrApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		System.out.println("[ DEVELOPER INFO ] - Application up and running");
 		
-//		List<EmployeeDto> dto = employeeMapper.employeesToEmployeesDto(employeeServices.getEmployeesList());
-//		
-//		for (EmployeeDto employee2 : dto) {
-//			
-//			System.out.println("\n" + employee2.getName() + "'s salary is " + employee2.getSalary()
-//					+ " now. He/She working since "
-//					+ employee2.getStartDateOfWork() 
-//					+ " After salary upgrade it is "
-//					+ new SalaryService(employeePayRaiseService).getEmployeeSalary(employee2) 
-//					+ ". Service Type: "
-//					+ employeePayRaiseService.getClass().getSimpleName());
-//		}
-//		
-//		System.out.println("\n---=== System started and ready to use ===---");
+		try {
+			employeeRepository.clearDB();
+		} catch(Exception ex) {
+			System.out.println("[ DEVELOPER INFO ] - Employee Database is empty.");
+		};
+		
+		try {
+			companyRepository.clearDB();
+		} catch(Exception ex) {
+			System.out.println("[ DEVELOPER INFO ] - Company Database is empty.");
+		}
+		
+		System.out.println("[ DEVELOPER INFO ] - DBs are cleared");
+		
+		try {
+			companyRepository.insertTestData();
+		} catch(Exception ex) {
+			System.out.println("[ DEVELOPER INFO ] - Company Database filled with test entity");
+		}
 
+		try {
+			employeeRepository.insertTestData();
+		} catch(Exception ex) {
+			System.out.println("[ DEVELOPER INFO ] - Employee Database filled with test entity");
+		}
+		
+		System.out.println("[ DEVELOPER INFO ] - DBs are initiated");
 	}
 
 }
