@@ -19,6 +19,7 @@ import hu.webuni.hr.kinela.mapper.CompanyMapper;
 import hu.webuni.hr.kinela.mapper.EmployeeMapper;
 import hu.webuni.hr.kinela.model.Company;
 import hu.webuni.hr.kinela.model.Employee;
+import hu.webuni.hr.kinela.repository.CompanyRepository;
 import hu.webuni.hr.kinela.service.CompanyService;
 import hu.webuni.hr.kinela.service.EmployeeServices;
 
@@ -97,8 +98,12 @@ public class HrCompanyRESTController {
 	}
 	
 	@GetMapping("/employee/limit/{limit}")
-	public ResponseEntity<List<CompanyDto>>  getCompanyByOverEmployeeLimit(@PathVariable int limit) {
+	public ResponseEntity<List<CompanyDto>> getCompanyByOverEmployeeLimit(@PathVariable int limit) {
 		return ResponseEntity.ok(companyService.getCompaniesWhereEmployeesOutOfLimit(limit));
 	}
-
+	
+	@GetMapping("/employee/salary/{salary}")
+	public ResponseEntity<List<CompanyDto>> getCompanyByOverSalaryLimit(@PathVariable int salary ) {
+		return ResponseEntity.ok(companyService.getCompanyByOverSalaryLimit(salary));
+	}
 }

@@ -41,8 +41,8 @@ public class HrApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("[ DEVELOPER INFO ] - Application up and running");
 		initDbService.clearDB();
 		initDbService.insertTestData();
+		System.out.println("[ DEVELOPER INFO ] - Application up and running");
 	}
 }

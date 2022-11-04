@@ -66,4 +66,8 @@ public class CompanyService {
 		
 		return companyMapper.companiesToCompanysDtos(overEmployeLimitCompanies);
 	}
+	
+	public List<CompanyDto> getCompanyByOverSalaryLimit(int salary) {
+		return companyMapper.companiesToCompanysDtos(companyRepository.getCompanyWithHigherSalaryThanLimit(salary));
+	}
 }
