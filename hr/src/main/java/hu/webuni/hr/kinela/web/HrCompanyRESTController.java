@@ -95,11 +95,10 @@ public class HrCompanyRESTController {
 	public void removeEmployeeById(@PathVariable long id) {
 		employeeServices.removeEmployee(id);
 	}
+	
+	@GetMapping("/employee/limit/{limit}")
+	public ResponseEntity<List<CompanyDto>>  getCompanyByOverEmployeeLimit(@PathVariable int limit) {
+		return ResponseEntity.ok(companyService.getCompaniesWhereEmployeesOutOfLimit(limit));
+	}
 
-//	@PostMapping("/employees/{id}")
-//	public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee, @PathVariable long id) {
-//		employee.setCompany_id(id);
-//		employeeServices.addEmployee(employee);
-//		return ResponseEntity.ok(employee);
-//	}
 }

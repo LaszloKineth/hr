@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import hu.webuni.hr.kinela.dto.CompanyDto;
 import hu.webuni.hr.kinela.dto.EmployeeDto;
@@ -53,5 +54,16 @@ public class CompanyService {
 	@Transactional
 	public void removeCompany(long id) {
 		companyRepository.deleteById(id);
+	}
+	
+	public List<CompanyDto> getCompaniesWhereEmployeesOutOfLimit(int limit) {
+		List<Company> allCompanies = companyRepository.findAll();
+		List<Company> overEmployeLimitCompanies = new ArrayList<Company>() ;
+		
+		allCompanies.forEach(c -> {
+			if(c.getEmployees().size() > limit)	overEmployeLimitCompanies.add(c);
+		});
+		
+		return companyMapper.companiesToCompanysDtos(overEmployeLimitCompanies);
 	}
 }

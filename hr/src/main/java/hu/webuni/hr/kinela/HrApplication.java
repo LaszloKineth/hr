@@ -12,6 +12,7 @@ import hu.webuni.hr.kinela.repository.CompanyRepository;
 import hu.webuni.hr.kinela.repository.EmployeeRepository;
 import hu.webuni.hr.kinela.service.EmployeePayRaiseService;
 import hu.webuni.hr.kinela.service.EmployeeServices;
+import hu.webuni.hr.kinela.service.InitDbService;
 
 /**
  * 
@@ -32,10 +33,7 @@ public class HrApplication implements CommandLineRunner {
 	EmployeeServices employeeServices;
 	
 	@Autowired
-	CompanyRepository companyRepository;
-	
-	@Autowired
-	EmployeeRepository employeeRepository;
+	InitDbService initDbService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(HrApplication.class, args);
@@ -44,34 +42,7 @@ public class HrApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println("[ DEVELOPER INFO ] - Application up and running");
-		
-		try {
-			employeeRepository.clearDB();
-		} catch(Exception ex) {
-			System.out.println("[ DEVELOPER INFO ] - Employee Database is empty.");
-		};
-		
-		try {
-			companyRepository.clearDB();
-		} catch(Exception ex) {
-			System.out.println("[ DEVELOPER INFO ] - Company Database is empty.");
-		}
-		
-		System.out.println("[ DEVELOPER INFO ] - DBs are cleared");
-		
-		try {
-			companyRepository.insertTestData();
-		} catch(Exception ex) {
-			System.out.println("[ DEVELOPER INFO ] - Company Database filled with test entity");
-		}
-
-		try {
-			employeeRepository.insertTestData();
-		} catch(Exception ex) {
-			System.out.println("[ DEVELOPER INFO ] - Employee Database filled with test entity");
-		}
-		
-		System.out.println("[ DEVELOPER INFO ] - DBs are initiated");
+		initDbService.clearDB();
+		initDbService.insertTestData();
 	}
-
 }
