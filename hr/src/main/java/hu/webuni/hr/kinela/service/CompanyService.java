@@ -70,4 +70,8 @@ public class CompanyService {
 	public List<CompanyDto> getCompanyByOverSalaryLimit(int salary) {
 		return companyMapper.companiesToCompanysDtos(companyRepository.getCompanyWithHigherSalaryThanLimit(salary));
 	}
+	
+	public List<String> getCompanyAvarageSalaryOrderByTitle(long company_id) {
+		return companyRepository.getCompanyAvarageSalaryOrderByTitle(company_id);
+	}
 }

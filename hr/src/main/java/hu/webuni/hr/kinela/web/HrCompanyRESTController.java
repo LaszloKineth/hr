@@ -103,7 +103,12 @@ public class HrCompanyRESTController {
 	}
 	
 	@GetMapping("/employee/salary/{salary}")
-	public ResponseEntity<List<CompanyDto>> getCompanyByOverSalaryLimit(@PathVariable int salary ) {
+	public ResponseEntity<List<CompanyDto>> getCompanyByOverSalaryLimit(@PathVariable int salary) {
 		return ResponseEntity.ok(companyService.getCompanyByOverSalaryLimit(salary));
+	}
+	
+	@GetMapping("/employee/avg_salary/{company_id}")
+	public ResponseEntity<List<String>> getCompanyAvarageSalaryOrderByTitle(@PathVariable long company_id) {
+		return ResponseEntity.ok(companyService.getCompanyAvarageSalaryOrderByTitle(company_id));
 	}
 }

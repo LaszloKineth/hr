@@ -1,6 +1,7 @@
 package hu.webuni.hr.kinela.repository;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -33,6 +34,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	@Query(value = "DELETE FROM employee", nativeQuery = true)
 	void clearDB();
 	
-	@Query(value = "INSERT INTO employee (id, name, salary, startdate, title, company_id) VALUES (1, 'First Employee', 100, '2020-01-01T01:01:01', 'Generated User', 1);", nativeQuery = true)
-	void insertTestData();
+	@Query(value = "INSERT INTO employee (id, name, salary, startdate, title, company_id) VALUES (:id, :name, :salary, :startDate, :title, :companyID);", nativeQuery = true)
+	void insertTestData(long id, String name, int salary, LocalDateTime startDate, String title, long companyID);
 }

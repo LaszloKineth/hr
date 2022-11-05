@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import hu.webuni.hr.kinela.model.Company;
+import hu.webuni.hr.kinela.model.Employee;
 
 public interface CompanyRepository extends JpaRepository<Company, Long> {
 	
@@ -16,9 +17,12 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
 	@Query(value = "DELETE FROM company", nativeQuery = true)
 	void clearDB();
 	
-	@Query(value = "INSERT INTO company (id, name, address) VALUES (1, 'First Company', 'Money str. 1M')", nativeQuery = true)
-	void insertTestData();
+	@Query(value = "INSERT INTO company (id, name, address) VALUES (:id, :name, :address)", nativeQuery = true)
+	void insertTestData(long id, String name, String address);
 	
 	@Query(value = "SELECT c.id, c.address, c.name FROM company c, employee e WHERE e.salary > :limit", nativeQuery = true)
 	List<Company> getCompanyWithHigherSalaryThanLimit(int limit);
+	
+	@Query(value = "SELECT e.title, AVG(e.salary) FROM company c, employee e WHERE c.id=e.company_id AND c.id=:company_id GROUP BY title", nativeQuery = true)
+	List<String> getCompanyAvarageSalaryOrderByTitle(long company_id);
 }
