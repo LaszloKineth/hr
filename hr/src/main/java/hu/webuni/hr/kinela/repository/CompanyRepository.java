@@ -17,8 +17,8 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
 	@Query(value = "DELETE FROM company", nativeQuery = true)
 	void clearDB();
 	
-	@Query(value = "INSERT INTO company (id, name, address) VALUES (:id, :name, :address)", nativeQuery = true)
-	void insertTestData(long id, String name, String address);
+	@Query(value = "INSERT INTO company (id, name, address, type_id) VALUES (:id, :name, :address, :type_id)", nativeQuery = true)
+	void insertTestData(long id, String name, String address, long type_id);
 	
 	@Query(value = "SELECT c.id, c.address, c.name FROM company c, employee e WHERE e.salary > :limit", nativeQuery = true)
 	List<Company> getCompanyWithHigherSalaryThanLimit(int limit);

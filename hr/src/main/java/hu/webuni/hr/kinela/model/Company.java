@@ -10,7 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,6 +36,10 @@ public class Company {
 	@JsonIgnore
 	@OneToMany(mappedBy = "company") 
 	private Collection<Employee> employees;
+	
+	@ManyToOne
+	@JoinColumn(name = "type_id")
+	private CompanyType type;
 
 	public long getId() {
 		return id;
@@ -65,5 +72,4 @@ public class Company {
 	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
 	}
-
 }
