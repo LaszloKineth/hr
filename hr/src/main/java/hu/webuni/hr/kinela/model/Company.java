@@ -38,7 +38,7 @@ public class Company {
 	private Collection<Employee> employees;
 	
 	@ManyToOne
-	@JoinColumn(name = "type_id")
+//	@JoinColumn(name = "type_id")
 	private CompanyType type;
 
 	public long getId() {

@@ -1,7 +1,8 @@
 package hu.webuni.hr.kinela.dto;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import hu.webuni.hr.kinela.model.CompanyType;
 
 /**
  * 
@@ -14,6 +15,7 @@ public class CompanyDto {
 	private String name;
 	private String address;
 	private List<EmployeeDto> employees;
+	private CompanyType type;
 	
 	public CompanyDto() {
 		
@@ -62,5 +64,13 @@ public class CompanyDto {
 	
 	public void removeEmployeeById(int id) {
 		employees.remove(employees.stream().filter(emp -> emp.getId() == id).findFirst().get());
+	}
+
+	public CompanyType getType() {
+		return type;
+	}
+
+	public void setType(CompanyType type) {
+		this.type = type;
 	}
 }

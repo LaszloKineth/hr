@@ -19,8 +19,8 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
 	
 	@Query(value = "INSERT INTO company (id, name, address, type_id) VALUES (:id, :name, :address, :type_id)", nativeQuery = true)
 	void insertTestData(long id, String name, String address, long type_id);
-	
-	@Query(value = "SELECT c.id, c.address, c.name FROM company c, employee e WHERE e.salary > :limit", nativeQuery = true)
+
+	@Query(value = "SELECT * FROM company c, employee e WHERE c.id=e.id AND e.salary>:limit", nativeQuery = true)
 	List<Company> getCompanyWithHigherSalaryThanLimit(int limit);
 	
 	@Query(value = "SELECT e.title, AVG(e.salary) FROM company c, employee e WHERE c.id=e.company_id AND c.id=:company_id GROUP BY title", nativeQuery = true)
