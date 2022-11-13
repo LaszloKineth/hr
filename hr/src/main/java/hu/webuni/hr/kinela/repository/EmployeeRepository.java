@@ -34,6 +34,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	@Query(value = "DELETE FROM employee", nativeQuery = true)
 	void clearDB();
 	
-	@Query(value = "INSERT INTO employee (id, name, salary, startdate, title, company_id) VALUES (:id, :name, :salary, :startDate, :title, :companyID);", nativeQuery = true)
-	void insertTestData(long id, String name, int salary, LocalDateTime startDate, String title, long companyID);
+	@Query(value = "INSERT INTO employee (id, name, salary, startdate, title, company_id, position_id) VALUES (:id, :name, :salary, :startDate, :title, :companyID, :positionID);", nativeQuery = true)
+	void insertTestData(long id, String name, int salary, LocalDateTime startDate, String title, long companyID, long positionID);
 }

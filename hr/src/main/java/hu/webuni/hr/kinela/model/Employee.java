@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
@@ -41,6 +43,9 @@ public class Employee {
 	
 	private long company_id;
 	
+	@ManyToOne
+	private Position position;
+		
 	public long getEmployeeId() {
 		return id;
 	}
@@ -55,14 +60,6 @@ public class Employee {
 
 	public void setEmployeeName(String name) {
 		this.name = name;
-	}
-
-	public String getEmployeeTitle() {
-		return title;
-	}
-
-	public void setEmployeeTitle(String title) {
-		this.title = title;
 	}
 
 	public int getEmployeeSalary() {
@@ -96,5 +93,12 @@ public class Employee {
 	public void setCompany_id(long company_id) {
 		this.company_id = company_id;
 	}
-	
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
 }

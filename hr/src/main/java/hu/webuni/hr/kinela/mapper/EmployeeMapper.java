@@ -17,18 +17,18 @@ public interface EmployeeMapper {
 	
 	@Mapping(source = "employeeId", target = "id")
 	@Mapping(source = "employeeName", target = "name")
-	@Mapping(source = "employeeTitle", target = "title")
+//	@Mapping(source = "employeeTitle", target = "title")
 	@Mapping(source = "employeeSalary", target = "salary")
 	@Mapping(source = "employeeStartDateOfWork", target = "startDateOfWork")
 	EmployeeDto employeeToEmployeeDto(Employee employee);
 	
 	@Mapping(source = "id", target = "employeeId")
 	@Mapping(source = "name", target = "employeeName")
-	@Mapping(source = "title", target = "employeeTitle")
+//	@Mapping(source = "title", target = "employeeTitle")
 	@Mapping(source = "salary", target = "employeeSalary")
 	@Mapping(source = "startDateOfWork", target = "employeeStartDateOfWork")
 	Employee employeeDtoToEmployee(EmployeeDto employeeDto);
-
+	
 	List<EmployeeDto> employeesToEmployeesDto(List<Employee> employees);
 	
 	List<Employee> employessDtoToEmployees(List<EmployeeDto> employeesDto);

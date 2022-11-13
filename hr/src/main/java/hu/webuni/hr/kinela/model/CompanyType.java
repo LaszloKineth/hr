@@ -15,7 +15,6 @@ public class CompanyType {
 	
 	public String type;
 
-//	@OneToMany(targetEntity = Company.class, mappedBy = "type")
 	@OneToMany(mappedBy = "type")
 	private Collection<Company> companies;
 	
